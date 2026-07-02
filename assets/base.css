@@ -1,0 +1,228 @@
+/* ============================================================
+   AKYRO STUDIO — MONOLITH OS
+   assets/base.css — M01-A Foundation
+   Reset · fonts · language metrics · typography · forms · focus.
+   Logical properties only (v0.3 §NEW C). Physical exceptions
+   live exclusively in direction.css with paired overrides.
+   ============================================================ */
+
+/* ---- FONTS — self-hosted woff2, swap, subset ----
+   EN pair pending license (R2). AR pair pending shortlist decision
+   (Alexandria / Cairo / IBM Plex Sans Arabic / Noto Kufi Arabic).
+   File names are final; licensed files drop in without CSS changes. */
+
+@font-face {
+  font-family: 'AKYRO Display';
+  src: url('akyro-display.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AKYRO Body';
+  src: url('akyro-body.woff2') format('woff2');
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AKYRO Display AR';
+  src: url('akyro-display-ar.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF;
+}
+
+@font-face {
+  font-family: 'AKYRO Body AR';
+  src: url('akyro-body-ar.woff2') format('woff2');
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF;
+}
+
+/* ---- RESET ---- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-body-active);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---- LANGUAGE METRICS — Arabic (v0.3 §NEW D) ----
+   Arabic is NEVER letter-spaced. Raised leading for ascenders,
+   descenders, and diacritics. Tracked-uppercase labels are a
+   Latin-only device; Arabic maps to weight + size contrast. */
+
+:lang(ar) {
+  --font-display-active: var(--font-display-ar);
+  --font-body-active:    var(--font-body-ar);
+  --leading-body:        1.8;
+  --leading-display:     1.35;
+  --tracking-label:      0;
+  letter-spacing: normal;
+}
+
+/* ---- BIDI ISOLATION — Latin technical data in Arabic text ----
+   Style numbers, batch codes, GSM, POM values, sizes: Latin script
+   and Latin digits in both locales (v0.3 §00). Inline pattern;
+   snippets/direction-helpers.liquid is created only if this
+   repeats across 3+ call sites (File Tree v1.2, Conditional). */
+
+.data-latin {
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-family: var(--font-body);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- TYPOGRAPHY ---- */
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display-active);
+  font-weight: 700;
+  line-height: var(--leading-display);
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--text-h1); }
+h2 { font-size: var(--text-h2); }
+h3 { font-size: var(--text-h3); }
+
+p {
+  max-width: 65ch;
+}
+
+small,
+.text-data {
+  font-size: var(--text-data);
+  color: var(--text-muted);
+}
+
+.label {
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-muted);
+}
+
+:lang(en) .label,
+:lang(ar) .label .data-latin {
+  text-transform: uppercase;
+}
+
+/* ---- LINKS ---- */
+
+a {
+  color: var(--text);
+  text-decoration: none;
+  transition: opacity var(--speed) var(--ease);
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+/* Active state — the standard functional-red convention */
+a[aria-current="page"] {
+  color: var(--accent);
+}
+
+/* ---- FOCUS ---- */
+
+:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* ---- FORMS — base (component styling in components.css) ---- */
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+  color: inherit;
+  border-radius: var(--radius);
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+::placeholder {
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+/* ---- ACCESSIBILITY UTILITIES ---- */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  inset-block-start: var(--space-1);
+  inset-inline-start: var(--space-1);
+  z-index: calc(var(--z-drawer) + 1);
+  padding: var(--space-1) var(--space-2);
+  background: var(--surface-raised);
+  border: var(--border);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  transform: none;
+}
+
+/* ---- REDUCED MOTION — identical in both directions ---- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,119 @@
+/* ============================================================
+   AKYRO STUDIO — MONOLITH OS
+   assets/layout.css — M01-A Foundation
+   Grid · section frame · page shells. Mobile-first.
+   Logical properties only. Grid flow mirrors automatically
+   under [dir="rtl"] — no per-direction layout rules here.
+   ============================================================ */
+
+/* ---- PAGE SHELL ---- */
+
+.main-content {
+  min-height: 60vh;
+}
+
+.main-content:focus {
+  outline: none; /* skip-link target; focus ring not needed on main */
+}
+
+/* ---- FRAME — standard section width + padding ----
+   Bound to spacing tokens; consumed via snippets/section-frame
+   (M01-B) and directly by section wrappers. */
+
+.frame {
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.frame--full {
+  max-width: none;
+  padding-inline: 0;
+}
+
+/* ---- SECTION RHYTHM ---- */
+
+.section {
+  padding-block: var(--section-gap);
+}
+
+.section--flush {
+  padding-block: 0;
+}
+
+.section--strip {
+  padding-block: var(--space-2);
+}
+
+/* ---- GRID SYSTEM ----
+   Column order follows document direction; RTL mirrors free. */
+
+.grid {
+  display: grid;
+  gap: var(--gutter);
+}
+
+.grid--2,
+.grid--3,
+.grid--4 {
+  grid-template-columns: repeat(2, 1fr); /* mobile: cards pair up */
+}
+
+.grid--split {
+  grid-template-columns: 1fr;            /* mobile: stack */
+}
+
+@media (min-width: 750px) {
+  .grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 990px) {
+  .grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .grid--split {
+    grid-template-columns: 3fr 2fr;      /* media 60 / info 40 */
+    align-items: start;
+  }
+}
+
+/* Proof triptych: stacks on mobile, three across from 750px */
+.grid--proof {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 750px) {
+  .grid--proof {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ---- HAIRLINES ---- */
+
+.line-block {
+  border-block-start: var(--border);
+}
+
+.line-inline {
+  border-inline-start: var(--border);
+}
+
+/* ---- STICKY COLUMN (Product File info column, M05) ---- */
+
+.sticky-inline {
+  position: sticky;
+  inset-block-start: calc(var(--space-8) + var(--space-2));
+}
+
+/* ---- FLOW SPACING ---- */
+
+.flow > * + * {
+  margin-block-start: var(--space-2);
+}
+
+.flow-tight > * + * {
+  margin-block-start: var(--space-1);
+}

@@ -1,0 +1,79 @@
+{%- comment -%}
+  AKYRO STUDIO — MONOLITH OS
+  layout/theme.liquid — M01-A Foundation
+  Direction source of truth: <html dir>. CSS reads [dir] / logical properties.
+  JS reads document.documentElement.dir. No component keeps its own direction state.
+{%- endcomment -%}
+
+{%- liquid
+  assign locale_iso = request.locale.iso_code
+  assign lang_base = locale_iso | split: '-' | first
+
+  if lang_base == 'ar'
+    assign doc_dir = 'rtl'
+    assign dir_class = 'dir-rtl lang-ar'
+  else
+    assign doc_dir = 'ltr'
+    assign dir_class = 'dir-ltr'
+  endif
+-%}
+
+<!doctype html>
+<html lang="{{ locale_iso }}" dir="{{ doc_dir }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0A0A0A">
+
+  <title>
+    {{- page_title -}}
+    {%- if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif -%}
+    {%- if current_page != 1 %} &ndash; {{ 'general.pagination.page' | t: page: current_page }}{% endif -%}
+    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  </title>
+
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {%- if settings.favicon != blank -%}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+  {%- endif -%}
+
+  {%- comment -%}
+    TODO (R2): restore direction-aware font preloads when licensed woff2
+    files exist in /assets. Do not preload missing assets. Pattern:
+      rtl  → akyro-display-ar.woff2 + akyro-body-ar.woff2
+      else → akyro-display.woff2 + akyro-body.woff2
+    (<link rel="preload" as="font" type="font/woff2" crossorigin>)
+  {%- endcomment -%}
+
+  {%- comment -%} Global CSS — fixed order: tokens → base → layout → components → direction {%- endcomment -%}
+  {{ 'tokens.css' | asset_url | stylesheet_tag }}
+  {{ 'base.css' | asset_url | stylesheet_tag }}
+  {{ 'layout.css' | asset_url | stylesheet_tag }}
+  {{ 'components.css' | asset_url | stylesheet_tag }}
+  {{ 'direction.css' | asset_url | stylesheet_tag }}
+
+  {{ content_for_header }}
+</head>
+
+<body class="template-{{ template.name | handle }} {{ dir_class }}">
+
+  <a class="skip-link" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
+
+  {%- comment -%} Global shell — sections arrive in M01-B {%- endcomment -%}
+  {% sections 'header-group' %}
+
+  <main id="MainContent" class="main-content" role="main" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
+
+  {% sections 'footer-group' %}
+
+  {%- comment -%} Cart drawer renders here in M01-C (sections/cart-drawer.liquid) {%- endcomment -%}
+
+</body>
+</html>

@@ -1,0 +1,262 @@
+/* ============================================================
+   AKYRO STUDIO — MONOLITH OS
+   assets/components.css — M01-A Foundation
+   Shared component styles ONLY (dedup rule R6): buttons, badges,
+   fields, tables, drawer shell, overlay, icons. Section files may
+   consume tokens and these classes but never restyle them.
+   Logical properties only; drawer slide pair lives in direction.css.
+   ============================================================ */
+
+/* ---- BUTTONS — radius 0, hairline, 44px targets ---- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-height: var(--tap-min);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  border: var(--border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  transition: opacity var(--speed) var(--ease),
+              background-color var(--speed) var(--ease);
+}
+
+:lang(en) .btn {
+  text-transform: uppercase;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+
+.btn--primary {
+  background: var(--text);
+  color: var(--surface);
+  border-color: var(--text);
+}
+
+.btn--ghost {
+  border-color: transparent;
+}
+
+.btn--block {
+  display: flex;
+  inline-size: 100%;
+}
+
+/* Critical / destructive — the only red button state */
+.btn--critical {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---- BADGES — status from inventory + tags only ---- */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-muted);
+}
+
+:lang(en) .badge {
+  text-transform: uppercase;
+}
+
+.badge__dot {
+  inline-size: 6px;
+  block-size: 6px;
+  border-radius: 50%; /* the one permitted circle: a status dot */
+  background: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.badge--live .badge__dot   { background: var(--accent); }
+.badge--live               { color: var(--text); }
+.badge--low .badge__dot    { background: var(--accent); }
+.badge--archived,
+.badge--locked             { opacity: 0.6; }
+
+/* ---- FIELDS ---- */
+
+.field {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.field__label {
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-muted);
+}
+
+:lang(en) .field__label {
+  text-transform: uppercase;
+}
+
+.field__input {
+  min-height: var(--tap-min);
+  padding: var(--space-1) var(--space-2);
+  background: transparent;
+  border: var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  text-align: start;
+}
+
+.field__input:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 0;
+  border-color: var(--text);
+}
+
+.field__error {
+  font-size: var(--text-data);
+  color: var(--accent); /* functional red: error state */
+  text-align: start;
+}
+
+/* ---- DATA TABLES — spec / POM anatomy ----
+   Mobile: horizontal scroll in a framed container; type never shrinks. */
+
+.table-frame {
+  border: var(--border);
+  overflow-x: auto;
+}
+
+.table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-data);
+}
+
+.table th,
+.table td {
+  padding: var(--space-1) var(--space-2);
+  text-align: start;
+  border-block-end: var(--border);
+}
+
+.table th {
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-muted);
+}
+
+:lang(en) .table th {
+  text-transform: uppercase;
+}
+
+.table tr:last-child td {
+  border-block-end: none;
+}
+
+.table .cell-value {
+  text-align: end;
+}
+
+/* ---- OVERLAY ---- */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  background: var(--overlay);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--speed) var(--ease),
+              visibility var(--speed) var(--ease);
+}
+
+.overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ---- DRAWER SHELL — anchored inline-end ----
+   Open state and anatomy here; the closed-state slide transform is
+   direction-dependent and lives in direction.css (paired rule). */
+
+.drawer {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-end: 0;
+  z-index: var(--z-drawer);
+  inline-size: min(420px, 100%);
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-raised);
+  border-inline-start: var(--border);
+  visibility: hidden;
+  transition: transform var(--speed) var(--ease),
+              visibility var(--speed) var(--ease);
+}
+
+.drawer.is-open {
+  transform: none;
+  visibility: visible;
+}
+
+.drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--space-8);
+  padding-inline: var(--space-2);
+  border-block-end: var(--border);
+}
+
+.drawer__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-2);
+}
+
+.drawer__footer {
+  padding: var(--space-2);
+  border-block-start: var(--border);
+}
+
+/* ---- ICONS — hairline 1px geometric ----
+   Directional icons carry .icon--flip; the flip rule lives in
+   direction.css. Symmetric icons never flip. */
+
+.icon {
+  inline-size: 20px;
+  block-size: 20px;
+  stroke: currentColor;
+  stroke-width: 1;
+  fill: none;
+  flex-shrink: 0;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: var(--tap-min);
+  min-block-size: var(--tap-min);
+  color: var(--text);
+}
+
+/* ---- HAIRLINE DIVIDER ---- */
+
+.hr {
+  border: none;
+  border-block-start: var(--border);
+}

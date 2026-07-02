@@ -1,0 +1,95 @@
+/* ============================================================
+   AKYRO STUDIO — MONOLITH OS
+   assets/tokens.css — M01-A Foundation
+   Single source of design values. Components consume tokens only.
+   No raw hex outside this file (Architecture v0.2 §13, audit rule).
+   ============================================================ */
+
+:root {
+  /* ---- COLOR — system palette (Brand Guidelines v0.4) ---- */
+  --akyro-black:     #0A0A0A;   /* primary surface */
+  --akyro-charcoal:  #1A1A1C;   /* panels, cards, media placeholder */
+  --akyro-warm-grey: #D9D9D9;   /* secondary text on dark, hairline base */
+  --akyro-white:     #F2F2F2;   /* primary text on dark */
+  --akyro-red:       #E30613;   /* FUNCTIONAL ONLY: status, active, dash, critical */
+
+  /* ---- COLOR — derived roles ---- */
+  --surface:         var(--akyro-black);
+  --surface-raised:  var(--akyro-charcoal);
+  --text:            var(--akyro-white);
+  --text-muted:      var(--akyro-warm-grey);
+  --line:            rgba(217, 217, 217, 0.18);  /* hairline: warm grey @ 18% */
+  --overlay:         rgba(10, 10, 10, 0.6);      /* scrim: akyro-black @ 60% */
+  --accent:          var(--akyro-red);
+
+  /* ---- SPACE — unit-based (red-dash construction logic) ---- */
+  --unit:      8px;
+  --space-1:   calc(var(--unit) * 1);    /*  8px */
+  --space-2:   calc(var(--unit) * 2);    /* 16px */
+  --space-3:   calc(var(--unit) * 3);    /* 24px */
+  --space-4:   calc(var(--unit) * 4);    /* 32px */
+  --space-5:   calc(var(--unit) * 5);    /* 40px */
+  --space-6:   calc(var(--unit) * 6);    /* 48px */
+  --space-8:   calc(var(--unit) * 8);    /* 64px */
+  --space-10:  calc(var(--unit) * 10);   /* 80px */
+
+  --section-gap: clamp(var(--space-6), 8vw, var(--space-10));
+  --gutter:      var(--space-2);
+
+  /* ---- TYPE — bilingual families (v0.3 §NEW D) ----
+     EN faces pending license (R2). AR faces pending shortlist
+     decision: Alexandria / Cairo / IBM Plex Sans Arabic / Noto Kufi Arabic.
+     Family names below are the theme-internal names bound in base.css
+     @font-face; swapping the licensed files requires no token change. */
+  --font-display:    'AKYRO Display', Arial, sans-serif;
+  --font-body:       'AKYRO Body', Arial, sans-serif;
+  --font-display-ar: 'AKYRO Display AR', 'AKYRO Display', sans-serif;
+  --font-body-ar:    'AKYRO Body AR', 'AKYRO Body', sans-serif;
+
+  /* Active family — resolved per language in base.css :lang(ar) */
+  --font-display-active: var(--font-display);
+  --font-body-active:    var(--font-body);
+
+  /* ---- TYPE — scale (1.25 ratio, fluid, body never below 16px) ---- */
+  --text-data:   clamp(0.8125rem, 0.78rem + 0.15vw, 0.875rem);  /* 13–14px */
+  --text-body:   clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);      /* 16–17px */
+  --text-label:  clamp(0.6875rem, 0.66rem + 0.15vw, 0.75rem);   /* 11–12px */
+  --text-h3:     clamp(1.25rem, 1.1rem + 0.7vw, 1.5625rem);     /* 20–25px */
+  --text-h2:     clamp(1.5625rem, 1.3rem + 1.3vw, 1.953rem);    /* 25–31px */
+  --text-h1:     clamp(1.953rem, 1.5rem + 2.3vw, 3.052rem);     /* 31–49px */
+
+  /* ---- TYPE — metrics (AR overrides in base.css :lang(ar)) ---- */
+  --leading-body:    1.55;
+  --leading-display: 1.1;
+  --tracking-label:  0.12em;   /* Latin-only device; :lang(ar) sets 0 */
+
+  /* ---- SHAPE & LINE ---- */
+  --radius: 0;
+  --border: 1px solid var(--line);
+  --angle-signature: 60deg;  /* reserved: approved graphic framing only */
+
+  /* ---- MOTION ---- */
+  --ease:  cubic-bezier(0.2, 0.6, 0.2, 1);
+  --speed: 180ms;
+
+  /* ---- Z-INDEX ---- */
+  --z-header:  100;
+  --z-overlay: 190;
+  --z-drawer:  200;
+
+  /* ---- LAYOUT ---- */
+  --page-max: 1400px;
+  --tap-min:  44px;
+
+  /* ---- FOCUS ---- */
+  --focus-ring: 2px solid var(--akyro-white);
+}
+
+/* Breakpoints (documented values — used as raw px in media queries):
+   base = mobile · 750px · 990px · --page-max container cap */
+
+@media (min-width: 750px) {
+  :root {
+    --gutter: var(--space-4);
+  }
+}

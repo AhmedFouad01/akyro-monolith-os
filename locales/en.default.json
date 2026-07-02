@@ -1,0 +1,10 @@
+{
+  "accessibility": {
+    "skip_to_content": "Skip to content"
+  },
+  "general": {
+    "pagination": {
+      "page": "Page {{ page }}"
+    }
+  }
+}
