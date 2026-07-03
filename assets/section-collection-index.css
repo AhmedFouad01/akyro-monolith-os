@@ -1,9 +1,54 @@
-/* AKYRO — Collection Index (M01-D) */
-.collection-index__head { margin-block-end: var(--space-4); max-inline-size: 64ch; }
-.collection-index__grid { display: grid; border: var(--border); }
-.collection-index__item { display: grid; grid-template-rows: auto 1fr; color: var(--text); border-block-end: var(--border); }
-.collection-index__item:last-child { border-block-end: none; }
-.collection-index__media { aspect-ratio: 16 / 10; }
-.collection-index__body { display: grid; gap: var(--space-1); padding: var(--space-3); }
-.collection-index__body p { color: var(--text-muted); }
-@media (min-width: 990px) { .collection-index__grid { grid-template-columns: repeat(3, 1fr); } .collection-index__item { border-block-end: 0; border-inline-end: var(--border); } .collection-index__item:last-child { border-inline-end: none; } }
+/* AKYRO — Collection Index (M01-D + polish) */
+.collection-index__head {
+  margin-block-end: var(--space-4);
+  max-inline-size: 64ch;
+}
+
+.collection-index__grid {
+  display: grid;
+  border: var(--border);
+}
+
+.collection-index__item {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-block-size: 320px;
+  color: var(--text);
+  border-block-end: var(--border);
+  background: var(--surface);
+}
+
+.collection-index__item:last-child {
+  border-block-end: none;
+}
+
+.collection-index__media {
+  aspect-ratio: 16 / 10;
+  min-block-size: 180px;
+}
+
+.collection-index__body {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  border-block-start: var(--border);
+}
+
+.collection-index__body p {
+  color: var(--text-muted);
+}
+
+@media (min-width: 990px) {
+  .collection-index__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .collection-index__item {
+    border-block-end: 0;
+    border-inline-end: var(--border);
+  }
+
+  .collection-index__item:last-child {
+    border-inline-end: none;
+  }
+}

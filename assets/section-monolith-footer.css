@@ -1,4 +1,4 @@
-/* AKYRO — assets/section-monolith-footer.css (M01-B)
+/* AKYRO — assets/section-monolith-footer.css (M01-B + M01-D polish)
    Grid footer. Logical properties only; mirrors free in RTL. */
 
 .monolith-footer {
@@ -61,6 +61,16 @@
 
 .monolith-footer__tagline {
   color: var(--text-muted);
+}
+
+/* M01-D polish: homepage already has its own access section.
+   Keep footer as a quiet legal row on index to avoid duplicate signup UI. */
+.template-index .monolith-footer__signup {
+  display: none;
+}
+
+.template-index .monolith-footer__base {
+  margin-block-start: 0;
 }
 
 @media (min-width: 750px) {
