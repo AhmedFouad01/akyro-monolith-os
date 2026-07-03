@@ -12,3 +12,12 @@
   inline-size: 100%; block-size: 100%;
   object-fit: cover;
 }
+
+/* M02-E — sort control */
+.main-collection__sort {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-block-end: var(--space-3);
+}
+.main-collection__sort .field__input { inline-size: auto; }

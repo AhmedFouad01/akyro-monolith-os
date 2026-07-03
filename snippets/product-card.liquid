@@ -2,8 +2,9 @@
   AKYRO — snippets/product-card.liquid (M02-D)
   Hairline card, no radius, dark/light via tokens, RTL-safe.
   Params: product, ratio ('4x5'|'1x1'|'16x9'), show_price,
-  show_status, show_sku, show_vendor, enable_hover (default true),
-  quick_add (reserved; default false — Product File is the point of sale).
+  show_status, show_sku, show_vendor, show_secondary_image
+  (default true; legacy alias enable_hover), quick_add (default false
+  and renders nothing — Product File is the point of sale).
 {%- endcomment -%}
 {%- liquid
   assign r = ratio | default: '4x5'
@@ -12,6 +13,9 @@
   endif
   if show_status == nil
     assign show_status = true
+  endif
+  if show_secondary_image != nil
+    assign enable_hover = show_secondary_image
   endif
   if enable_hover == nil
     assign enable_hover = true

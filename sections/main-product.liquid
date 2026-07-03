@@ -1,124 +1,272 @@
 {%- comment -%}
-  AKYRO — sections/main-product.liquid (M02-B basic Product File)
-  Media · title · SKU · price · status · variant select · add to cart.
-  Proof lines render ONLY from akyro.spec metafield; otherwise a
-  controlled "approved data pending" state. No fake specs/POM/batch.
+  AKYRO — sections/main-product.liquid (M02-E Product File)
+  Editor-controlled Product File. Proof/spec blocks read akyro.*
+  metafields (fit/fabric/construction/care/batch/validation, plain
+  text). Missing data → controlled empty state or hidden per block
+  setting. No invented measurements, GSM, batch codes, stock claims,
+  validation, or launch dates.
 {%- endcomment -%}
 
 {{ 'section-pages.css' | asset_url | stylesheet_tag }}
+{{ 'section-product.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
   assign current = product.selected_or_first_available_variant
-  assign spec = product.metafields.akyro.spec.value
+  assign ratio = section.settings.media_ratio | default: '4x5'
+  assign gallery = section.settings.gallery | default: 'stacked'
+  assign pending_text = section.settings.data_pending_text
+  if pending_text == blank
+    assign pending_text = 'products.data_pending' | t
+  endif
 -%}
 
-<div class="section frame main-product">
-  <div class="grid grid--split">
+<div class="section-shell {% render 'section-style', s: section.settings %} main-product">
+  <div class="frame">
+    <div class="grid grid--split">
 
-    <div class="main-product__media flow">
-      {% render 'media',
-        image: product.featured_image,
-        class: 'main-product__img',
-        sizes: '(min-width: 990px) 60vw, 100vw',
-        loading: 'eager',
-        alt: product.title
-      %}
-      {%- for image in product.images offset: 1 limit: 4 -%}
-        {% render 'media',
-          image: image,
-          class: 'main-product__img',
-          sizes: '(min-width: 990px) 60vw, 100vw',
-          loading: 'lazy',
-          alt: product.title
-        %}
-      {%- endfor -%}
-    </div>
-
-    <div class="main-product__info sticky-inline flow">
-      {%- if current.sku != blank -%}
-        <span class="text-data data-latin">{{ current.sku }}</span>
-      {%- endif -%}
-      {% render 'badge-status', product: product %}
-      <h1>{{ product.title }}</h1>
-      {% render 'price', product: product %}
-      {% render 'red-dash' %}
-
-      {%- comment -%} Quick spec — guarded: renders only real metafield values {%- endcomment -%}
-      {%- if spec -%}
-        <p class="text-data main-product__quickspec">
-          {%- if spec.gsm -%}<span class="data-latin">{{ spec.gsm }} GSM</span>{%- endif -%}
-          {%- if spec.fabric -%}{% if spec.gsm %} · {% endif %}{{ spec.fabric }}{%- endif -%}
-          {%- if spec.wash -%} · {{ spec.wash }}{%- endif -%}
-        </p>
-      {%- else -%}
-        <p class="text-data">{{ 'products.data_pending' | t }}</p>
-      {%- endif -%}
-
-      {%- form 'product', product, class: 'main-product__form flow' -%}
-        {%- unless product.has_only_default_variant -%}
-          <div class="field">
-            <label class="field__label" for="Variant-{{ section.id }}">{{ 'products.variant' | t }}</label>
-            <select id="Variant-{{ section.id }}" name="id" class="field__input">
-              {%- for variant in product.variants -%}
-                <option
-                  value="{{ variant.id }}"
-                  {% if variant == current %}selected{% endif %}
-                  {% unless variant.available %}disabled{% endunless %}
-                >
-                  {{ variant.title }}{% unless variant.available %} — {{ 'products.sold_out' | t }}{% endunless %}
-                </option>
-              {%- endfor -%}
-            </select>
+      <div class="main-product__media main-product__media--{{ gallery }}">
+        {%- if gallery == 'single' -%}
+          <div class="main-product__well main-product__well--{{ ratio }}">
+            {% render 'media', image: product.featured_image, class: 'main-product__img', sizes: '(min-width: 990px) 60vw, 100vw', loading: 'eager', alt: product.title %}
           </div>
         {%- else -%}
-          <input type="hidden" name="id" value="{{ current.id }}">
-        {%- endunless -%}
+          {%- for image in product.images limit: 8 -%}
+            {%- liquid
+              assign img_loading = 'lazy'
+              if forloop.first
+                assign img_loading = 'eager'
+              endif
+            -%}
+            <div class="main-product__well main-product__well--{{ ratio }}">
+              {% render 'media', image: image, class: 'main-product__img', sizes: '(min-width: 990px) 60vw, 100vw', loading: img_loading, alt: product.title %}
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+        {%- if product.images.size == 0 -%}
+          <div class="main-product__well main-product__well--{{ ratio }}"></div>
+        {%- endif -%}
+      </div>
 
-        <button
-          type="submit"
-          name="add"
-          class="btn btn--primary btn--full"
-          {% unless product.available %}disabled{% endunless %}
-        >
-          {%- if product.available -%}
-            {{ 'products.add_to_cart' | t }}
+      <div class="main-product__info sticky-inline flow">
+        {%- if section.settings.show_sku and current.sku != blank -%}
+          <span class="text-data data-latin">{{ current.sku }}</span>
+        {%- endif -%}
+        {%- if section.settings.show_status -%}
+          {% render 'badge-status', product: product %}
+        {%- endif -%}
+        {%- if section.settings.show_vendor and product.vendor != blank -%}
+          <span class="text-data">{{ product.vendor }}</span>
+        {%- endif -%}
+        <h1>{{ product.title }}</h1>
+        {%- if section.settings.show_price -%}
+          {% render 'price', product: product %}
+        {%- endif -%}
+        {% render 'red-dash' %}
+
+        {%- form 'product', product, class: 'main-product__form flow' -%}
+          {%- unless product.has_only_default_variant -%}
+            <div class="field">
+              <label class="field__label" for="Variant-{{ section.id }}">{{ 'products.variant' | t }}</label>
+              <select id="Variant-{{ section.id }}" name="id" class="field__input">
+                {%- for variant in product.variants -%}
+                  <option value="{{ variant.id }}" {% if variant == current %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
+                    {{ variant.title }}{% unless variant.available %} — {{ 'products.sold_out' | t }}{% endunless %}
+                  </option>
+                {%- endfor -%}
+              </select>
+            </div>
           {%- else -%}
-            {{ 'products.sold_out' | t }}
-          {%- endif -%}
-        </button>
-      {%- endform -%}
+            <input type="hidden" name="id" value="{{ current.id }}">
+          {%- endunless -%}
 
-      {%- if section.settings.shipping_note != blank -%}
-        <p class="text-data">{{ section.settings.shipping_note }}</p>
-      {%- endif -%}
+          {%- if section.settings.show_quantity -%}
+            <div class="field">
+              <span class="field__label">{{ 'cart.quantity' | t }}</span>
+              {% render 'quantity-input', name: 'quantity', value: 1, id: 'ProductQty' %}
+            </div>
+          {%- endif -%}
+
+          <button type="submit" name="add" class="btn btn--primary btn--full" {% unless product.available %}disabled{% endunless %}>
+            {%- if product.available -%}{{ 'products.add_to_cart' | t }}{%- else -%}{{ 'products.sold_out' | t }}{%- endif -%}
+          </button>
+
+          {%- if section.settings.show_dynamic_checkout -%}
+            {{ form | payment_button }}
+          {%- endif -%}
+        {%- endform -%}
+
+        {%- if section.settings.shipping_note != blank -%}
+          <p class="text-data">{{ section.settings.shipping_note }}</p>
+        {%- endif -%}
+
+        {%- comment -%} ---- Product File blocks ---- {%- endcomment -%}
+        {%- if section.blocks.size > 0 -%}
+          <div class="product-file line-block">
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+
+                {%- when 'spec' -%}
+                  {%- liquid
+                    assign field = block.settings.field
+                    assign val = product.metafields.akyro[field].value
+                    assign label = block.settings.label
+                    if label == blank
+                      assign label_key = 'products.' | append: field
+                      assign label = label_key | t
+                    endif
+                  -%}
+                  {%- if val != blank -%}
+                    {%- if block.settings.collapsible -%}
+                      <details class="spec-acc" {{ block.shopify_attributes }}>
+                        <summary class="spec-acc__head"><span class="label">{{ label }}</span>{% render 'icon', name: 'chevron' %}</summary>
+                        <div class="spec-acc__body"><p class="text-data">{{ val }}</p></div>
+                      </details>
+                    {%- else -%}
+                      <div class="spec-row" {{ block.shopify_attributes }}>
+                        <span class="label">{{ label }}</span>
+                        <p class="text-data">{{ val }}</p>
+                      </div>
+                    {%- endif -%}
+                  {%- elsif block.settings.show_when_empty -%}
+                    <div class="spec-row" {{ block.shopify_attributes }}>
+                      <span class="label">{{ label }}</span>
+                      <p class="text-data">{{ pending_text }}</p>
+                    </div>
+                  {%- endif -%}
+
+                {%- when 'description' -%}
+                  {%- if product.description != blank -%}
+                    {%- if block.settings.collapsible -%}
+                      <details class="spec-acc" {{ block.shopify_attributes }}>
+                        <summary class="spec-acc__head"><span class="label">{{ 'products.description' | t }}</span>{% render 'icon', name: 'chevron' %}</summary>
+                        <div class="spec-acc__body flow">{{ product.description }}</div>
+                      </details>
+                    {%- else -%}
+                      <div class="spec-row" {{ block.shopify_attributes }}>
+                        <span class="label">{{ 'products.description' | t }}</span>
+                        <div class="flow">{{ product.description }}</div>
+                      </div>
+                    {%- endif -%}
+                  {%- endif -%}
+
+                {%- when 'batch' -%}
+                  {%- liquid
+                    assign batch = product.metafields.akyro.batch.value
+                    assign validation = product.metafields.akyro.validation.value
+                  -%}
+                  <div class="spec-row" {{ block.shopify_attributes }}>
+                    <span class="label">{{ 'products.batch' | t }}</span>
+                    {%- if batch != blank or validation != blank -%}
+                      {%- if batch != blank -%}<p class="text-data data-latin">{{ batch }}</p>{%- endif -%}
+                      {%- if validation != blank -%}<p class="text-data">{{ validation }}</p>{%- endif -%}
+                    {%- else -%}
+                      <p class="text-data">{{ pending_text }}</p>
+                    {%- endif -%}
+                  </div>
+
+                {%- when 'proof_image' -%}
+                  {%- if block.settings.image != blank -%}
+                    <div class="product-file__proof-img" {{ block.shopify_attributes }}>
+                      {% render 'media', image: block.settings.image, class: 'main-product__img', sizes: '(min-width: 990px) 40vw, 100vw', loading: 'lazy', alt: block.settings.media_alt %}
+                    </div>
+                  {%- endif -%}
+
+                {%- when 'cta' -%}
+                  {%- if block.settings.button_label != blank -%}
+                    <div class="product-file__cta" {{ block.shopify_attributes }}>
+                      <a href="{{ block.settings.button_link | default: '#' }}" class="btn{% if block.settings.primary %} btn--primary{% endif %}">{{ block.settings.button_label }}</a>
+                    </div>
+                  {%- endif -%}
+
+              {%- endcase -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
     </div>
   </div>
-
-  {%- comment -%} Proof rows — metafield-guarded; absent data = absent row {%- endcomment -%}
-  {%- if spec.fit or spec.fabric or spec.construction -%}
-    <div class="main-product__proof line-block">
-      <table class="table">
-        <tbody>
-          {%- if spec.fit -%}
-            <tr><th scope="row">{{ 'products.proof_fit' | t }}</th><td class="cell-value">{{ spec.fit }}</td></tr>
-          {%- endif -%}
-          {%- if spec.fabric -%}
-            <tr><th scope="row">{{ 'products.proof_fabric' | t }}</th><td class="cell-value">{{ spec.fabric }}</td></tr>
-          {%- endif -%}
-          {%- if spec.construction -%}
-            <tr><th scope="row">{{ 'products.proof_construction' | t }}</th><td class="cell-value">{{ spec.construction }}</td></tr>
-          {%- endif -%}
-        </tbody>
-      </table>
-    </div>
-  {%- endif -%}
 </div>
 
 {% schema %}
 {
   "name": "Product file",
   "settings": [
-    {"type": "text", "id": "shipping_note", "label": "Shipping line"}
+    {"type": "header", "content": "Details"},
+    {"type": "checkbox", "id": "show_price", "label": "Show price", "default": true},
+    {"type": "checkbox", "id": "show_status", "label": "Show status badge", "default": true},
+    {"type": "checkbox", "id": "show_sku", "label": "Show style no (SKU)", "default": true},
+    {"type": "checkbox", "id": "show_vendor", "label": "Show vendor", "default": false},
+    {"type": "checkbox", "id": "show_quantity", "label": "Show quantity", "default": false},
+    {"type": "checkbox", "id": "show_dynamic_checkout", "label": "Show dynamic checkout button", "default": false},
+    {"type": "text", "id": "shipping_note", "label": "Shipping line"},
+    {"type": "textarea", "id": "data_pending_text", "label": "Missing-data text (blank = default)"},
+    {"type": "header", "content": "Media"},
+    {"type": "select", "id": "media_ratio", "label": "Media ratio", "default": "4x5",
+     "options": [{"value": "4x5", "label": "4:5"}, {"value": "1x1", "label": "1:1"}, {"value": "16x9", "label": "16:9"}]},
+    {"type": "select", "id": "gallery", "label": "Gallery layout", "default": "stacked",
+     "options": [{"value": "stacked", "label": "Stacked"}, {"value": "grid", "label": "Grid"}, {"value": "single", "label": "Single"}]},
+    {"type": "header", "content": "Layout"},
+    {"type": "select", "id": "width", "label": "Section width", "default": "normal",
+     "options": [{"value": "normal", "label": "Normal"}, {"value": "wide", "label": "Wide"}]},
+    {"type": "select", "id": "spacing", "label": "Section spacing", "default": "default",
+     "options": [{"value": "compact", "label": "Compact"}, {"value": "default", "label": "Default"}, {"value": "spacious", "label": "Spacious"}]},
+    {"type": "select", "id": "bg_mode", "label": "Background", "default": "default",
+     "options": [{"value": "default", "label": "Default"}, {"value": "surface", "label": "Surface"}, {"value": "raised", "label": "Raised"}, {"value": "inverse", "label": "Inverse"}]}
+  ],
+  "blocks": [
+    {
+      "type": "spec",
+      "name": "Spec row (metafield)",
+      "settings": [
+        {"type": "select", "id": "field", "label": "Field (akyro.*)", "default": "fit",
+         "options": [{"value": "fit", "label": "Fit"}, {"value": "fabric", "label": "Fabric"}, {"value": "construction", "label": "Construction"}, {"value": "care", "label": "Care"}]},
+        {"type": "text", "id": "label", "label": "Label override"},
+        {"type": "checkbox", "id": "collapsible", "label": "Collapsible", "default": false},
+        {"type": "checkbox", "id": "show_when_empty", "label": "Show pending state when data missing", "default": false}
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Description",
+      "settings": [
+        {"type": "checkbox", "id": "collapsible", "label": "Collapsible", "default": true}
+      ]
+    },
+    {
+      "type": "batch",
+      "name": "Batch / validation",
+      "settings": []
+    },
+    {
+      "type": "proof_image",
+      "name": "Proof image",
+      "settings": [
+        {"type": "image_picker", "id": "image", "label": "Image"},
+        {"type": "text", "id": "media_alt", "label": "Alt text"}
+      ]
+    },
+    {
+      "type": "cta",
+      "name": "CTA",
+      "settings": [
+        {"type": "text", "id": "button_label", "label": "Button label"},
+        {"type": "url", "id": "button_link", "label": "Button link"},
+        {"type": "checkbox", "id": "primary", "label": "Primary style", "default": false}
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product file",
+      "blocks": [
+        {"type": "spec", "settings": {"field": "fit"}},
+        {"type": "spec", "settings": {"field": "fabric"}},
+        {"type": "spec", "settings": {"field": "construction"}},
+        {"type": "spec", "settings": {"field": "care", "collapsible": true}},
+        {"type": "description"},
+        {"type": "batch"}
+      ]
+    }
   ]
 }
 {% endschema %}

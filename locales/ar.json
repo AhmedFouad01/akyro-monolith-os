@@ -15,7 +15,8 @@
       "next": "التالي"
     },
     "built_to_last": "BUILT TO LAST",
-    "back_home": "العودة إلى الرئيسية"
+    "back_home": "العودة إلى الرئيسية",
+    "apply": "تطبيق"
   },
   "badges": {
     "live": "متاح",
@@ -156,7 +157,8 @@
   },
   "collections": {
     "count": "{{ count }} منتجات",
-    "empty": "لا توجد منتجات في هذا القسم بعد."
+    "empty": "لا توجد منتجات في هذا القسم بعد.",
+    "sort": "فرز"
   },
   "products": {
     "add_to_cart": "أضف إلى السلة",
@@ -167,7 +169,13 @@
     "price_sale": "سعر التخفيض",
     "proof_fit": "القَصّة",
     "proof_fabric": "الخامة",
-    "proof_construction": "البِنية"
+    "proof_construction": "البِنية",
+    "fit": "القَصّة",
+    "fabric": "الخامة",
+    "construction": "البِنية",
+    "care": "العناية",
+    "batch": "الدفعة",
+    "description": "الوصف"
   },
   "search": {
     "title": "بحث",

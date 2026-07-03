@@ -15,7 +15,8 @@
       "next": "Next"
     },
     "built_to_last": "BUILT TO LAST",
-    "back_home": "Back to home"
+    "back_home": "Back to home",
+    "apply": "Apply"
   },
   "badges": {
     "live": "Live",
@@ -156,7 +157,8 @@
   },
   "collections": {
     "count": "{{ count }} products",
-    "empty": "No products in this stream yet."
+    "empty": "No products in this stream yet.",
+    "sort": "Sort"
   },
   "products": {
     "add_to_cart": "Add to cart",
@@ -167,7 +169,13 @@
     "price_sale": "Sale price",
     "proof_fit": "Fit",
     "proof_fabric": "Fabric",
-    "proof_construction": "Construction"
+    "proof_construction": "Construction",
+    "fit": "Fit",
+    "fabric": "Fabric",
+    "construction": "Construction",
+    "care": "Care",
+    "batch": "Batch",
+    "description": "Description"
   },
   "search": {
     "title": "Search",

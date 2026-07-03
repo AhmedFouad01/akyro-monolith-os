@@ -10,10 +10,18 @@
 <div class="section-shell {% render 'section-style', s: section.settings %} main-collection">
   <div class="frame">
 
-    {%- if section.settings.show_hero_image and collection.image -%}
+    {%- liquid
+      assign hero_img = blank
+      if section.settings.hero_source == 'collection'
+        assign hero_img = collection.image
+      elsif section.settings.hero_source == 'custom'
+        assign hero_img = section.settings.hero_image
+      endif
+    -%}
+    {%- if hero_img != blank -%}
       <div class="main-collection__hero">
         {% render 'media',
-          image: collection.image,
+          image: hero_img,
           class: 'main-collection__hero-img',
           sizes: '100vw',
           loading: 'eager',
@@ -26,7 +34,7 @@
       {%- if section.settings.eyebrow != blank -%}
         <p class="eyebrow">{{ section.settings.eyebrow }}</p>
       {%- endif -%}
-      <h1>{{ collection.title }}</h1>
+      <h1>{{ section.settings.title_override | default: collection.title }}</h1>
       {%- if section.settings.intro != blank -%}
         <p class="main-collection__intro">{{ section.settings.intro }}</p>
       {%- elsif section.settings.show_description and collection.description != blank -%}
@@ -34,6 +42,19 @@
       {%- endif -%}
       <p class="text-data">{{ 'collections.count' | t: count: collection.products_count }}</p>
     </header>
+
+    {%- if section.settings.show_sort and collection.products_count > 1 -%}
+      <form class="main-collection__sort" method="get">
+        <label class="field__label" for="SortBy">{{ 'collections.sort' | t }}</label>
+        <select id="SortBy" name="sort_by" class="field__input">
+          {%- assign current_sort = collection.sort_by | default: collection.default_sort_by -%}
+          {%- for option in collection.sort_options -%}
+            <option value="{{ option.value }}" {% if option.value == current_sort %}selected{% endif %}>{{ option.name }}</option>
+          {%- endfor -%}
+        </select>
+        <button type="submit" class="btn btn--quiet">{{ 'general.apply' | t }}</button>
+      </form>
+    {%- endif -%}
 
     {%- paginate collection.products by section.settings.per_page -%}
       {%- if collection.products_count > 0 -%}
@@ -48,7 +69,8 @@
               show_price: section.settings.show_price,
               show_status: section.settings.show_status,
               show_sku: section.settings.show_sku,
-              show_vendor: section.settings.show_vendor
+              show_vendor: section.settings.show_vendor,
+              show_secondary_image: section.settings.show_hover
             %}
           {%- endfor -%}
         </div>
@@ -64,8 +86,19 @@
         {%- endif -%}
       {%- else -%}
         <div class="empty-state flow">
-          <p>{{ 'collections.empty' | t }}</p>
-          <a href="{{ routes.root_url }}" class="btn">{{ 'general.back_home' | t }}</a>
+          {%- liquid
+            assign empty_body = section.settings.empty_body
+            if empty_body == blank
+              assign empty_body = 'collections.empty' | t
+            endif
+            assign empty_button = section.settings.empty_button
+            if empty_button == blank
+              assign empty_button = 'general.back_home' | t
+            endif
+          -%}
+          {%- if section.settings.empty_heading != blank -%}<h2 class="h3">{{ section.settings.empty_heading }}</h2>{%- endif -%}
+          <p>{{ empty_body }}</p>
+          <a href="{{ section.settings.empty_link | default: routes.root_url }}" class="btn">{{ empty_button }}</a>
         </div>
       {%- endif -%}
     {%- endpaginate -%}
@@ -80,7 +113,10 @@
     {"type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "CATALOG"},
     {"type": "textarea", "id": "intro", "label": "Intro override"},
     {"type": "checkbox", "id": "show_description", "label": "Show collection description", "default": true},
-    {"type": "checkbox", "id": "show_hero_image", "label": "Show collection image", "default": false},
+    {"type": "select", "id": "hero_source", "label": "Hero image", "default": "none",
+     "options": [{"value": "none", "label": "None"}, {"value": "collection", "label": "Collection image"}, {"value": "custom", "label": "Custom image"}]},
+    {"type": "image_picker", "id": "hero_image", "label": "Custom hero image"},
+    {"type": "text", "id": "title_override", "label": "Title override (blank = collection title)"},
     {"type": "header", "content": "Grid"},
     {"type": "select", "id": "cols_desktop", "label": "Columns — desktop", "default": "4",
      "options": [{"value": "2", "label": "2"}, {"value": "3", "label": "3"}, {"value": "4", "label": "4"}]},
@@ -94,6 +130,13 @@
     {"type": "checkbox", "id": "show_status", "label": "Show status badge", "default": true},
     {"type": "checkbox", "id": "show_sku", "label": "Show style no (SKU)", "default": true},
     {"type": "checkbox", "id": "show_vendor", "label": "Show vendor", "default": false},
+    {"type": "checkbox", "id": "show_hover", "label": "Show second image on hover", "default": true},
+    {"type": "checkbox", "id": "show_sort", "label": "Show sort control", "default": false},
+    {"type": "header", "content": "Empty state"},
+    {"type": "text", "id": "empty_heading", "label": "Heading"},
+    {"type": "textarea", "id": "empty_body", "label": "Body (blank = default)"},
+    {"type": "text", "id": "empty_button", "label": "Button label (blank = default)"},
+    {"type": "url", "id": "empty_link", "label": "Button link"},
     {"type": "header", "content": "Layout"},
     {"type": "select", "id": "width", "label": "Section width", "default": "normal",
      "options": [{"value": "normal", "label": "Normal"}, {"value": "wide", "label": "Wide"}, {"value": "full", "label": "Full"}]},

@@ -67,3 +67,14 @@ Check in English LTR, Arabic RTL, dark mode, and light mode:
 - Product cards do not quick-add by default.
 - Homepage, cart drawer, and logo bindings remain unaffected.
 - Theme Check passes with no offenses.
+
+## M02-E additions
+
+Check in English LTR, Arabic RTL, dark mode, and light mode:
+
+- Collection: title/hero overrides, GET sort form, hover toggle, editable empty state.
+- Product File: section settings, product media layout, add-to-cart, variant selector, proof/spec blocks, pending states.
+- Product File: dynamic checkout remains off by default and radius-0 if enabled.
+- Search: columns/ratio controls and editable empty state.
+- Product cards: shared behavior across collection, search, featured collection, and featured products.
+- Cart drawer, homepage, demo media, and locked logo bindings remain unaffected.

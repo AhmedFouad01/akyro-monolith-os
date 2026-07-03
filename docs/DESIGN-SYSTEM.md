@@ -64,3 +64,10 @@ Block sizes:
 - full
 
 Theme Editor is the content control layer. Code should not be edited for day-to-day content changes.
+
+## Product File rows (M02-E)
+
+- `.spec-row`: label + value with hairline separation.
+- `.spec-acc`: `<details>` accordion with RTL-safe chevron behavior.
+- `.product-file__proof-img`: 4:5 proof image well.
+- Payment button stays radius-0 and token-driven.
