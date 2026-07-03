@@ -1,0 +1,52 @@
+{%- comment -%}
+  AKYRO — sections/main-cart.liquid (M01-C)
+  No-JS cart fallback page mirroring drawer anatomy (parity via
+  section-cart-drawer.css). Full form: updates[] + checkout submit.
+{%- endcomment -%}
+
+{{ 'section-cart-drawer.css' | asset_url | stylesheet_tag }}
+
+<div class="section frame main-cart">
+  <h1>{{ 'cart.title' | t }}</h1>
+
+  {%- if cart == empty -%}
+    <div class="flow">
+      <p>{{ 'cart.empty' | t }}</p>
+      <a href="{{ section.settings.empty_link | default: routes.all_products_collection_url }}" class="btn">
+        {{ 'cart.empty_cta' | t }}
+      </a>
+    </div>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" method="post" class="main-cart__form flow">
+      <div class="main-cart__lines flow">
+        {%- for item in cart.items -%}
+          {% render 'cart-line', item: item %}
+        {%- endfor -%}
+      </div>
+
+      <div class="main-cart__foot line-block">
+        <div class="cart-drawer__totals">
+          <span class="label">{{ 'cart.subtotal' | t }}</span>
+          <span class="data-latin">{{ cart.total_price | money }}</span>
+        </div>
+        <div class="main-cart__actions">
+          <button type="submit" class="btn">{{ 'cart.update' | t }}</button>
+          <button type="submit" name="checkout" class="btn btn--primary">{{ 'cart.checkout' | t }}</button>
+        </div>
+      </div>
+    </form>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Cart page",
+  "settings": [
+    {
+      "type": "url",
+      "id": "empty_link",
+      "label": "Empty cart link (Drops)"
+    }
+  ]
+}
+{% endschema %}

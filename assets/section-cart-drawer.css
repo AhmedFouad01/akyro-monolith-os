@@ -1,0 +1,141 @@
+/* AKYRO — assets/section-cart-drawer.css (M01-C)
+   Cart drawer skeleton + cart page parity (main-cart consumes this
+   file). Drawer shell/overlay come from components.css; slide pair
+   from direction.css. Logical properties only. */
+
+/* ---- Line item ---- */
+
+.cart-line {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  gap: var(--space-2);
+  align-items: start;
+  padding-block-end: var(--space-2);
+  border-block-end: var(--border);
+}
+
+.cart-line__img {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  background: var(--surface-raised);
+}
+
+.cart-line__title {
+  font-family: var(--font-display-active);
+  font-weight: 700;
+  text-align: start;
+}
+
+.cart-line__end {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-1);
+  text-align: end;
+}
+
+.cart-line__remove {
+  color: var(--text-muted);
+  min-block-size: var(--tap-min);
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ---- Quantity stepper ---- */
+
+.qty {
+  display: inline-flex;
+  align-items: center;
+  border: var(--border);
+  inline-size: fit-content;
+}
+
+.qty__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: var(--tap-min);
+  min-block-size: var(--tap-min);
+  color: var(--text);
+}
+
+.qty__input {
+  inline-size: 40px;
+  min-block-size: var(--tap-min);
+  text-align: center;
+  background: transparent;
+  border: none;
+  border-inline: var(--border);
+  color: var(--text);
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.qty__input::-webkit-outer-spin-button,
+.qty__input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+/* ---- Drawer regions ---- */
+
+.cart-drawer__empty {
+  padding-block: var(--space-4);
+  text-align: start;
+}
+
+.cart-drawer__totals {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-block-end: var(--space-2);
+}
+
+.cart-drawer__view {
+  display: block;
+  margin-block-start: var(--space-1);
+  text-align: center;
+  color: var(--text-muted);
+  min-block-size: var(--tap-min);
+  line-height: var(--tap-min);
+}
+
+/* Iconic A — whitelisted signature, direction-neutral (centered) */
+.cart-drawer__signature {
+  display: flex;
+  justify-content: center;
+  margin-block-start: var(--space-2);
+  opacity: 0.5;
+}
+
+.a-mark {
+  block-size: 16px;
+  inline-size: auto;
+}
+
+.a-mark--text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-data);
+  line-height: 16px;
+}
+
+/* ---- Cart page ---- */
+
+.main-cart h1 {
+  margin-block-end: var(--space-4);
+}
+
+.main-cart__form {
+  max-inline-size: 70ch;
+}
+
+.main-cart__foot {
+  padding-block-start: var(--space-2);
+}
+
+.main-cart__actions {
+  display: flex;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}

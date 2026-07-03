@@ -28,5 +28,19 @@
     "footer_group": {
       "name": "الفوتر"
     }
+  },
+  "cart": {
+    "title": "السلة",
+    "title_count": "السلة ({{ count }})",
+    "empty": "السلة فارغة.",
+    "empty_cta": "استعراض الإصدارات",
+    "subtotal": "الإجمالي الفرعي",
+    "checkout": "إتمام الشراء",
+    "view_cart": "عرض السلة",
+    "update": "تحديث",
+    "remove": "إزالة",
+    "quantity": "الكمية",
+    "decrease": "تقليل الكمية",
+    "increase": "زيادة الكمية"
   }
 }

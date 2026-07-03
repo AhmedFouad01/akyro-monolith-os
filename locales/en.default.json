@@ -28,5 +28,19 @@
     "footer_group": {
       "name": "Footer"
     }
+  },
+  "cart": {
+    "title": "Cart",
+    "title_count": "Cart ({{ count }})",
+    "empty": "Cart is empty.",
+    "empty_cta": "View drops",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout",
+    "view_cart": "View cart",
+    "update": "Update",
+    "remove": "Remove",
+    "quantity": "Quantity",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity"
   }
 }

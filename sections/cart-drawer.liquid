@@ -1,0 +1,74 @@
+{%- comment -%}
+  AKYRO — sections/cart-drawer.liquid (M01-C skeleton)
+  Static Liquid render — no AJAX (arrives M03 via Section Rendering API).
+  Anchored inline-end; LTR/RTL via components/direction CSS.
+  Whitelisted iconic-A signature at panel foot.
+  Scarcity is inventory fact: no timers, no viewer counts.
+{%- endcomment -%}
+
+{{ 'section-cart-drawer.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'monolith.js' | asset_url }}" defer></script>
+<script src="{{ 'drawer.js' | asset_url }}" defer></script>
+
+{%- capture drawer_title -%}
+  {{- 'cart.title_count' | t: count: cart.item_count -}}
+{%- endcapture -%}
+
+{%- capture drawer_body -%}
+  {%- if cart == empty -%}
+    <div class="cart-drawer__empty flow">
+      <p>{{ 'cart.empty' | t }}</p>
+      <a href="{{ section.settings.empty_link | default: routes.all_products_collection_url }}" class="btn">
+        {{ 'cart.empty_cta' | t }}
+      </a>
+    </div>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" method="post" class="cart-drawer__form flow">
+      {%- for item in cart.items -%}
+        {% render 'cart-line', item: item %}
+      {%- endfor -%}
+      <button type="submit" class="visually-hidden">{{ 'cart.update' | t }}</button>
+    </form>
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- capture drawer_footer -%}
+  {%- if cart != empty -%}
+    <div class="cart-drawer__totals">
+      <span class="label">{{ 'cart.subtotal' | t }}</span>
+      <span class="data-latin">{{ cart.total_price | money }}</span>
+    </div>
+    {%- if section.settings.shipping_note != blank -%}
+      <p class="text-data">{{ section.settings.shipping_note }}</p>
+    {%- endif -%}
+    <a href="{{ routes.cart_url }}/checkout" class="btn btn--primary btn--block">{{ 'cart.checkout' | t }}</a>
+    <a href="{{ routes.cart_url }}" class="cart-drawer__view text-data">{{ 'cart.view_cart' | t }}</a>
+  {%- endif -%}
+  <div class="cart-drawer__signature">{% render 'logo-a-mark' %}</div>
+{%- endcapture -%}
+
+{% render 'drawer',
+  id: 'CartDrawer',
+  title: drawer_title,
+  body: drawer_body,
+  footer: drawer_footer
+%}
+<div class="overlay" data-drawer-overlay="CartDrawer" hidden></div>
+
+{% schema %}
+{
+  "name": "Cart drawer",
+  "settings": [
+    {
+      "type": "url",
+      "id": "empty_link",
+      "label": "Empty cart link (Drops)"
+    },
+    {
+      "type": "text",
+      "id": "shipping_note",
+      "label": "Shipping line"
+    }
+  ]
+}
+{% endschema %}

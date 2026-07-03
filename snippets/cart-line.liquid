@@ -1,0 +1,41 @@
+{%- comment -%}
+  AKYRO — snippets/cart-line.liquid (M01-C)
+  Line item: media inline-start · info · price/remove inline-end.
+  Style number = variant SKU (Garment Sheet convention), Latin,
+  bidi-isolated. Remove works no-JS via url_to_remove.
+  params: item
+{%- endcomment -%}
+<div class="cart-line">
+  <a href="{{ item.url }}" class="cart-line__media" tabindex="-1" aria-hidden="true">
+    {%- if item.image -%}
+      <img
+        src="{{ item.image | image_url: width: 240 }}"
+        alt=""
+        width="120"
+        height="150"
+        loading="lazy"
+        class="cart-line__img"
+      >
+    {%- endif -%}
+  </a>
+
+  <div class="cart-line__info flow-tight">
+    <a href="{{ item.url }}" class="cart-line__title">{{ item.product.title }}</a>
+    {%- if item.sku != blank -%}
+      <span class="text-data data-latin">{{ item.sku }}</span>
+    {%- endif -%}
+    {%- unless item.product.has_only_default_variant -%}
+      <span class="text-data">{{ item.variant.title }}</span>
+    {%- endunless -%}
+    {% render 'quantity-input',
+      name: 'updates[]',
+      value: item.quantity,
+      id: item.key
+    %}
+  </div>
+
+  <div class="cart-line__end">
+    <span class="cart-line__price data-latin">{{ item.final_line_price | money }}</span>
+    <a href="{{ item.url_to_remove }}" class="cart-line__remove text-data">{{ 'cart.remove' | t }}</a>
+  </div>
+</div>
