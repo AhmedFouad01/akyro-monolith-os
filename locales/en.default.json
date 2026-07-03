@@ -148,6 +148,10 @@
     },
     "footer_group": {
       "name": "Footer"
+    },
+    "featured": {
+      "empty_collection": "Select a collection in section settings.",
+      "empty_products": "Select products in section settings."
     }
   },
   "collections": {

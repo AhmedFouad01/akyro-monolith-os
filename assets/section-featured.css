@@ -1,0 +1,5 @@
+/* AKYRO — assets/section-featured.css (M02-D)
+   Shared by featured-collection + featured-products. */
+.featured__body { color: var(--text-muted); max-inline-size: 56ch; }
+.featured__cta { margin-block-start: var(--space-3); }
+.shell--align-center .featured__body { margin-inline: auto; }

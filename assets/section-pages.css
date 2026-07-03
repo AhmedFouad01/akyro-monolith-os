@@ -78,3 +78,17 @@
 .main-search__form .field__input { flex: 1; }
 
 .main-search__count { margin-block-end: var(--space-2); }
+
+/* M02-D — page hero media */
+.page-hero__media {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-raised);
+  aspect-ratio: 4 / 5;
+}
+.page-hero__media .media-shell__img,
+.page-hero__media img {
+  position: absolute; inset: 0;
+  inline-size: 100%; block-size: 100%;
+  object-fit: cover;
+}

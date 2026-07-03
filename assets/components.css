@@ -456,3 +456,101 @@
   background: transparent;
   object-fit: contain;
 }
+
+/* ============================================================
+   M02-D SECTION SHELL — Theme Editor controls
+   width / spacing / background mode / text alignment
+   ============================================================ */
+
+.section-shell { padding-block: var(--section-gap); }
+.shell--pad-compact  { padding-block: var(--space-4); }
+.shell--pad-spacious { padding-block: calc(var(--section-gap) * 1.5); }
+
+.shell--w-wide  .frame { max-inline-size: 1680px; }
+.shell--w-full  .frame { max-inline-size: none; }
+
+.shell--bg-surface { background: var(--surface); }
+.shell--bg-raised  { background: var(--surface-raised); }
+.shell--bg-inverse {
+  background: var(--inverse-bg);
+  --text:       var(--inverse-text);
+  --text-muted: var(--inverse-muted);
+  --line:       var(--inverse-line);
+  color: var(--text);
+}
+
+.shell--align-center { text-align: center; }
+.shell--align-center .flow > *,
+.shell--align-center .shell-head { margin-inline: auto; }
+
+.shell-head {
+  display: grid;
+  gap: var(--space-1);
+  max-inline-size: 64ch;
+  margin-block-end: var(--space-4);
+}
+
+/* ---- Cards grid — column counts from Theme Editor ---- */
+
+.cards-grid {
+  display: grid;
+  gap: var(--gutter);
+  grid-template-columns: repeat(var(--cols-m, 2), 1fr);
+}
+
+@media (min-width: 990px) {
+  .cards-grid { grid-template-columns: repeat(var(--cols-d, 4), 1fr); }
+}
+
+/* ---- Product card — ratio + hover options ---- */
+
+.product-card__media--1x1  { aspect-ratio: 1 / 1; }
+.product-card__media--16x9 { aspect-ratio: 16 / 9; }
+
+.product-card__hover {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--speed) var(--ease);
+}
+
+@media (hover: hover) {
+  .product-card:hover .product-card__hover { opacity: 1; }
+}
+
+/* ---- Block grid extensions (M02-D) ---- */
+
+.block--bg-surface { background: var(--surface); }
+.block--bg-raised  { background: var(--surface-raised); }
+.block--bg-inverse {
+  background: var(--inverse-bg);
+  --text:       var(--inverse-text);
+  --text-muted: var(--inverse-muted);
+  --line:       var(--inverse-line);
+  color: var(--text);
+}
+
+.block--align-center { text-align: center; }
+.block--align-center .block__body { justify-items: center; }
+.block--align-end    { text-align: end; }
+.block--align-end .block__body { justify-items: end; }
+
+.block__media--3x2 { aspect-ratio: 3 / 2; }
+
+.block--overlay { position: relative; }
+.block--overlay .block__media { position: absolute; inset: 0; block-size: 100%; aspect-ratio: auto; }
+.block--overlay .block__body {
+  position: relative;
+  z-index: 1;
+  background: var(--overlay);
+  align-self: end;
+  inline-size: 100%;
+}
+
+.block__cta { margin-block-start: var(--space-1); }
+
+.stat-value {
+  font-family: var(--font-display-active);
+  font-weight: 700;
+  font-size: var(--text-h2);
+}

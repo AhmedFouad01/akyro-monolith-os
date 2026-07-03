@@ -148,6 +148,10 @@
     },
     "footer_group": {
       "name": "الفوتر"
+    },
+    "featured": {
+      "empty_collection": "اختر مجموعة من إعدادات القسم.",
+      "empty_products": "اختر منتجات من إعدادات القسم."
     }
   },
   "collections": {

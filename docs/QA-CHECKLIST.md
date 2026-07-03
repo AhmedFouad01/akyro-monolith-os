@@ -53,3 +53,17 @@ Check all visible surfaces in:
 - Verify red dash binding and UI red accent distinction.
 - Verify no logo mirroring in Arabic RTL.
 - Verify no CSS filters or stretching on uploaded marks.
+
+## M02-D additions
+
+Check in English LTR, Arabic RTL, dark mode, and light mode:
+
+- Featured collection picker works.
+- Featured products product blocks work.
+- Editable block grid renders all block types.
+- Block sizes remain grid-disciplined.
+- Overlay is off by default and readable when enabled.
+- Collection page columns and ratios work.
+- Product cards do not quick-add by default.
+- Homepage, cart drawer, and logo bindings remain unaffected.
+- Theme Check passes with no offenses.

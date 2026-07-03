@@ -1,19 +1,39 @@
 {%- comment -%}
-  AKYRO — sections/page-hero.liquid (M02-B)
-  Page opener: eyebrow · heading · line. Red dash = locked asset only.
+  AKYRO — sections/page-hero.liquid (M02-D)
+  Editor-controlled page opener. Back-compatible with M02-B settings
+  (eyebrow/heading/body/show_dash). Adds image, CTA, shell controls.
 {%- endcomment -%}
 
 {{ 'section-pages.css' | asset_url | stylesheet_tag }}
 
-<section class="page-hero section line-block">
-  <div class="frame flow">
-    {%- if section.settings.show_dash -%}{% render 'red-dash' %}{%- endif -%}
-    {%- if section.settings.eyebrow != blank -%}
-      <p class="eyebrow">{{ section.settings.eyebrow }}</p>
-    {%- endif -%}
-    <h1>{{ section.settings.heading | default: page.title }}</h1>
-    {%- if section.settings.body != blank -%}
-      <p class="page-hero__body">{{ section.settings.body }}</p>
+{%- assign has_media = false -%}
+{%- if section.settings.image != blank -%}{%- assign has_media = true -%}{%- endif -%}
+
+<section class="section-shell {% render 'section-style', s: section.settings %} page-hero line-block{% if has_media %} page-hero--split{% endif %}">
+  <div class="frame{% if has_media %} grid grid--split page-hero__grid{% endif %}">
+    <div class="flow">
+      {%- if section.settings.show_dash -%}{% render 'red-dash' %}{%- endif -%}
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h1>{{ section.settings.heading | default: page.title }}</h1>
+      {%- if section.settings.body != blank -%}
+        <p class="page-hero__body">{{ section.settings.body }}</p>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <p><a href="{{ section.settings.button_link | default: '#' }}" class="btn">{{ section.settings.button_label }}</a></p>
+      {%- endif -%}
+    </div>
+    {%- if has_media -%}
+      <div class="page-hero__media">
+        {% render 'media',
+          image: section.settings.image,
+          class: 'page-hero__img',
+          sizes: '(min-width: 990px) 40vw, 100vw',
+          loading: 'eager',
+          alt: section.settings.heading
+        %}
+      </div>
     {%- endif -%}
   </div>
 </section>
@@ -25,7 +45,18 @@
     {"type": "text", "id": "eyebrow", "label": "Eyebrow"},
     {"type": "text", "id": "heading", "label": "Heading (blank = page title)"},
     {"type": "textarea", "id": "body", "label": "Intro line"},
-    {"type": "checkbox", "id": "show_dash", "label": "Show red dash (locked asset)", "default": false}
+    {"type": "image_picker", "id": "image", "label": "Image (optional)"},
+    {"type": "text", "id": "button_label", "label": "Button label"},
+    {"type": "url", "id": "button_link", "label": "Button link"},
+    {"type": "checkbox", "id": "show_dash", "label": "Show red dash (locked asset)", "default": false},
+    {"type": "select", "id": "width", "label": "Section width", "default": "normal",
+     "options": [{"value": "normal", "label": "Normal"}, {"value": "wide", "label": "Wide"}, {"value": "full", "label": "Full"}]},
+    {"type": "select", "id": "spacing", "label": "Section spacing", "default": "default",
+     "options": [{"value": "compact", "label": "Compact"}, {"value": "default", "label": "Default"}, {"value": "spacious", "label": "Spacious"}]},
+    {"type": "select", "id": "bg_mode", "label": "Background", "default": "default",
+     "options": [{"value": "default", "label": "Default"}, {"value": "surface", "label": "Surface"}, {"value": "raised", "label": "Raised"}, {"value": "inverse", "label": "Inverse"}]},
+    {"type": "select", "id": "align", "label": "Text alignment", "default": "start",
+     "options": [{"value": "start", "label": "Start"}, {"value": "center", "label": "Center"}]}
   ],
   "presets": [{"name": "Page hero"}]
 }

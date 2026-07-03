@@ -108,3 +108,18 @@
   --overlay:        rgba(10, 10, 10, 0.35);
   --focus-ring:     2px solid var(--akyro-black);
 }
+
+/* ---- M02-D — inverse background-mode tokens (both modes) ---- */
+:root {
+  --inverse-bg:    var(--akyro-white);
+  --inverse-text:  var(--akyro-black);
+  --inverse-muted: #5A5A5E;
+  --inverse-line:  rgba(10, 10, 10, 0.16);
+}
+
+.theme-mode-light {
+  --inverse-bg:    var(--akyro-black);
+  --inverse-text:  var(--akyro-white);
+  --inverse-muted: var(--akyro-warm-grey);
+  --inverse-line:  rgba(217, 217, 217, 0.18);
+}

@@ -39,3 +39,28 @@ Rules:
 - Uploaded logos remain ratio-safe with `object-fit: contain`.
 - The iconic A remains a single controlled signature moment.
 - CSS red micro-lines are UI accents, not replacement logo assets.
+
+## Section shell + CMS grid (M02-D)
+
+Shared controls:
+- width: normal / wide / full
+- spacing: compact / default / spacious
+- background: default / surface / raised / inverse
+- alignment: start / center / end
+
+Reusable systems:
+- Featured collection
+- Featured products
+- Editable block grid
+- Collection product grid
+- Product card controls
+
+Block sizes:
+- square
+- half
+- third
+- wide
+- 3x2
+- full
+
+Theme Editor is the content control layer. Code should not be edited for day-to-day content changes.
