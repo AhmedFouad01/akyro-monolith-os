@@ -58,6 +58,9 @@
   {{ 'direction.css' | asset_url | stylesheet_tag }}
 
   {{ content_for_header }}
+  <script src="{{ 'drawer.js' | asset_url }}" defer></script>
+  <script src="{{ 'monolith.js' | asset_url }}" defer></script>
+
 </head>
 
 <body class="template-{{ template.name | handle }} {{ dir_class }}">
@@ -73,7 +76,7 @@
 
   {% sections 'footer-group' %}
 
-  {%- comment -%} Cart drawer renders here in M01-C (sections/cart-drawer.liquid) {%- endcomment -%}
+  {% section 'cart-drawer' %}
 
 </body>
 </html>

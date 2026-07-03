@@ -58,6 +58,14 @@
     controllers[id] = { open, close };
   });
 
+
+  /* Home link closes drawer (if open). */
+  document.querySelectorAll('[data-home-link]').forEach((link) => {
+    link.addEventListener('click', () => {
+      Object.values(controllers).forEach((ctrl) => ctrl.close());
+    });
+  });
+
   /* Cart trigger: enhance the header /cart link into a drawer opener. */
   document.querySelectorAll('[data-cart-trigger]').forEach((trigger) => {
     if (!controllers.CartDrawer) return;

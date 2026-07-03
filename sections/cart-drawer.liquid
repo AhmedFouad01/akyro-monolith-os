@@ -7,8 +7,6 @@
 {%- endcomment -%}
 
 {{ 'section-cart-drawer.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'monolith.js' | asset_url }}" defer></script>
-<script src="{{ 'drawer.js' | asset_url }}" defer></script>
 
 {%- capture drawer_title -%}
   {{- 'cart.title_count' | t: count: cart.item_count -}}
