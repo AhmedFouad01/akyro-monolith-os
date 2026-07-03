@@ -1,0 +1,180 @@
+{%- comment -%}
+  AKYRO — sections/content-blocks.liquid (M02-B)
+  Reusable block grid: text / media / proof entries with layout
+  variants (full, wide, half, third, square). Demo content is
+  editor-controlled; no fake data defaults.
+{%- endcomment -%}
+
+{{ 'section-pages.css' | asset_url | stylesheet_tag }}
+
+<section class="content-blocks section" data-section-id="{{ section.id }}">
+  <div class="frame">
+    {%- if section.settings.heading != blank or section.settings.eyebrow != blank -%}
+      <div class="content-blocks__head flow-tight">
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+        {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading }}</h2>{%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="grid-system">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign size = block.settings.size | default: 'third'
+          assign demo_asset = blank
+          case block.settings.demo_media
+            when 'fashion'
+              assign demo_asset = 'akyro-demo-fashion-index.png'
+            when 'objects'
+              assign demo_asset = 'akyro-demo-objects-index.png'
+            when 'scent'
+              assign demo_asset = 'akyro-demo-scent-index.png'
+            when 'tee_front'
+              assign demo_asset = 'akyro-demo-hero-tee.png'
+            when 'tee_back'
+              assign demo_asset = 'akyro-demo-tee-back.png'
+            when 'fabric'
+              assign demo_asset = 'akyro-demo-fabric-detail.png'
+            when 'construction'
+              assign demo_asset = 'akyro-demo-construction-detail.png'
+          endcase
+          if block.settings.image != blank
+            assign demo_asset = blank
+          endif
+        -%}
+
+        {%- case block.type -%}
+          {%- when 'text' -%}
+            <div class="block block--text block--{{ size }}" {{ block.shopify_attributes }}>
+              <div class="block__body">
+                {%- if block.settings.num != blank -%}<span class="block__num data-latin">{{ block.settings.num }}</span>{%- endif -%}
+                {%- if block.settings.label != blank -%}<span class="label">{{ block.settings.label }}</span>{%- endif -%}
+                {%- if block.settings.heading != blank -%}<h3>{{ block.settings.heading }}</h3>{%- endif -%}
+                {%- if block.settings.body != blank -%}<p>{{ block.settings.body }}</p>{%- endif -%}
+              </div>
+            </div>
+
+          {%- when 'media' -%}
+            <div class="block block--media block--{{ size }}" {{ block.shopify_attributes }}>
+              <div class="block__media">
+                {% render 'media',
+                  image: block.settings.image,
+                  asset: demo_asset,
+                  class: 'block__img',
+                  sizes: '(min-width: 990px) 50vw, 100vw',
+                  loading: 'lazy',
+                  alt: block.settings.media_alt
+                %}
+              </div>
+            </div>
+
+          {%- when 'proof' -%}
+            <div class="block block--proof block--{{ size }}" {{ block.shopify_attributes }}>
+              <div class="block__media">
+                {% render 'media',
+                  image: block.settings.image,
+                  asset: demo_asset,
+                  class: 'block__img',
+                  sizes: '(min-width: 990px) 33vw, 100vw',
+                  loading: 'lazy',
+                  alt: block.settings.media_alt
+                %}
+              </div>
+              <div class="block__body">
+                {%- if block.settings.num != blank -%}<span class="block__num data-latin">{{ block.settings.num }}</span>{%- endif -%}
+                {%- if block.settings.label != blank -%}<span class="label">{{ block.settings.label }}</span>{%- endif -%}
+                {%- if block.settings.body != blank -%}<p class="text-data">{{ block.settings.body }}</p>{%- endif -%}
+              </div>
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Content blocks",
+  "settings": [
+    {"type": "text", "id": "eyebrow", "label": "Eyebrow"},
+    {"type": "text", "id": "heading", "label": "Heading"}
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text block",
+      "settings": [
+        {"type": "select", "id": "size", "label": "Size", "default": "half",
+         "options": [
+           {"value": "full", "label": "Full"},
+           {"value": "wide", "label": "Wide"},
+           {"value": "half", "label": "Half"},
+           {"value": "third", "label": "Third"},
+           {"value": "square", "label": "Square"}
+         ]},
+        {"type": "text", "id": "num", "label": "Number (Latin digits)"},
+        {"type": "text", "id": "label", "label": "Label"},
+        {"type": "text", "id": "heading", "label": "Heading"},
+        {"type": "textarea", "id": "body", "label": "Body"}
+      ]
+    },
+    {
+      "type": "media",
+      "name": "Media block",
+      "settings": [
+        {"type": "select", "id": "size", "label": "Size", "default": "half",
+         "options": [
+           {"value": "full", "label": "Full"},
+           {"value": "wide", "label": "Wide"},
+           {"value": "half", "label": "Half"},
+           {"value": "third", "label": "Third"},
+           {"value": "square", "label": "Square"}
+         ]},
+        {"type": "image_picker", "id": "image", "label": "Image"},
+        {"type": "select", "id": "demo_media", "label": "Demo media asset", "default": "none",
+         "options": [
+           {"value": "none", "label": "None"},
+           {"value": "fashion", "label": "Demo — fashion"},
+           {"value": "objects", "label": "Demo — objects"},
+           {"value": "scent", "label": "Demo — scent"},
+           {"value": "tee_front", "label": "Demo — tee front"},
+           {"value": "tee_back", "label": "Demo — tee back"},
+           {"value": "fabric", "label": "Demo — fabric detail"},
+           {"value": "construction", "label": "Demo — construction detail"}
+         ]},
+        {"type": "text", "id": "media_alt", "label": "Alt text", "default": "AKYRO demo image"}
+      ]
+    },
+    {
+      "type": "proof",
+      "name": "Proof block",
+      "settings": [
+        {"type": "select", "id": "size", "label": "Size", "default": "third",
+         "options": [
+           {"value": "full", "label": "Full"},
+           {"value": "wide", "label": "Wide"},
+           {"value": "half", "label": "Half"},
+           {"value": "third", "label": "Third"},
+           {"value": "square", "label": "Square"}
+         ]},
+        {"type": "text", "id": "num", "label": "Number (Latin digits)"},
+        {"type": "text", "id": "label", "label": "Label"},
+        {"type": "textarea", "id": "body", "label": "Line"},
+        {"type": "image_picker", "id": "image", "label": "Image"},
+        {"type": "select", "id": "demo_media", "label": "Demo media asset", "default": "none",
+         "options": [
+           {"value": "none", "label": "None"},
+           {"value": "fashion", "label": "Demo — fashion"},
+           {"value": "objects", "label": "Demo — objects"},
+           {"value": "scent", "label": "Demo — scent"},
+           {"value": "tee_front", "label": "Demo — tee front"},
+           {"value": "tee_back", "label": "Demo — tee back"},
+           {"value": "fabric", "label": "Demo — fabric detail"},
+           {"value": "construction", "label": "Demo — construction detail"}
+         ]},
+        {"type": "text", "id": "media_alt", "label": "Alt text", "default": "AKYRO demo image"}
+      ]
+    }
+  ],
+  "presets": [{"name": "Content blocks"}]
+}
+{% endschema %}

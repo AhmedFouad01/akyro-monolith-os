@@ -1,0 +1,124 @@
+{%- comment -%}
+  AKYRO — sections/main-product.liquid (M02-B basic Product File)
+  Media · title · SKU · price · status · variant select · add to cart.
+  Proof lines render ONLY from akyro.spec metafield; otherwise a
+  controlled "approved data pending" state. No fake specs/POM/batch.
+{%- endcomment -%}
+
+{{ 'section-pages.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign current = product.selected_or_first_available_variant
+  assign spec = product.metafields.akyro.spec.value
+-%}
+
+<div class="section frame main-product">
+  <div class="grid grid--split">
+
+    <div class="main-product__media flow">
+      {% render 'media',
+        image: product.featured_image,
+        class: 'main-product__img',
+        sizes: '(min-width: 990px) 60vw, 100vw',
+        loading: 'eager',
+        alt: product.title
+      %}
+      {%- for image in product.images offset: 1 limit: 4 -%}
+        {% render 'media',
+          image: image,
+          class: 'main-product__img',
+          sizes: '(min-width: 990px) 60vw, 100vw',
+          loading: 'lazy',
+          alt: product.title
+        %}
+      {%- endfor -%}
+    </div>
+
+    <div class="main-product__info sticky-inline flow">
+      {%- if current.sku != blank -%}
+        <span class="text-data data-latin">{{ current.sku }}</span>
+      {%- endif -%}
+      {% render 'badge-status', product: product %}
+      <h1>{{ product.title }}</h1>
+      {% render 'price', product: product %}
+      {% render 'red-dash' %}
+
+      {%- comment -%} Quick spec — guarded: renders only real metafield values {%- endcomment -%}
+      {%- if spec -%}
+        <p class="text-data main-product__quickspec">
+          {%- if spec.gsm -%}<span class="data-latin">{{ spec.gsm }} GSM</span>{%- endif -%}
+          {%- if spec.fabric -%}{% if spec.gsm %} · {% endif %}{{ spec.fabric }}{%- endif -%}
+          {%- if spec.wash -%} · {{ spec.wash }}{%- endif -%}
+        </p>
+      {%- else -%}
+        <p class="text-data">{{ 'products.data_pending' | t }}</p>
+      {%- endif -%}
+
+      {%- form 'product', product, class: 'main-product__form flow' -%}
+        {%- unless product.has_only_default_variant -%}
+          <div class="field">
+            <label class="field__label" for="Variant-{{ section.id }}">{{ 'products.variant' | t }}</label>
+            <select id="Variant-{{ section.id }}" name="id" class="field__input">
+              {%- for variant in product.variants -%}
+                <option
+                  value="{{ variant.id }}"
+                  {% if variant == current %}selected{% endif %}
+                  {% unless variant.available %}disabled{% endunless %}
+                >
+                  {{ variant.title }}{% unless variant.available %} — {{ 'products.sold_out' | t }}{% endunless %}
+                </option>
+              {%- endfor -%}
+            </select>
+          </div>
+        {%- else -%}
+          <input type="hidden" name="id" value="{{ current.id }}">
+        {%- endunless -%}
+
+        <button
+          type="submit"
+          name="add"
+          class="btn btn--primary btn--full"
+          {% unless product.available %}disabled{% endunless %}
+        >
+          {%- if product.available -%}
+            {{ 'products.add_to_cart' | t }}
+          {%- else -%}
+            {{ 'products.sold_out' | t }}
+          {%- endif -%}
+        </button>
+      {%- endform -%}
+
+      {%- if section.settings.shipping_note != blank -%}
+        <p class="text-data">{{ section.settings.shipping_note }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- comment -%} Proof rows — metafield-guarded; absent data = absent row {%- endcomment -%}
+  {%- if spec.fit or spec.fabric or spec.construction -%}
+    <div class="main-product__proof line-block">
+      <table class="table">
+        <tbody>
+          {%- if spec.fit -%}
+            <tr><th scope="row">{{ 'products.proof_fit' | t }}</th><td class="cell-value">{{ spec.fit }}</td></tr>
+          {%- endif -%}
+          {%- if spec.fabric -%}
+            <tr><th scope="row">{{ 'products.proof_fabric' | t }}</th><td class="cell-value">{{ spec.fabric }}</td></tr>
+          {%- endif -%}
+          {%- if spec.construction -%}
+            <tr><th scope="row">{{ 'products.proof_construction' | t }}</th><td class="cell-value">{{ spec.construction }}</td></tr>
+          {%- endif -%}
+        </tbody>
+      </table>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Product file",
+  "settings": [
+    {"type": "text", "id": "shipping_note", "label": "Shipping line"}
+  ]
+}
+{% endschema %}

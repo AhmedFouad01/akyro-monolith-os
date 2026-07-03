@@ -1,0 +1,56 @@
+{%- comment -%}
+  AKYRO — sections/main-search.liquid (M02-B)
+  Search field + product results or controlled empty state.
+{%- endcomment -%}
+
+{{ 'section-pages.css' | asset_url | stylesheet_tag }}
+
+<div class="section frame main-search">
+  <h1>{{ 'search.title' | t }}</h1>
+
+  <form action="{{ routes.search_url }}" method="get" role="search" class="main-search__form">
+    <label class="visually-hidden" for="SearchInput">{{ 'search.placeholder' | t }}</label>
+    <input
+      id="SearchInput"
+      class="field__input"
+      type="search"
+      name="q"
+      value="{{ search.terms | escape }}"
+      placeholder="{{ 'search.placeholder' | t }}"
+    >
+    <input type="hidden" name="type" value="product">
+    <button type="submit" class="btn">{{ 'search.submit' | t }}</button>
+  </form>
+
+  {%- if search.performed -%}
+    {%- paginate search.results by 12 -%}
+      {%- if search.results_count > 0 -%}
+        <p class="text-data main-search__count">{{ 'search.results_count' | t: count: search.results_count }}</p>
+        <div class="grid grid--4">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}
+              {% render 'product-card', product: item %}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        {%- if paginate.pages > 1 -%}
+          <nav class="main-collection__pagination">
+            {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" class="btn btn--quiet">{{ 'general.pagination.previous' | t }}</a>{%- endif -%}
+            {%- if paginate.next -%}<a href="{{ paginate.next.url }}" class="btn">{{ 'general.pagination.next' | t }}</a>{%- endif -%}
+          </nav>
+        {%- endif -%}
+      {%- else -%}
+        <div class="empty-state flow">
+          <p>{{ 'search.empty' | t }}</p>
+        </div>
+      {%- endif -%}
+    {%- endpaginate -%}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Search",
+  "settings": []
+}
+{% endschema %}

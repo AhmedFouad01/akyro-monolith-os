@@ -1,0 +1,56 @@
+{%- comment -%}
+  AKYRO — sections/main-collection.liquid (M02-B)
+  Collection grid or controlled empty state. No fake products.
+{%- endcomment -%}
+
+{{ 'section-pages.css' | asset_url | stylesheet_tag }}
+
+<div class="section frame main-collection">
+  <header class="main-collection__head flow-tight line-block">
+    <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+    <h1>{{ collection.title }}</h1>
+    {%- if section.settings.intro != blank -%}
+      <p class="main-collection__intro">{{ section.settings.intro }}</p>
+    {%- elsif collection.description != blank -%}
+      <div class="main-collection__intro">{{ collection.description }}</div>
+    {%- endif -%}
+    <p class="text-data">
+      {{ 'collections.count' | t: count: collection.products_count }}
+    </p>
+  </header>
+
+  {%- paginate collection.products by 12 -%}
+    {%- if collection.products_count > 0 -%}
+      <div class="grid grid--4 main-collection__grid">
+        {%- for product in collection.products -%}
+          {% render 'product-card', product: product %}
+        {%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}
+        <nav class="main-collection__pagination" aria-label="{{ 'general.pagination.page' | t: page: paginate.current_page }}">
+          {%- if paginate.previous -%}
+            <a href="{{ paginate.previous.url }}" class="btn btn--quiet">{{ 'general.pagination.previous' | t }}</a>
+          {%- endif -%}
+          {%- if paginate.next -%}
+            <a href="{{ paginate.next.url }}" class="btn">{{ 'general.pagination.next' | t }}</a>
+          {%- endif -%}
+        </nav>
+      {%- endif -%}
+    {%- else -%}
+      <div class="empty-state flow">
+        <p>{{ 'collections.empty' | t }}</p>
+        <a href="{{ routes.root_url }}" class="btn">{{ 'general.back_home' | t }}</a>
+      </div>
+    {%- endif -%}
+  {%- endpaginate -%}
+</div>
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    {"type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "CATALOG"},
+    {"type": "textarea", "id": "intro", "label": "Intro override"}
+  ]
+}
+{% endschema %}

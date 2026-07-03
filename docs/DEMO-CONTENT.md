@@ -39,3 +39,6 @@ In Shopify Theme Editor:
 
 Do not treat generated logo renderings inside demo media as locked logo exports.
 Locked brand assets remain the official wordmark, iconic A, and red dash files.
+
+## M02-B demo pages
+System / Process / Archive / Access / Contact templates ship with "Demo content — replace before launch" copy only. Archive states "No archived releases yet." — no fake drops, dates, batches, or measurements anywhere.

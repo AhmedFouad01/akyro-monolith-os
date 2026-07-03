@@ -260,3 +260,145 @@
   border: none;
   border-block-start: var(--border);
 }
+
+/* ============================================================
+   M02-B DESIGN SYSTEM ADDITIONS
+   ============================================================ */
+
+/* ---- Typography utilities ---- */
+
+.eyebrow {
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-muted);
+}
+
+:lang(en) .eyebrow { text-transform: uppercase; }
+
+.h1 { font-family: var(--font-display-active); font-weight: 700; line-height: var(--leading-display); font-size: var(--text-h1); text-wrap: balance; }
+.h2 { font-family: var(--font-display-active); font-weight: 700; line-height: var(--leading-display); font-size: var(--text-h2); text-wrap: balance; }
+.h3 { font-family: var(--font-display-active); font-weight: 700; line-height: var(--leading-display); font-size: var(--text-h3); text-wrap: balance; }
+
+/* ---- Button variants ---- */
+
+.btn--secondary {
+  border-color: var(--text-muted);
+  color: var(--text);
+}
+
+.btn--quiet {
+  border-color: transparent;
+  color: var(--text-muted);
+}
+
+.btn--quiet:hover { color: var(--text); opacity: 1; }
+
+.btn--text {
+  border: none;
+  padding-inline: 0;
+  min-height: var(--tap-min);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.btn--full { display: flex; inline-size: 100%; }
+
+/* ---- Field states ---- */
+
+.field__success {
+  font-size: var(--text-data);
+  color: var(--text);
+  text-align: start;
+}
+
+/* ---- Price ---- */
+
+.price {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-1);
+}
+
+.price__was {
+  color: var(--text-muted);
+  font-size: var(--text-data);
+}
+
+/* ---- Product card ---- */
+
+.product-card {
+  display: grid;
+  gap: var(--space-1);
+  color: var(--text);
+}
+
+.product-card__media {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-raised);
+  aspect-ratio: 4 / 5;
+}
+
+.product-card__media .media-shell__img,
+.product-card__media img {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.product-card__title {
+  font-family: var(--font-display-active);
+  font-weight: 700;
+}
+
+.product-card__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-1);
+}
+
+/* ---- Blocks ---- */
+
+.block {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  border: var(--border);
+  background: var(--surface);
+}
+
+.block__media {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-raised);
+  aspect-ratio: 16 / 10;
+}
+
+.block__media .media-shell__img,
+.block__media img {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.block__body {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  align-content: start;
+}
+
+.block__body p { color: var(--text-muted); }
+
+.block--text { grid-template-rows: 1fr; }
+.block--media { grid-template-rows: 1fr; }
+.block--media .block__media { aspect-ratio: auto; min-block-size: 240px; block-size: 100%; }
+.block--square .block__media { aspect-ratio: 1 / 1; }
+.block--proof .block__media { aspect-ratio: 4 / 5; }
+
+.block__num { color: var(--accent); font-size: var(--text-label); font-weight: 600; }

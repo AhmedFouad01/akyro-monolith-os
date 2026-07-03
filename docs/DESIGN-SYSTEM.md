@@ -1,0 +1,25 @@
+# AKYRO MONOLITH OS — Design System (M02-B)
+
+Token-only styling. No raw hex outside `assets/tokens.css`. Logical properties only; physical exceptions live paired in `assets/direction.css`.
+
+## Theme modes
+- `settings.theme_mode` → body `theme-mode-dark` (default) / `theme-mode-light`.
+- Light = off-white/concrete overrides in tokens.css (`.theme-mode-light`). Red functional-only in both. Hairlines adapt via `--line`.
+
+## Typography
+`.eyebrow` `.label` `.text-data` `.data-latin` (bidi-safe Latin) · `h1-h3` + `.h1/.h2/.h3` aliases · Arabic via `:lang(ar)`: raised leading, zero tracking, Alexandria/Cairo stacks. TODO: self-host licensed woff2.
+
+## Buttons
+`.btn` + `--primary` `--secondary` `--quiet` `--text` `--full` (`--block` legacy alias) · `--critical` = only red button. Disabled + focus-visible built in.
+
+## Forms
+`.field` `.field__label` `.field__input` `.field__error` `.field__success`. Access form pattern shared by footer signup / access-list section.
+
+## Blocks
+`.block` + size: `--full --wide --half --third --square` · type: `--text --media --proof` · parts: `.block__media .block__body .block__num` (red functional number).
+
+## Grids
+`.grid-system` (6-col desktop, spans per size) · `.grid-system--2/--3` · legacy `.grid --2/--3/--4/--split/--proof`. No masonry.
+
+## Frames
+`.frame` `.frame--full` `.section` `--flush --strip` `.line-block` — spacing from `--unit` scale only.

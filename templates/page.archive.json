@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "eyebrow": "ARCHIVE",
+        "heading": "Past releases.",
+        "body": "No archived releases yet. Closed batches will be recorded here."
+      }
+    }
+  },
+  "order": ["hero"]
+}

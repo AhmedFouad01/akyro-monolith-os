@@ -1,0 +1,26 @@
+{%- comment -%}
+  AKYRO — snippets/product-card.liquid (M02-B)
+  Image · title · style no (SKU) · price · status badge.
+  No quick-add — the Product File is the point of sale.
+  Params: product
+{%- endcomment -%}
+<a href="{{ product.url }}" class="product-card">
+  <span class="product-card__media">
+    {% render 'media',
+      image: product.featured_image,
+      class: 'product-card__img',
+      sizes: '(min-width: 990px) 25vw, 50vw',
+      loading: 'lazy',
+      alt: product.title
+    %}
+  </span>
+  <span class="product-card__title">{{ product.title }}</span>
+  {%- assign sku = product.selected_or_first_available_variant.sku -%}
+  {%- if sku != blank -%}
+    <span class="text-data data-latin">{{ sku }}</span>
+  {%- endif -%}
+  <span class="product-card__row">
+    {% render 'price', product: product %}
+    {% render 'badge-status', product: product %}
+  </span>
+</a>

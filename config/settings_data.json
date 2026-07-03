@@ -9,7 +9,8 @@
     "enable_footer_access": true,
     "enable_footer_locale_switcher": false,
     "enable_restricted_tagline": false,
-    "metafield_namespace": "akyro"
+    "metafield_namespace": "akyro",
+    "theme_mode": "dark"
   },
   "presets": {}
 }

@@ -1,0 +1,32 @@
+{%- comment -%}
+  AKYRO — sections/page-hero.liquid (M02-B)
+  Page opener: eyebrow · heading · line. Red dash = locked asset only.
+{%- endcomment -%}
+
+{{ 'section-pages.css' | asset_url | stylesheet_tag }}
+
+<section class="page-hero section line-block">
+  <div class="frame flow">
+    {%- if section.settings.show_dash -%}{% render 'red-dash' %}{%- endif -%}
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+    <h1>{{ section.settings.heading | default: page.title }}</h1>
+    {%- if section.settings.body != blank -%}
+      <p class="page-hero__body">{{ section.settings.body }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Page hero",
+  "settings": [
+    {"type": "text", "id": "eyebrow", "label": "Eyebrow"},
+    {"type": "text", "id": "heading", "label": "Heading (blank = page title)"},
+    {"type": "textarea", "id": "body", "label": "Intro line"},
+    {"type": "checkbox", "id": "show_dash", "label": "Show red dash (locked asset)", "default": false}
+  ],
+  "presets": [{"name": "Page hero"}]
+}
+{% endschema %}

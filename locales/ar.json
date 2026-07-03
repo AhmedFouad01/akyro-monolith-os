@@ -10,9 +10,12 @@
   },
   "general": {
     "pagination": {
-      "page": "صفحة {{ page }}"
+      "page": "صفحة {{ page }}",
+      "previous": "السابق",
+      "next": "التالي"
     },
-    "built_to_last": "BUILT TO LAST"
+    "built_to_last": "BUILT TO LAST",
+    "back_home": "العودة إلى الرئيسية"
   },
   "badges": {
     "live": "متاح",
@@ -146,5 +149,34 @@
     "footer_group": {
       "name": "الفوتر"
     }
+  },
+  "collections": {
+    "count": "{{ count }} منتجات",
+    "empty": "لا توجد منتجات في هذا القسم بعد."
+  },
+  "products": {
+    "add_to_cart": "أضف إلى السلة",
+    "sold_out": "نفدت الكمية",
+    "variant": "الخيار",
+    "data_pending": "ملف المنتج بانتظار البيانات المعتمدة.",
+    "price_regular": "السعر الأساسي",
+    "price_sale": "سعر التخفيض",
+    "proof_fit": "القَصّة",
+    "proof_fabric": "الخامة",
+    "proof_construction": "البِنية"
+  },
+  "search": {
+    "title": "بحث",
+    "placeholder": "ابحث عن المنتجات",
+    "submit": "بحث",
+    "results_count": "{{ count }} نتيجة",
+    "empty": "لا توجد نتائج. جرّب كلمة أخرى."
+  },
+  "contact": {
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "message": "الرسالة",
+    "send": "إرسال",
+    "success": "تم إرسال الرسالة. سيرد الاستوديو عبر البريد الإلكتروني."
   }
 }

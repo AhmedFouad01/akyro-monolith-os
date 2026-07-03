@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "eyebrow": "THE SYSTEM",
+        "heading": "A product-led system.",
+        "body": "Demo content — replace before launch. AKYRO is built around material, fit and construction, released through controlled drops."
+      }
+    },
+    "blocks": {
+      "type": "content-blocks",
+      "blocks": {
+        "b1": { "type": "text", "settings": { "size": "half", "num": "01", "label": "PRODUCT PROOF", "heading": "Proof before story.", "body": "Demo content — replace before launch. Every release starts from verifiable product decisions." } },
+        "b2": { "type": "text", "settings": { "size": "half", "num": "02", "label": "CONTROLLED DROPS", "heading": "Batches, not catalogs.", "body": "Demo content — replace before launch. Releases move in controlled batches with real inventory states." } },
+        "b3": { "type": "media", "settings": { "size": "wide", "demo_media": "objects", "media_alt": "AKYRO demo objects image" } },
+        "b4": { "type": "text", "settings": { "size": "third", "num": "03", "label": "ONE SYSTEM", "body": "Demo content — replace before launch. Fashion, objects and scent share one material discipline." } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"],
+      "settings": {}
+    }
+  },
+  "order": ["hero", "blocks"]
+}

@@ -41,10 +41,11 @@
      decision: Alexandria / Cairo / IBM Plex Sans Arabic / Noto Kufi Arabic.
      Family names below are the theme-internal names bound in base.css
      @font-face; swapping the licensed files requires no token change. */
-  --font-display:    'AKYRO Display', Arial, sans-serif;
-  --font-body:       'AKYRO Body', Arial, sans-serif;
-  --font-display-ar: 'AKYRO Display AR', 'AKYRO Display', sans-serif;
-  --font-body-ar:    'AKYRO Body AR', 'AKYRO Body', sans-serif;
+  /* TODO (R2): self-host licensed woff2 later; stacks only, no bundled files. */
+  --font-display:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  --font-body:       'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  --font-display-ar: 'Alexandria', 'Cairo', 'Segoe UI', Tahoma, sans-serif;
+  --font-body-ar:    'Cairo', 'Alexandria', 'Segoe UI', Tahoma, sans-serif;
 
   /* Active family — resolved per language in base.css :lang(ar) */
   --font-display-active: var(--font-display);
@@ -92,4 +93,18 @@
   :root {
     --gutter: var(--space-4);
   }
+}
+
+/* ---- THEME MODE — LIGHT (off-white / concrete system) ----
+   Switched via settings.theme_mode → body.theme-mode-light.
+   Red stays functional-only in both modes. Hairlines adapt. */
+
+.theme-mode-light {
+  --surface:        var(--akyro-white);
+  --surface-raised: #E7E6E3;               /* concrete */
+  --text:           var(--akyro-black);
+  --text-muted:     #5A5A5E;
+  --line:           rgba(10, 10, 10, 0.16);
+  --overlay:        rgba(10, 10, 10, 0.35);
+  --focus-ring:     2px solid var(--akyro-black);
 }

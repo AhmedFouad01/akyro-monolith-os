@@ -10,9 +10,12 @@
   },
   "general": {
     "pagination": {
-      "page": "Page {{ page }}"
+      "page": "Page {{ page }}",
+      "previous": "Previous",
+      "next": "Next"
     },
-    "built_to_last": "BUILT TO LAST"
+    "built_to_last": "BUILT TO LAST",
+    "back_home": "Back to home"
   },
   "badges": {
     "live": "Live",
@@ -146,5 +149,34 @@
     "footer_group": {
       "name": "Footer"
     }
+  },
+  "collections": {
+    "count": "{{ count }} products",
+    "empty": "No products in this stream yet."
+  },
+  "products": {
+    "add_to_cart": "Add to cart",
+    "sold_out": "Sold out",
+    "variant": "Variant",
+    "data_pending": "Product file pending approved input.",
+    "price_regular": "Regular price",
+    "price_sale": "Sale price",
+    "proof_fit": "Fit",
+    "proof_fabric": "Fabric",
+    "proof_construction": "Construction"
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search products",
+    "submit": "Search",
+    "results_count": "{{ count }} results",
+    "empty": "No results. Try a different term."
+  },
+  "contact": {
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send",
+    "success": "Message sent. The studio will reply by email."
   }
 }

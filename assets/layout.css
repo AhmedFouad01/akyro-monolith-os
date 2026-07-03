@@ -117,3 +117,35 @@
 .flow-tight > * + * {
   margin-block-start: var(--space-1);
 }
+
+/* ============================================================
+   M02-B GRID SYSTEM — block layout variants
+   Spans resolve mobile-first; direction mirrors via logical flow.
+   ============================================================ */
+
+.grid-system {
+  display: grid;
+  gap: var(--gutter);
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-system > .block { grid-column: span 2; } /* mobile: everything stacks full */
+
+@media (min-width: 750px) {
+  .grid-system { grid-template-columns: repeat(6, 1fr); }
+  .grid-system > .block--full  { grid-column: span 6; }
+  .grid-system > .block--wide  { grid-column: span 4; }
+  .grid-system > .block--half  { grid-column: span 3; }
+  .grid-system > .block--third,
+  .grid-system > .block--square { grid-column: span 2; }
+  .grid-system > .block--proof { grid-column: span 2; }
+}
+
+.grid-system--2 { grid-template-columns: repeat(2, 1fr); }
+.grid-system--3 { grid-template-columns: repeat(2, 1fr); }
+
+@media (min-width: 750px) {
+  .grid-system--3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-system--3 > .block,
+  .grid-system--2 > .block { grid-column: auto; }
+}

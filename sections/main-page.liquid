@@ -1,0 +1,20 @@
+{%- comment -%}
+  AKYRO — sections/main-page.liquid (M02-B)
+  Default page body: title + merchant content, constrained.
+{%- endcomment -%}
+
+{{ 'section-pages.css' | asset_url | stylesheet_tag }}
+
+<div class="section frame main-page-body">
+  <h1>{{ page.title }}</h1>
+  <div class="main-page-body__content flow">
+    {{ page.content }}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page content",
+  "settings": []
+}
+{% endschema %}

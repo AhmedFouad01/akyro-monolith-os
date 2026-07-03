@@ -37,3 +37,10 @@ Check all visible surfaces in:
 - Negative space.
 - Mobile tap targets.
 - Footer access not duplicated on homepage.
+
+## M02-B additions (verify in all 4 locale/direction states × dark + light)
+- Theme mode switch: no raw hex leaks, hairlines visible in both modes
+- Collection grid + empty state; product file: buy flow, pending-data state, guarded proof rows
+- Search results + empty; contact form success/error
+- Blocks grid spans at 750px+; mobile stacks full-width
+- Arabic: no letter-spacing, raised leading, Latin SKU/GSM bidi-isolated

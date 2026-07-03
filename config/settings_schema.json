@@ -76,6 +76,40 @@
     ]
   },
   {
+    "name": "Theme mode",
+    "settings": [
+      {
+        "type": "select",
+        "id": "theme_mode",
+        "label": "Mode",
+        "default": "dark",
+        "options": [
+          {
+            "value": "dark",
+            "label": "Dark — MONOLITH OS"
+          },
+          {
+            "value": "light",
+            "label": "Light — concrete"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": "Both modes support EN LTR and AR RTL. Signal red stays functional only."
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Font stacks only — no bundled files. TODO: self-host licensed woff2 (EN: Inter; AR: Alexandria headings / Cairo body) and update base.css @font-face."
+      }
+    ]
+  },
+  {
     "name": "Header",
     "settings": [
       {
