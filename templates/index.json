@@ -2,7 +2,13 @@
   "sections": {
     "hero_monolith": {
       "type": "hero-monolith",
-      "settings": {}
+      "settings": {
+        "demo_media": "tee_front",
+        "media_alt": "AKYRO demo black oversized tee image",
+        "eyebrow": "PRODUCT-LED SYSTEM",
+        "heading": "Designed from product proof, not decoration.",
+        "body": "AKYRO releases are built around fit, material, construction and controlled drop logic. The first product file appears when approved data lands."
+      }
     },
     "drop_status": {
       "type": "drop-status",
@@ -15,21 +21,27 @@
           "type": "proof",
           "settings": {
             "label": "FIT",
-            "line": "Approved fit notes land here after sample review."
+            "line": "Demo fit image. Replace with approved fit proof before launch.",
+            "demo_media": "tee_back",
+            "media_alt": "AKYRO demo oversized tee fit image"
           }
         },
         "proof_fabric": {
           "type": "proof",
           "settings": {
             "label": "FABRIC",
-            "line": "Material details render only from approved product decisions."
+            "line": "Demo material detail. Replace with approved fabric proof before launch.",
+            "demo_media": "fabric",
+            "media_alt": "AKYRO demo fabric and label detail"
           }
         },
         "proof_construction": {
           "type": "proof",
           "settings": {
             "label": "CONSTRUCTION",
-            "line": "Construction language stays tied to real product files."
+            "line": "Demo construction detail. Replace with approved construction proof before launch.",
+            "demo_media": "construction",
+            "media_alt": "AKYRO demo garment construction detail"
           }
         }
       },
@@ -47,21 +59,27 @@
           "type": "entry",
           "settings": {
             "label": "FASHION",
-            "line": "Garments built through fit and construction."
+            "line": "Garments built through fit and construction.",
+            "demo_media": "fashion",
+            "media_alt": "AKYRO demo fashion stream image"
           }
         },
         "objects": {
           "type": "entry",
           "settings": {
             "label": "OBJECTS",
-            "line": "Objects treated with the same material discipline."
+            "line": "Objects treated with the same material discipline.",
+            "demo_media": "objects",
+            "media_alt": "AKYRO demo objects stream image"
           }
         },
         "scent": {
           "type": "entry",
           "settings": {
             "label": "SCENT",
-            "line": "Scent as another controlled product stream."
+            "line": "Scent as another controlled product stream.",
+            "demo_media": "scent",
+            "media_alt": "AKYRO demo scent stream image"
           }
         }
       },
