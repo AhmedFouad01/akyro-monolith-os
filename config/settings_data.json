@@ -10,7 +10,8 @@
     "enable_footer_locale_switcher": false,
     "enable_restricted_tagline": false,
     "metafield_namespace": "akyro",
-    "theme_mode": "dark"
+    "theme_mode": "dark",
+    "logo_wordmark_width": 146
   },
   "presets": {}
 }

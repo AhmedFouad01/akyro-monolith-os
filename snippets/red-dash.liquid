@@ -1,12 +1,16 @@
 {%- comment -%}
-  AKYRO — snippets/red-dash.liquid (M01-D)
-  Functional red dash only. Uses locked red-dash asset when provided;
-  CSS fallback is a system dash, not a logo recreation.
+  AKYRO — snippets/red-dash.liquid (M02-C)
+  Distinction (locked):
+  - AKYRO red dash ASSET = settings.logo_red_dash upload only. Never
+    redrawn, recolored, stretched, or mirrored.
+  - UI functional red micro-line = CSS token fallback below. It is a
+    system accent, NOT a logo recreation, and renders only while the
+    locked asset is absent.
 {%- endcomment -%}
 
-{%- if settings.red_dash != blank -%}
+{%- if settings.logo_red_dash != blank -%}
   <img
-    src="{{ settings.red_dash | image_url: width: 64 }}"
+    src="{{ settings.logo_red_dash | image_url: width: 64 }}"
     alt=""
     class="red-dash red-dash--asset"
     width="32"

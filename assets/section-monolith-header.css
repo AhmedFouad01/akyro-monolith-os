@@ -25,22 +25,6 @@
   align-items: center;
 }
 
-.logo-wordmark {
-  display: inline-flex;
-  align-items: center;
-}
-
-.logo-wordmark__img {
-  block-size: 18px;
-  inline-size: auto;
-}
-
-.logo-wordmark--text {
-  font-family: var(--font-display-active);
-  font-weight: 700;
-  font-size: var(--text-h3);
-}
-
 /* Nav — desktop only */
 .monolith-header__nav {
   display: none;

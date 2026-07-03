@@ -12,7 +12,7 @@
     "settings": [
       {
         "type": "paragraph",
-        "content": "AKYRO logo assets are locked production exports. Do not upload alternate, recolored, stretched, or reinterpreted AKYRO marks."
+        "content": "Use locked AKYRO production exports only. Do not upload alternate, recolored, stretched, or reinterpreted marks."
       },
       {
         "type": "image_picker",
@@ -33,6 +33,16 @@
         "type": "image_picker",
         "id": "favicon",
         "label": "Favicon"
+      },
+      {
+        "type": "range",
+        "id": "logo_wordmark_width",
+        "label": "Wordmark width",
+        "min": 100,
+        "max": 220,
+        "step": 2,
+        "unit": "px",
+        "default": 146
       }
     ]
   },

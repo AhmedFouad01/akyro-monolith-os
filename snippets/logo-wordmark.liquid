@@ -1,23 +1,29 @@
 {%- comment -%}
-  AKYRO — snippets/logo-wordmark.liquid (M01-B)
-  Outputs the LOCKED wordmark uploaded in Theme settings → Brand Assets.
-  R1: no redrawn, recolored, stretched, or reinterpreted fallback —
-  if unset, plain shop name in body type until the locked asset lands.
-  The wordmark never mirrors in RTL.
+  AKYRO — snippets/logo-wordmark.liquid (M02-C)
+  LOCKED wordmark from Theme settings → Brand assets. Never redrawn,
+  recolored (no CSS filters), stretched, or mirrored in RTL.
+  Fallback: shop name in display type until the locked asset lands.
+  Width via settings.logo_wordmark_width; height resolves by ratio
+  (object-fit: contain) — uploaded file is never distorted.
 {%- endcomment -%}
 
+{%- liquid
+  assign w = settings.logo_wordmark_width | default: 146
+  assign w2x = w | times: 2
+-%}
+
 {%- if settings.logo_wordmark != blank -%}
-  <a href="{{ routes.root_url }}" class="logo-wordmark" aria-label="{{ shop.name | escape }}">
+  <a href="{{ routes.root_url }}" class="logo-wordmark" aria-label="{{ shop.name | escape }}" data-home-link>
     <img
-      src="{{ settings.logo_wordmark | image_url: width: 292 }}"
+      src="{{ settings.logo_wordmark | image_url: width: w2x }}"
       alt="{{ shop.name | escape }}"
       class="logo-wordmark__img"
-      width="146"
+      style="--logo-w: {{ w }}px"
+      width="{{ w }}"
       height="24"
       loading="eager"
     >
   </a>
 {%- else -%}
-  {%- comment -%} R1 blocker: upload akyro-wordmark.svg in theme settings. {%- endcomment -%}
-  <a href="{{ routes.root_url }}" class="logo-wordmark logo-wordmark--text">{{ shop.name }}</a>
+  <a href="{{ routes.root_url }}" class="logo-wordmark logo-wordmark--text" data-home-link>{{ shop.name }}</a>
 {%- endif -%}

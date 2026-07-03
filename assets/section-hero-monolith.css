@@ -23,18 +23,6 @@
   color: var(--text-muted);
 }
 
-.red-dash {
-  display: inline-block;
-  inline-size: var(--space-3);
-  block-size: 3px;
-  background: var(--accent);
-}
-
-.red-dash--asset {
-  background: transparent;
-  object-fit: contain;
-}
-
 .hero-monolith__title {
   font-size: var(--text-h1);
   max-inline-size: 12ch;

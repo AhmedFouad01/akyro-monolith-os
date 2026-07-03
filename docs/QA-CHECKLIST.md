@@ -44,3 +44,12 @@ Check all visible surfaces in:
 - Search results + empty; contact form success/error
 - Blocks grid spans at 750px+; mobile stacks full-width
 - Arabic: no letter-spacing, raised leading, Latin SKU/GSM bidi-isolated
+
+## M02-C additions
+
+- Upload locked wordmark, iconic A, red dash, and favicon in Theme settings.
+- Verify header wordmark binding in dark and light mode.
+- Verify drawer/404 iconic A binding without logo overload.
+- Verify red dash binding and UI red accent distinction.
+- Verify no logo mirroring in Arabic RTL.
+- Verify no CSS filters or stretching on uploaded marks.

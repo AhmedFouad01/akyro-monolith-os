@@ -402,3 +402,57 @@
 .block--proof .block__media { aspect-ratio: 4 / 5; }
 
 .block__num { color: var(--accent); font-size: var(--text-label); font-weight: 600; }
+
+/* ============================================================
+   M02-C LOCKED BRAND ASSETS — shared bindings
+   Uploaded marks are never recolored (no filters), never stretched
+   (contain), never mirrored (no transform in any [dir]).
+   ============================================================ */
+
+.logo-wordmark {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--tap-min);
+}
+
+.logo-wordmark__img {
+  inline-size: var(--logo-w, 146px);
+  block-size: auto;
+  max-block-size: 28px;
+  object-fit: contain;
+}
+
+.logo-wordmark--text {
+  font-family: var(--font-display-active);
+  font-weight: 700;
+  font-size: var(--text-h3);
+  color: var(--text);
+}
+
+.a-mark {
+  block-size: 16px;
+  inline-size: auto;
+  object-fit: contain;
+}
+
+.a-mark--text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-data);
+  line-height: 16px;
+  color: var(--text-muted);
+}
+
+/* UI functional red micro-line (system accent — not the logo asset) */
+.red-dash {
+  display: inline-block;
+  inline-size: var(--space-3);
+  block-size: 3px;
+  background: var(--accent);
+}
+
+/* Locked red dash asset (upload) — image only, no tinting */
+.red-dash--asset {
+  background: transparent;
+  object-fit: contain;
+}

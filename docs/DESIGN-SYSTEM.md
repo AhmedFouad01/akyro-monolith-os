@@ -23,3 +23,19 @@ Token-only styling. No raw hex outside `assets/tokens.css`. Logical properties o
 
 ## Frames
 `.frame` `.frame--full` `.section` `--flush --strip` `.line-block` — spacing from `--unit` scale only.
+
+## Locked brand assets (M02-C)
+
+Bindings:
+- `logo_wordmark`
+- `logo_wordmark_width`
+- `logo_a_mark`
+- `logo_red_dash`
+- `favicon`
+
+Rules:
+- Use locked production exports only.
+- No redraws, recolors, CSS filters, stretching, or mirroring.
+- Uploaded logos remain ratio-safe with `object-fit: contain`.
+- The iconic A remains a single controlled signature moment.
+- CSS red micro-lines are UI accents, not replacement logo assets.
