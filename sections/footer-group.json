@@ -1,6 +1,13 @@
 {
   "type": "footer",
-  "name": "t:sections.footer_group.name",
-  "sections": {},
-  "order": []
+  "name": "sections.footer_group.name",
+  "sections": {
+    "monolith_footer": {
+      "type": "monolith-footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "monolith_footer"
+  ]
 }
