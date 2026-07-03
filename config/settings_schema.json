@@ -4,7 +4,133 @@
     "theme_name": "AKYRO MONOLITH OS",
     "theme_version": "0.1.0",
     "theme_author": "AKYRO",
-    "theme_support_email": "support@akyro-studio.com",
-    "theme_documentation_url": "https://akyro-studio.com"
+    "theme_support_email": "support@akyro.studio",
+    "theme_documentation_url": "https://akyro.studio"
+  },
+  {
+    "name": "Brand assets — locked",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "AKYRO logo assets are locked production exports. Do not upload alternate, recolored, stretched, or reinterpreted AKYRO marks."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_wordmark",
+        "label": "Locked AKYRO wordmark"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_a_mark",
+        "label": "Locked iconic A mark"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_red_dash",
+        "label": "Locked red dash asset"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      }
+    ]
+  },
+  {
+    "name": "Palette — system",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Signal red is functional only. Do not use as a decorative background."
+      },
+      {
+        "type": "color",
+        "id": "akyro_black",
+        "label": "Black",
+        "default": "#0A0A0A"
+      },
+      {
+        "type": "color",
+        "id": "akyro_charcoal",
+        "label": "Charcoal",
+        "default": "#1A1A1C"
+      },
+      {
+        "type": "color",
+        "id": "akyro_warm_grey",
+        "label": "Warm grey",
+        "default": "#D9D9D9"
+      },
+      {
+        "type": "color",
+        "id": "akyro_white",
+        "label": "Off white",
+        "default": "#F2F2F2"
+      },
+      {
+        "type": "color",
+        "id": "akyro_red",
+        "label": "Signal red",
+        "default": "#E30613"
+      }
+    ]
+  },
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "main_menu",
+        "label": "Main menu"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_locale_switcher_header",
+        "label": "Show locale switcher in header",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_footer_access",
+        "label": "Show footer access form",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_footer_locale_switcher",
+        "label": "Show locale switcher in footer",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_restricted_tagline",
+        "label": "Show restricted tagline",
+        "default": false
+      },
+      {
+        "type": "paragraph",
+        "content": "Restricted AKYRO phrases must not be used casually. Keep this off unless approved."
+      }
+    ]
+  },
+  {
+    "name": "Product system",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Product proof blocks must render from approved inputs only. Do not invent measurements, validation results, stock claims, or batch data."
+      },
+      {
+        "type": "text",
+        "id": "metafield_namespace",
+        "label": "Product metafield namespace",
+        "default": "akyro"
+      }
+    ]
   }
 ]
