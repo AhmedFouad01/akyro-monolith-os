@@ -52,3 +52,22 @@
     border-inline-end: none;
   }
 }
+
+/* M02-A collection index media containment fix
+   Keeps demo media clipped inside the card image well.
+   Text remains in the separated body area, not over images. */
+.collection-index__media {
+  aspect-ratio: 16 / 9;
+  min-block-size: 180px;
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-raised);
+}
+
+.collection-index__media .media-shell__img {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
