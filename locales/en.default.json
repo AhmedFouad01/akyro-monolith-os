@@ -126,6 +126,19 @@
       "text": "Receive release notes only when a product file is ready to launch."
     }
   },
+  "not_found": {
+    "eyebrow": "Error 404",
+    "title": "Record not found.",
+    "text": "The requested file is outside the current AKYRO system.",
+    "home": "Return home",
+    "drops": "View drops"
+  },
+  "gift_cards": {
+    "title": "Gift card",
+    "code": "Code",
+    "balance": "Balance",
+    "shop": "Enter store"
+  },
   "sections": {
     "header_group": {
       "name": "Header"

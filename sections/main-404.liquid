@@ -1,0 +1,28 @@
+{% comment %}
+  AKYRO — sections/main-404.liquid (M01-F)
+  Utility page. One iconic-A moment through the locked asset snippet.
+{% endcomment %}
+
+<section class="section-frame utility-404" aria-labelledby="Akyro404Title">
+  <div class="utility-404__mark">
+    {% render 'logo-a-mark' %}
+  </div>
+
+  <div class="utility-404__content">
+    <p class="label">{{ 'not_found.eyebrow' | t }}</p>
+    <h1 id="Akyro404Title">{{ 'not_found.title' | t }}</h1>
+    <p>{{ 'not_found.text' | t }}</p>
+
+    <div class="utility-404__actions">
+      <a href="{{ routes.root_url }}" class="btn">{{ 'not_found.home' | t }}</a>
+      <a href="{{ routes.collections_url }}" class="btn btn--quiet">{{ 'not_found.drops' | t }}</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "404",
+  "settings": []
+}
+{% endschema %}

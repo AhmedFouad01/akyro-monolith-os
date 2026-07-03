@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}" dir="{% if request.locale.iso_code contains 'ar' %}rtl{% else %}ltr{% endif %}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ 'gift_cards.title' | t }} — {{ shop.name }}</title>
+    {{ 'tokens.css' | asset_url | stylesheet_tag }}
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'layout.css' | asset_url | stylesheet_tag }}
+    {{ 'components.css' | asset_url | stylesheet_tag }}
+    {{ 'direction.css' | asset_url | stylesheet_tag }}
+  </head>
+
+  <body class="template-gift-card {% if request.locale.iso_code contains 'ar' %}dir-rtl lang-ar{% else %}dir-ltr{% endif %}">
+    <main class="section-frame gift-card-page" role="main">
+      <p class="label">{{ shop.name }}</p>
+      <h1>{{ 'gift_cards.title' | t }}</h1>
+
+      <div class="gift-card-page__panel">
+        <p class="label">{{ 'gift_cards.code' | t }}</p>
+        <p class="data-latin">{{ gift_card.code | format_code }}</p>
+
+        <p class="label">{{ 'gift_cards.balance' | t }}</p>
+        <p>{{ gift_card.balance | money }}</p>
+      </div>
+
+      <a href="{{ shop.url }}" class="btn">{{ 'gift_cards.shop' | t }}</a>
+    </main>
+  </body>
+</html>
