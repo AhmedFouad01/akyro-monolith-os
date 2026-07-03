@@ -1,0 +1,23 @@
+{%- comment -%}
+  AKYRO — snippets/logo-wordmark.liquid (M01-B)
+  Outputs the LOCKED wordmark uploaded in Theme settings → Brand Assets.
+  R1: no redrawn, recolored, stretched, or reinterpreted fallback —
+  if unset, plain shop name in body type until the locked asset lands.
+  The wordmark never mirrors in RTL.
+{%- endcomment -%}
+
+{%- if settings.logo_wordmark != blank -%}
+  <a href="{{ routes.root_url }}" class="logo-wordmark" aria-label="{{ shop.name | escape }}">
+    <img
+      src="{{ settings.logo_wordmark | image_url: width: 292 }}"
+      alt="{{ shop.name | escape }}"
+      class="logo-wordmark__img"
+      width="146"
+      height="24"
+      loading="eager"
+    >
+  </a>
+{%- else -%}
+  {%- comment -%} R1 blocker: upload akyro-wordmark.svg in theme settings. {%- endcomment -%}
+  <a href="{{ routes.root_url }}" class="logo-wordmark logo-wordmark--text">{{ shop.name }}</a>
+{%- endif -%}

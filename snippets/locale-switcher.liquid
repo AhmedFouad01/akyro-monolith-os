@@ -1,0 +1,30 @@
+{%- comment -%}
+  AKYRO — snippets/locale-switcher.liquid (M01-B)
+  Quiet EN / AR pair from Shopify localization data (v0.3 §NEW G-2).
+  No flags, no dropdown chrome. Works without JS (form submit).
+  Placements: header desktop · mobile menu drawer · footer (optional).
+{%- endcomment -%}
+
+{%- if localization.available_languages.size > 1 -%}
+  {%- form 'localization', class: 'locale-switcher', aria-label: 'accessibility.language' | t -%}
+    {%- for language in localization.available_languages -%}
+      {%- assign is_current = false -%}
+      {%- if language.iso_code == localization.language.iso_code -%}
+        {%- assign is_current = true -%}
+      {%- endif -%}
+      <button
+        type="submit"
+        class="locale-switcher__opt{% if is_current %} is-current{% endif %}"
+        name="locale_code"
+        value="{{ language.iso_code }}"
+        lang="{{ language.iso_code }}"
+        {% if is_current %}aria-current="true"{% endif %}
+      >
+        <span class="data-latin">{{ language.iso_code | split: '-' | first | upcase }}</span>
+      </button>
+      {%- unless forloop.last -%}
+        <span class="locale-switcher__sep" aria-hidden="true"></span>
+      {%- endunless -%}
+    {%- endfor -%}
+  {%- endform -%}
+{%- endif -%}

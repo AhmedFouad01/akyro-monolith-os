@@ -1,10 +1,32 @@
 {
   "accessibility": {
-    "skip_to_content": "تخطي إلى المحتوى"
+    "skip_to_content": "تخطّي إلى المحتوى",
+    "menu": "القائمة",
+    "close": "إغلاق",
+    "search": "بحث",
+    "primary_nav": "التنقل الرئيسي",
+    "cart": "السلة ({{ count }})",
+    "language": "اللغة"
   },
   "general": {
     "pagination": {
       "page": "صفحة {{ page }}"
+    },
+    "built_to_last": "BUILT TO LAST"
+  },
+  "footer": {
+    "signup": {
+      "success": "تم تسجيل طلب الوصول.",
+      "email_label": "البريد الإلكتروني",
+      "submit": "طلب الوصول"
+    }
+  },
+  "sections": {
+    "header_group": {
+      "name": "الهيدر"
+    },
+    "footer_group": {
+      "name": "الفوتر"
     }
   }
 }

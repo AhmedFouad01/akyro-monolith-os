@@ -1,10 +1,32 @@
 {
   "accessibility": {
-    "skip_to_content": "Skip to content"
+    "skip_to_content": "Skip to content",
+    "menu": "Menu",
+    "close": "Close",
+    "search": "Search",
+    "primary_nav": "Primary navigation",
+    "cart": "Cart ({{ count }})",
+    "language": "Language"
   },
   "general": {
     "pagination": {
       "page": "Page {{ page }}"
+    },
+    "built_to_last": "BUILT TO LAST"
+  },
+  "footer": {
+    "signup": {
+      "success": "Access request received.",
+      "email_label": "Email address",
+      "submit": "Request access"
+    }
+  },
+  "sections": {
+    "header_group": {
+      "name": "Header"
+    },
+    "footer_group": {
+      "name": "Footer"
     }
   }
 }
