@@ -14,19 +14,22 @@
     },
     "built_to_last": "BUILT TO LAST"
   },
+  "badges": {
+    "live": "Live",
+    "low": "Low",
+    "archived": "Archived",
+    "locked": "Locked"
+  },
+  "header": {
+    "home": "Home",
+    "catalog": "Catalog",
+    "contact": "Contact"
+  },
   "footer": {
     "signup": {
       "success": "Access request received.",
       "email_label": "Email address",
       "submit": "Request access"
-    }
-  },
-  "sections": {
-    "header_group": {
-      "name": "Header"
-    },
-    "footer_group": {
-      "name": "Footer"
     }
   },
   "cart": {
@@ -43,19 +46,92 @@
     "decrease": "Decrease quantity",
     "increase": "Increase quantity"
   },
-  "badges": {
-    "live": "Live",
-    "low": "Low",
-    "archived": "Archived",
-    "locked": "Locked"
-  },
   "home": {
     "hero": {
+      "eyebrow": "Product-led system",
+      "title": "Designed from product proof, not decoration.",
+      "text": "AKYRO releases are built around fit, material, construction and controlled drop logic. The first product file appears when approved data lands.",
+      "note": "Product file pending approved input.",
       "view_product_file": "View product file",
       "no_product": "Product file pending approved input."
     },
     "drop_status": {
+      "label": "Current batch",
+      "empty": "No active batch selected.",
       "pending": "No active batch selected."
+    },
+    "product_proof": {
+      "eyebrow": "Product proof",
+      "title": "Fit, fabric and construction before launch.",
+      "fit": "Fit",
+      "fit_text": "Approved fit notes land here after sample review.",
+      "fabric": "Fabric",
+      "fabric_text": "Material details render only from approved product decisions.",
+      "construction": "Construction",
+      "construction_text": "Construction language stays tied to real product files."
+    },
+    "collection_index": {
+      "eyebrow": "Index",
+      "title": "Streams built as repeatable systems.",
+      "fashion": "Fashion",
+      "fashion_text": "Garments built through fit and construction.",
+      "objects": "Objects",
+      "objects_text": "Objects treated with the same material discipline.",
+      "scent": "Scent",
+      "scent_text": "Scent as another controlled product stream."
+    },
+    "access": {
+      "eyebrow": "Access",
+      "title": "Enter the drop system.",
+      "text": "Receive release notes only when a product file is ready to launch."
+    }
+  },
+  "homepage": {
+    "hero": {
+      "eyebrow": "Product-led system",
+      "title": "Designed from product proof, not decoration.",
+      "text": "AKYRO releases are built around fit, material, construction and controlled drop logic. The first product file appears when approved data lands.",
+      "note": "Product file pending approved input.",
+      "view_product_file": "View product file",
+      "no_product": "Product file pending approved input."
+    },
+    "drop_status": {
+      "label": "Current batch",
+      "empty": "No active batch selected.",
+      "pending": "No active batch selected."
+    },
+    "product_proof": {
+      "eyebrow": "Product proof",
+      "title": "Fit, fabric and construction before launch.",
+      "fit": "Fit",
+      "fit_text": "Approved fit notes land here after sample review.",
+      "fabric": "Fabric",
+      "fabric_text": "Material details render only from approved product decisions.",
+      "construction": "Construction",
+      "construction_text": "Construction language stays tied to real product files."
+    },
+    "collection_index": {
+      "eyebrow": "Index",
+      "title": "Streams built as repeatable systems.",
+      "fashion": "Fashion",
+      "fashion_text": "Garments built through fit and construction.",
+      "objects": "Objects",
+      "objects_text": "Objects treated with the same material discipline.",
+      "scent": "Scent",
+      "scent_text": "Scent as another controlled product stream."
+    },
+    "access": {
+      "eyebrow": "Access",
+      "title": "Enter the drop system.",
+      "text": "Receive release notes only when a product file is ready to launch."
+    }
+  },
+  "sections": {
+    "header_group": {
+      "name": "Header"
+    },
+    "footer_group": {
+      "name": "Footer"
     }
   }
 }
