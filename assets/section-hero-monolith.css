@@ -1,0 +1,13 @@
+/* AKYRO — Hero Monolith (M01-D) */
+.hero-monolith { min-block-size: calc(100vh - 72px); border-block-end: var(--border); }
+.hero-monolith__grid { display: grid; gap: var(--space-6); align-items: center; min-block-size: calc(100vh - 72px); padding-block: var(--section-gap); }
+.hero-monolith__copy { max-inline-size: 58ch; }
+.hero-monolith__eyebrow { display: inline-flex; align-items: center; gap: var(--space-1); color: var(--text-muted); }
+.red-dash { display: inline-block; inline-size: var(--space-3); block-size: 3px; background: var(--accent); }
+.red-dash--asset { background: transparent; object-fit: contain; }
+.hero-monolith__title { font-size: var(--text-h1); max-inline-size: 12ch; }
+.hero-monolith__text { color: var(--text-muted); max-inline-size: 48ch; }
+.hero-monolith__actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2); }
+.hero-monolith__visual { min-block-size: 320px; }
+.hero-monolith__media { aspect-ratio: 4 / 5; min-block-size: 320px; }
+@media (min-width: 990px) { .hero-monolith__grid { grid-template-columns: 5fr 7fr; } .hero-monolith__visual { order: 2; } }

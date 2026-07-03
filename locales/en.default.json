@@ -42,5 +42,20 @@
     "quantity": "Quantity",
     "decrease": "Decrease quantity",
     "increase": "Increase quantity"
+  },
+  "badges": {
+    "live": "Live",
+    "low": "Low",
+    "archived": "Archived",
+    "locked": "Locked"
+  },
+  "home": {
+    "hero": {
+      "view_product_file": "View product file",
+      "no_product": "Product file pending approved input."
+    },
+    "drop_status": {
+      "pending": "No active batch selected."
+    }
   }
 }

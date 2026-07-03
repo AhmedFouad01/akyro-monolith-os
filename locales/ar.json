@@ -42,5 +42,20 @@
     "quantity": "الكمية",
     "decrease": "تقليل الكمية",
     "increase": "زيادة الكمية"
+  },
+  "badges": {
+    "live": "متاح",
+    "low": "كمية محدودة",
+    "archived": "مؤرشف",
+    "locked": "مغلق"
+  },
+  "home": {
+    "hero": {
+      "view_product_file": "عرض ملف المنتج",
+      "no_product": "ملف المنتج ينتظر بيانات معتمدة."
+    },
+    "drop_status": {
+      "pending": "لا يوجد إصدار نشط محدد."
+    }
   }
 }

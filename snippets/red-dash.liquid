@@ -1,0 +1,19 @@
+{%- comment -%}
+  AKYRO — snippets/red-dash.liquid (M01-D)
+  Functional red dash only. Uses locked red-dash asset when provided;
+  CSS fallback is a system dash, not a logo recreation.
+{%- endcomment -%}
+
+{%- if settings.red_dash != blank -%}
+  <img
+    src="{{ settings.red_dash | image_url: width: 64 }}"
+    alt=""
+    class="red-dash red-dash--asset"
+    width="32"
+    height="6"
+    loading="lazy"
+    aria-hidden="true"
+  >
+{%- else -%}
+  <span class="red-dash" aria-hidden="true"></span>
+{%- endif -%}

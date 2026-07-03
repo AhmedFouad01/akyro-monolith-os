@@ -1,4 +1,87 @@
 {
-  "sections": {},
-  "order": []
+  "sections": {
+    "hero_monolith": {
+      "type": "hero-monolith",
+      "settings": {}
+    },
+    "drop_status": {
+      "type": "drop-status",
+      "settings": {}
+    },
+    "product_proof": {
+      "type": "product-proof",
+      "blocks": {
+        "proof_fit": {
+          "type": "proof",
+          "settings": {
+            "label": "FIT",
+            "line": "Approved fit notes land here after sample review."
+          }
+        },
+        "proof_fabric": {
+          "type": "proof",
+          "settings": {
+            "label": "FABRIC",
+            "line": "Material details render only from approved product decisions."
+          }
+        },
+        "proof_construction": {
+          "type": "proof",
+          "settings": {
+            "label": "CONSTRUCTION",
+            "line": "Construction language stays tied to real product files."
+          }
+        }
+      },
+      "block_order": [
+        "proof_fit",
+        "proof_fabric",
+        "proof_construction"
+      ],
+      "settings": {}
+    },
+    "collection_index": {
+      "type": "collection-index",
+      "blocks": {
+        "fashion": {
+          "type": "entry",
+          "settings": {
+            "label": "FASHION",
+            "line": "Garments built through fit and construction."
+          }
+        },
+        "objects": {
+          "type": "entry",
+          "settings": {
+            "label": "OBJECTS",
+            "line": "Objects treated with the same material discipline."
+          }
+        },
+        "scent": {
+          "type": "entry",
+          "settings": {
+            "label": "SCENT",
+            "line": "Scent as another controlled product stream."
+          }
+        }
+      },
+      "block_order": [
+        "fashion",
+        "objects",
+        "scent"
+      ],
+      "settings": {}
+    },
+    "access_list": {
+      "type": "access-list",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero_monolith",
+    "drop_status",
+    "product_proof",
+    "collection_index",
+    "access_list"
+  ]
 }

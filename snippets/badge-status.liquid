@@ -1,0 +1,36 @@
+{%- comment -%}
+  AKYRO — snippets/badge-status.liquid (M01-D)
+  Status badge from real product state/tags only. No fake urgency.
+  Theme Check-safe: translation keys are static, not dynamically appended.
+  Params: product, status
+{%- endcomment -%}
+
+{%- liquid
+  assign badge_key = status
+  if product != blank
+    if product.tags contains 'archive'
+      assign badge_key = 'archived'
+    elsif product.available
+      assign badge_key = 'live'
+    else
+      assign badge_key = 'locked'
+    endif
+  endif
+  assign badge_key = badge_key | default: 'locked'
+-%}
+
+<span class="badge badge--{{ badge_key | handle }}">
+  <span class="badge__dot" aria-hidden="true"></span>
+  <span>
+    {%- case badge_key -%}
+      {%- when 'live' -%}
+        {{ 'badges.live' | t }}
+      {%- when 'low' -%}
+        {{ 'badges.low' | t }}
+      {%- when 'archived' -%}
+        {{ 'badges.archived' | t }}
+      {%- else -%}
+        {{ 'badges.locked' | t }}
+    {%- endcase -%}
+  </span>
+</span>

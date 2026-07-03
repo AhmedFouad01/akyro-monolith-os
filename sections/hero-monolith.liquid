@@ -1,0 +1,58 @@
+{%- comment -%}
+  AKYRO — sections/hero-monolith.liquid (M01-D)
+  One product, one statement, one CTA. No carousel.
+  No fake specs: product proof lines render only from settings/metafields supplied by merchant.
+{%- endcomment -%}
+
+{{ 'section-hero-monolith.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign hero_product = section.settings.product
+  assign hero_image = section.settings.image
+  if hero_image == blank and hero_product != blank
+    assign hero_image = hero_product.featured_image
+  endif
+-%}
+
+<section class="hero-monolith section section--flush" data-section-id="{{ section.id }}">
+  <div class="frame hero-monolith__grid">
+    <div class="hero-monolith__copy flow">
+      <div class="hero-monolith__eyebrow label">
+        {% render 'red-dash' %}
+        <span>{{ section.settings.eyebrow }}</span>
+      </div>
+
+      <h1 class="hero-monolith__title">{{ section.settings.heading }}</h1>
+      <p class="hero-monolith__text">{{ section.settings.body }}</p>
+
+      <div class="hero-monolith__actions">
+        {%- if hero_product != blank -%}
+          <a href="{{ hero_product.url }}" class="btn">{{ 'home.hero.view_product_file' | t }}</a>
+          {% render 'badge-status', product: hero_product %}
+        {%- else -%}
+          <span class="text-data">{{ 'home.hero.no_product' | t }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="hero-monolith__visual">
+      {%- if hero_product != blank -%}<a href="{{ hero_product.url }}" aria-label="{{ hero_product.title | escape }}">{%- endif -%}
+        {% render 'media', image: hero_image, class: 'hero-monolith__media', sizes: '(min-width: 990px) 56vw, 100vw', loading: 'eager', alt: hero_product.title %}
+      {%- if hero_product != blank -%}</a>{%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero monolith",
+  "settings": [
+    {"type": "product", "id": "product", "label": "Hero product"},
+    {"type": "image_picker", "id": "image", "label": "Hero image override"},
+    {"type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "PRODUCT-LED SYSTEM"},
+    {"type": "text", "id": "heading", "label": "Heading", "default": "Designed from product proof, not decoration."},
+    {"type": "textarea", "id": "body", "label": "Body", "default": "AKYRO releases are built around fit, material, construction and controlled drop logic. The first product file appears when approved data lands."}
+  ],
+  "presets": [{"name": "Hero monolith"}]
+}
+{% endschema %}

@@ -1,0 +1,16 @@
+{%- comment -%}
+  AKYRO — snippets/price.liquid (M01-D)
+  Quiet money formatting. Compare-at is never red.
+  Params: product
+{%- endcomment -%}
+
+{%- if product != blank -%}
+  <span class="price">
+    {%- if product.compare_at_price > product.price -%}
+      <span class="price__regular">{{ product.price | money }}</span>
+      <span class="price__compare">{{ product.compare_at_price | money }}</span>
+    {%- else -%}
+      <span class="price__regular">{{ product.price | money }}</span>
+    {%- endif -%}
+  </span>
+{%- endif -%}
