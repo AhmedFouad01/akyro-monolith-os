@@ -14,15 +14,16 @@
 
 /* ---- EXCEPTION 1 — Drawer slide ----
    Drawers anchor to inline-end (components.css). The closed-state
-   translate is signed, so it is direction-resolved here. Open state
-   (.is-open → transform: none) is direction-neutral in components. */
+   translate is signed, so the sign lives here as a custom property;
+   components.css consumes it. Open state (.is-open) is
+   direction-neutral in components. */
 
-.drawer {
-  transform: translateX(100%);
+:root {
+  --drawer-closed-x: 100%;
 }
 
-[dir="rtl"] .drawer {
-  transform: translateX(-100%);
+[dir="rtl"] {
+  --drawer-closed-x: -100%;
 }
 
 /* ---- EXCEPTION 2 — Directional icon flip ----
