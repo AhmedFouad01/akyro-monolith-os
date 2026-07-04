@@ -203,12 +203,13 @@
   background: var(--surface-raised);
   border-inline-start: var(--border);
   visibility: hidden;
+  transform: translateX(var(--drawer-closed-x, 100%));
   transition: transform var(--speed) var(--ease),
               visibility var(--speed) var(--ease);
 }
 
 .drawer.is-open {
-  transform: none;
+  transform: translateX(0);
   visibility: visible;
 }
 
