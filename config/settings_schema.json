@@ -17,22 +17,50 @@
       {
         "type": "image_picker",
         "id": "logo_wordmark",
-        "label": "Locked AKYRO wordmark"
+        "label": "Locked AKYRO wordmark",
+        "info": "Light-ink export for dark theme. ~600×100 px · transparent PNG/SVG · clear-space ≥ cap height."
       },
       {
         "type": "image_picker",
         "id": "logo_a_mark",
-        "label": "Locked iconic A mark"
+        "label": "Locked iconic A mark",
+        "info": "Light A for dark theme. ~64×64 px · transparent · never recolored/mirrored."
       },
       {
         "type": "image_picker",
         "id": "logo_red_dash",
-        "label": "Locked red dash asset"
+        "label": "Locked red dash asset",
+        "info": "Locked red dash asset. ~64×12 px · transparent · image only (not CSS)."
       },
       {
         "type": "image_picker",
         "id": "favicon",
-        "label": "Favicon"
+        "label": "Favicon",
+        "info": "~64×64 px square · transparent PNG."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_wordmark_light",
+        "label": "Wordmark — light mode",
+        "info": "Dark-ink export for light theme. ~600×100 px · transparent PNG/SVG · clear-space ≥ cap height."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_mobile",
+        "label": "Mobile logo",
+        "info": "Compact wordmark or A-mark for small headers. ~96×96 px · transparent."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_a_mark_light",
+        "label": "Iconic A — light mode",
+        "info": "Dark-ink A for light theme. ~64×64 px · transparent · never recolored."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_red_dash_light",
+        "label": "Red dash — light mode",
+        "info": "Optional. Same locked red. ~64×12 px · transparent."
       },
       {
         "type": "range",

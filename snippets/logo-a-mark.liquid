@@ -1,20 +1,17 @@
 {%- comment -%}
-  AKYRO — snippets/logo-a-mark.liquid (M01-C)
-  LOCKED iconic A from Theme settings → Brand Assets.
-  Whitelisted placements only: cart drawer, 404, password (Drop Gate).
-  R1: no redrawn/recolored/reinterpreted fallback — text-safe letter
-  in body type until the locked asset lands. Never mirrored in RTL.
+  AKYRO — snippets/logo-a-mark.liquid (S1b)
+  LOCKED iconic A. Mode-aware (settings.logo_a_mark[_light]).
+  Whitelisted placements only: cart drawer, 404, password.
+  Never redrawn/recolored/mirrored. Fallback: text-safe letter.
 {%- endcomment -%}
-{%- if settings.logo_a_mark != blank -%}
-  <img
-    src="{{ settings.logo_a_mark | image_url }}"
-    alt=""
-    width="16"
-    height="16"
-    role="presentation"
-    class="a-mark"
-    loading="lazy"
-  >
+{%- liquid
+  assign mark = settings.logo_a_mark
+  if settings.theme_mode == 'light' and settings.logo_a_mark_light != blank
+    assign mark = settings.logo_a_mark_light
+  endif
+-%}
+{%- if mark != blank -%}
+  <img src="{{ mark | image_url: width: 48 }}" alt="" width="16" height="16" role="presentation" class="a-mark" loading="lazy">
 {%- else -%}
   <span class="a-mark a-mark--text data-latin" aria-hidden="true">A</span>
 {%- endif -%}

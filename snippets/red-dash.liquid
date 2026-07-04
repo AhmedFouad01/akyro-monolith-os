@@ -8,9 +8,15 @@
     locked asset is absent.
 {%- endcomment -%}
 
-{%- if settings.logo_red_dash != blank -%}
+{%- liquid
+  assign dash = settings.logo_red_dash
+  if settings.theme_mode == 'light' and settings.logo_red_dash_light != blank
+    assign dash = settings.logo_red_dash_light
+  endif
+-%}
+{%- if dash != blank -%}
   <img
-    src="{{ settings.logo_red_dash | image_url: width: 64 }}"
+    src="{{ dash | image_url: width: 64 }}"
     alt=""
     class="red-dash red-dash--asset"
     width="32"

@@ -1,28 +1,42 @@
 {%- comment -%}
-  AKYRO — snippets/logo-wordmark.liquid (M02-C)
-  LOCKED wordmark from Theme settings → Brand assets. Never redrawn,
-  recolored (no CSS filters), stretched, or mirrored in RTL.
-  Fallback: shop name in display type until the locked asset lands.
-  Width via settings.logo_wordmark_width; height resolves by ratio
-  (object-fit: contain) — uploaded file is never distorted.
+  AKYRO — snippets/logo-wordmark.liquid (S1b)
+  LOCKED wordmark. Mode-aware: light-ink export on dark theme,
+  dark-ink export on light theme (settings.logo_wordmark[_light]).
+  Optional mobile logo swaps in under 750px via <picture>.
+  Never redrawn, recolored (no filters), stretched, or mirrored.
+  Fallback: shop name in display type.
 {%- endcomment -%}
 
 {%- liquid
   assign w = settings.logo_wordmark_width | default: 146
   assign w2x = w | times: 2
+  assign is_light = false
+  if settings.theme_mode == 'light'
+    assign is_light = true
+  endif
+  assign mark = settings.logo_wordmark
+  if is_light and settings.logo_wordmark_light != blank
+    assign mark = settings.logo_wordmark_light
+  endif
+  assign mobile = settings.logo_mobile
 -%}
 
-{%- if settings.logo_wordmark != blank -%}
+{%- if mark != blank -%}
   <a href="{{ routes.root_url }}" class="logo-wordmark" aria-label="{{ shop.name | escape }}" data-home-link>
-    <img
-      src="{{ settings.logo_wordmark | image_url: width: w2x }}"
-      alt="{{ shop.name | escape }}"
-      class="logo-wordmark__img"
-      style="--logo-w: {{ w }}px"
-      width="{{ w }}"
-      height="24"
-      loading="eager"
-    >
+    <picture>
+      {%- if mobile != blank -%}
+        <source media="(max-width: 749px)" srcset="{{ mobile | image_url: width: 192 }}">
+      {%- endif -%}
+      <img
+        src="{{ mark | image_url: width: w2x }}"
+        alt="{{ shop.name | escape }}"
+        class="logo-wordmark__img"
+        style="--logo-w: {{ w }}px"
+        width="{{ w }}"
+        height="24"
+        loading="eager"
+      >
+    </picture>
   </a>
 {%- else -%}
   <a href="{{ routes.root_url }}" class="logo-wordmark logo-wordmark--text" data-home-link>{{ shop.name }}</a>
