@@ -44,8 +44,9 @@
   /* TODO (R2): self-host licensed woff2 later; stacks only, no bundled files. */
   --font-display:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
   --font-body:       'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-  --font-display-ar: 'Alexandria', 'Cairo', 'Segoe UI', Tahoma, sans-serif;
-  --font-body-ar:    'Cairo', 'Alexandria', 'Segoe UI', Tahoma, sans-serif;
+  /* Arabic mapping (choice C): Cairo = display/headings, IBM Plex Sans Arabic = body */
+  --font-display-ar: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
+  --font-body-ar:    'IBM Plex Sans Arabic', 'Cairo', 'Segoe UI', Tahoma, sans-serif;
 
   /* Active family — resolved per language in base.css :lang(ar) */
   --font-display-active: var(--font-display);
@@ -129,4 +130,14 @@
   --text-display: clamp(2.441rem, 1.8rem + 3.2vw, 3.815rem);
   --text-caption: clamp(0.75rem, 0.72rem + 0.1vw, 0.8125rem);
   --font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace;
+}
+
+/* ---- S2 — type scale multiplier (Typography tree EN/AR sliders) ---- */
+:root { --type-scale: 1; }
+:root {
+  --text-h1-s:      calc(var(--text-h1) * var(--type-scale));
+  --text-h2-s:      calc(var(--text-h2) * var(--type-scale));
+  --text-h3-s:      calc(var(--text-h3) * var(--type-scale));
+  --text-body-s:    calc(var(--text-body) * var(--type-scale));
+  --text-display-s: calc(var(--text-display) * var(--type-scale));
 }

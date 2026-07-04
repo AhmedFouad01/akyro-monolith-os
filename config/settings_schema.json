@@ -170,8 +170,440 @@
     "name": "Typography",
     "settings": [
       {
+        "type": "header",
+        "content": "Fonts — English"
+      },
+      {
+        "type": "select",
+        "id": "en_display_font",
+        "label": "Display / headings",
+        "default": "inter",
+        "options": [
+          {
+            "value": "inter",
+            "label": "Inter"
+          },
+          {
+            "value": "system",
+            "label": "System sans"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "en_body_font",
+        "label": "Body",
+        "default": "inter",
+        "options": [
+          {
+            "value": "inter",
+            "label": "Inter"
+          },
+          {
+            "value": "system",
+            "label": "System sans"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "en_scale",
+        "label": "Type scale",
+        "min": 90,
+        "max": 115,
+        "step": 1,
+        "unit": "%",
+        "default": 100
+      },
+      {
+        "type": "header",
+        "content": "Fonts — Arabic (عربي)"
+      },
+      {
+        "type": "select",
+        "id": "ar_display_font",
+        "label": "Display / headings (عربي)",
+        "default": "cairo",
+        "options": [
+          {
+            "value": "cairo",
+            "label": "Cairo"
+          },
+          {
+            "value": "plex",
+            "label": "IBM Plex Sans Arabic"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "ar_body_font",
+        "label": "Body (عربي)",
+        "default": "plex",
+        "options": [
+          {
+            "value": "cairo",
+            "label": "Cairo"
+          },
+          {
+            "value": "plex",
+            "label": "IBM Plex Sans Arabic"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "ar_scale",
+        "label": "Type scale (عربي)",
+        "min": 90,
+        "max": 120,
+        "step": 1,
+        "unit": "%",
+        "default": 104
+      },
+      {
         "type": "paragraph",
-        "content": "Font stacks only — no bundled files. TODO: self-host licensed woff2 (EN: Inter; AR: Alexandria headings / Cairo body) and update base.css @font-face."
+        "content": "Unified EN/AR typography with full RTL support. Arabic uses its own family + scale, never letter-spacing, with generous line-height."
+      },
+      {
+        "type": "header",
+        "content": "Element presets (shared EN/AR)"
+      },
+      {
+        "type": "range",
+        "id": "h1_size",
+        "label": "H1 size",
+        "min": 28,
+        "max": 72,
+        "step": 1,
+        "unit": "px",
+        "default": 49
+      },
+      {
+        "type": "select",
+        "id": "h1_weight",
+        "label": "H1 weight",
+        "default": "700",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light 300"
+          },
+          {
+            "value": "400",
+            "label": "Regular 400"
+          },
+          {
+            "value": "500",
+            "label": "Medium 500"
+          },
+          {
+            "value": "600",
+            "label": "SemiBold 600"
+          },
+          {
+            "value": "700",
+            "label": "Bold 700"
+          },
+          {
+            "value": "800",
+            "label": "ExtraBold 800"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "h2_size",
+        "label": "H2 size",
+        "min": 24,
+        "max": 56,
+        "step": 1,
+        "unit": "px",
+        "default": 31
+      },
+      {
+        "type": "select",
+        "id": "h2_weight",
+        "label": "H2 weight",
+        "default": "700",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light 300"
+          },
+          {
+            "value": "400",
+            "label": "Regular 400"
+          },
+          {
+            "value": "500",
+            "label": "Medium 500"
+          },
+          {
+            "value": "600",
+            "label": "SemiBold 600"
+          },
+          {
+            "value": "700",
+            "label": "Bold 700"
+          },
+          {
+            "value": "800",
+            "label": "ExtraBold 800"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "h3_size",
+        "label": "H3 size",
+        "min": 20,
+        "max": 40,
+        "step": 1,
+        "unit": "px",
+        "default": 25
+      },
+      {
+        "type": "select",
+        "id": "h3_weight",
+        "label": "H3 weight",
+        "default": "700",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light 300"
+          },
+          {
+            "value": "400",
+            "label": "Regular 400"
+          },
+          {
+            "value": "500",
+            "label": "Medium 500"
+          },
+          {
+            "value": "600",
+            "label": "SemiBold 600"
+          },
+          {
+            "value": "700",
+            "label": "Bold 700"
+          },
+          {
+            "value": "800",
+            "label": "ExtraBold 800"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "h4_size",
+        "label": "H4 size",
+        "min": 18,
+        "max": 32,
+        "step": 1,
+        "unit": "px",
+        "default": 20
+      },
+      {
+        "type": "select",
+        "id": "h4_weight",
+        "label": "H4 weight",
+        "default": "600",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light 300"
+          },
+          {
+            "value": "400",
+            "label": "Regular 400"
+          },
+          {
+            "value": "500",
+            "label": "Medium 500"
+          },
+          {
+            "value": "600",
+            "label": "SemiBold 600"
+          },
+          {
+            "value": "700",
+            "label": "Bold 700"
+          },
+          {
+            "value": "800",
+            "label": "ExtraBold 800"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "h5_size",
+        "label": "H5 size",
+        "min": 16,
+        "max": 26,
+        "step": 1,
+        "unit": "px",
+        "default": 17
+      },
+      {
+        "type": "select",
+        "id": "h5_weight",
+        "label": "H5 weight",
+        "default": "600",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light 300"
+          },
+          {
+            "value": "400",
+            "label": "Regular 400"
+          },
+          {
+            "value": "500",
+            "label": "Medium 500"
+          },
+          {
+            "value": "600",
+            "label": "SemiBold 600"
+          },
+          {
+            "value": "700",
+            "label": "Bold 700"
+          },
+          {
+            "value": "800",
+            "label": "ExtraBold 800"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "h6_size",
+        "label": "H6 size",
+        "min": 14,
+        "max": 22,
+        "step": 1,
+        "unit": "px",
+        "default": 15
+      },
+      {
+        "type": "select",
+        "id": "h6_weight",
+        "label": "H6 weight",
+        "default": "600",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light 300"
+          },
+          {
+            "value": "400",
+            "label": "Regular 400"
+          },
+          {
+            "value": "500",
+            "label": "Medium 500"
+          },
+          {
+            "value": "600",
+            "label": "SemiBold 600"
+          },
+          {
+            "value": "700",
+            "label": "Bold 700"
+          },
+          {
+            "value": "800",
+            "label": "ExtraBold 800"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "title_size",
+        "label": "Title size",
+        "min": 16,
+        "max": 28,
+        "step": 1,
+        "unit": "px",
+        "default": 18
+      },
+      {
+        "type": "select",
+        "id": "title_weight",
+        "label": "Title weight",
+        "default": "700",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light 300"
+          },
+          {
+            "value": "400",
+            "label": "Regular 400"
+          },
+          {
+            "value": "500",
+            "label": "Medium 500"
+          },
+          {
+            "value": "600",
+            "label": "SemiBold 600"
+          },
+          {
+            "value": "700",
+            "label": "Bold 700"
+          },
+          {
+            "value": "800",
+            "label": "ExtraBold 800"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "para_size",
+        "label": "Paragraph size",
+        "min": 14,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "default": 16
+      },
+      {
+        "type": "select",
+        "id": "para_weight",
+        "label": "Paragraph weight",
+        "default": "400",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light 300"
+          },
+          {
+            "value": "400",
+            "label": "Regular 400"
+          },
+          {
+            "value": "500",
+            "label": "Medium 500"
+          },
+          {
+            "value": "600",
+            "label": "SemiBold 600"
+          },
+          {
+            "value": "700",
+            "label": "Bold 700"
+          },
+          {
+            "value": "800",
+            "label": "ExtraBold 800"
+          }
+        ]
       }
     ]
   },

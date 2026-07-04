@@ -276,9 +276,9 @@
 
 :lang(en) .eyebrow { text-transform: uppercase; }
 
-.h1 { font-family: var(--font-display-active); font-weight: 700; line-height: var(--leading-display); font-size: var(--text-h1); text-wrap: balance; }
-.h2 { font-family: var(--font-display-active); font-weight: 700; line-height: var(--leading-display); font-size: var(--text-h2); text-wrap: balance; }
-.h3 { font-family: var(--font-display-active); font-weight: 700; line-height: var(--leading-display); font-size: var(--text-h3); text-wrap: balance; }
+.h1 { font-family: var(--font-display-active); font-weight: 700; line-height: var(--leading-display); font-size: var(--text-h1-s); text-wrap: balance; }
+.h2 { font-family: var(--font-display-active); font-weight: 700; line-height: var(--leading-display); font-size: var(--text-h2-s); text-wrap: balance; }
+.h3 { font-family: var(--font-display-active); font-weight: 700; line-height: var(--leading-display); font-size: var(--text-h3-s); text-wrap: balance; }
 
 /* ---- Button variants ---- */
 
@@ -425,7 +425,7 @@
 .logo-wordmark--text {
   font-family: var(--font-display-active);
   font-weight: 700;
-  font-size: var(--text-h3);
+  font-size: var(--text-h3-s);
   color: var(--text);
 }
 
@@ -552,11 +552,11 @@
 .stat-value {
   font-family: var(--font-display-active);
   font-weight: 700;
-  font-size: var(--text-h2);
+  font-size: var(--text-h2-s);
 }
 
 /* ---- S1 — type utilities ---- */
-.display { font-family: var(--font-display-active); font-weight: 700; line-height: var(--leading-display); font-size: var(--text-display); text-wrap: balance; }
+.display { font-family: var(--font-display-active); font-weight: 700; line-height: var(--leading-display); font-size: var(--text-display-s); text-wrap: balance; }
 .caption { font-size: var(--text-caption); color: var(--text-muted); }
 .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 
@@ -567,3 +567,10 @@
   color: var(--accent);
   margin-block-start: var(--space-1);
 }
+
+/* ---- S2b — element presets (Theme Editor size + weight, shared EN/AR) ---- */
+h4 { font-family: var(--font-display-active); font-size: calc(var(--h4-size) * var(--type-scale)); font-weight: var(--h4-weight); line-height: var(--leading-display); }
+h5 { font-family: var(--font-display-active); font-size: calc(var(--h5-size) * var(--type-scale)); font-weight: var(--h5-weight); line-height: var(--leading-display); }
+h6 { font-family: var(--font-display-active); font-size: calc(var(--h6-size) * var(--type-scale)); font-weight: var(--h6-weight); line-height: var(--leading-display); }
+.title { font-family: var(--font-display-active); font-size: calc(var(--title-size) * var(--type-scale)); font-weight: var(--title-weight); line-height: var(--leading-display); }
+.paragraph { font-size: calc(var(--para-size) * var(--type-scale)); font-weight: var(--para-weight); }
