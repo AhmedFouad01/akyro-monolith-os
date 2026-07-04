@@ -11,7 +11,11 @@
     "enable_restricted_tagline": false,
     "metafield_namespace": "akyro",
     "theme_mode": "dark",
-    "logo_wordmark_width": 146
+    "logo_wordmark_width": 146,
+    "page_max": 1400,
+    "base_radius": 0,
+    "motion_speed": 180,
+    "section_gap_scale": "default"
   },
   "presets": {}
 }

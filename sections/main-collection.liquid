@@ -27,6 +27,7 @@
           loading: 'eager',
           alt: collection.title
         %}
+        {% render 'image-guide', image: hero_img, rw: 21, rh: 9, min_w: 1600 %}
       </div>
     {%- endif -%}
 
@@ -115,7 +116,7 @@
     {"type": "checkbox", "id": "show_description", "label": "Show collection description", "default": true},
     {"type": "select", "id": "hero_source", "label": "Hero image", "default": "none",
      "options": [{"value": "none", "label": "None"}, {"value": "collection", "label": "Collection image"}, {"value": "custom", "label": "Custom image"}]},
-    {"type": "image_picker", "id": "hero_image", "label": "Custom hero image"},
+    {"type": "image_picker", "id": "hero_image", "label": "Custom hero image", "info": "2400×1030 px · 21:9 · JPEG ≤ 600 KB"},
     {"type": "text", "id": "title_override", "label": "Title override (blank = collection title)"},
     {"type": "header", "content": "Grid"},
     {"type": "select", "id": "cols_desktop", "label": "Columns — desktop", "default": "4",

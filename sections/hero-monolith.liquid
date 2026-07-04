@@ -66,6 +66,7 @@
           loading: 'eager',
           alt: section.settings.media_alt
         %}
+      {% render 'image-guide', image: section.settings.image, rw: 4, rh: 5, min_w: 1500 %}
       {%- if hero_product != blank -%}</a>{%- endif -%}
     </div>
   </div>
@@ -76,7 +77,7 @@
   "name": "Hero monolith",
   "settings": [
     {"type": "product", "id": "product", "label": "Hero product"},
-    {"type": "image_picker", "id": "image", "label": "Production image override"},
+    {"type": "image_picker", "id": "image", "label": "Production image override", "info": "2400×3000 px · 4:5 · JPEG ≤ 700 KB"},
     {
       "type": "select",
       "id": "demo_media",

@@ -554,3 +554,16 @@
   font-weight: 700;
   font-size: var(--text-h2);
 }
+
+/* ---- S1 — type utilities ---- */
+.display { font-family: var(--font-display-active); font-weight: 700; line-height: var(--leading-display); font-size: var(--text-display); text-wrap: balance; }
+.caption { font-size: var(--text-caption); color: var(--text-muted); }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* Editor-only image warning */
+.image-guide-warning {
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  margin-block-start: var(--space-1);
+}

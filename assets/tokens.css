@@ -123,3 +123,10 @@
   --inverse-muted: var(--akyro-warm-grey);
   --inverse-line:  rgba(217, 217, 217, 0.18);
 }
+
+/* ---- S1 — type scale completion ---- */
+:root {
+  --text-display: clamp(2.441rem, 1.8rem + 3.2vw, 3.815rem);
+  --text-caption: clamp(0.75rem, 0.72rem + 0.1vw, 0.8125rem);
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace;
+}

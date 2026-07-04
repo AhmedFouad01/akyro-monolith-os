@@ -12,6 +12,16 @@
   <div class="frame">
 
     <div class="monolith-footer__grid">
+      {%- if section.settings.show_footer_menu and section.settings.footer_menu != blank and section.settings.footer_menu.links.size > 0 -%}
+        <div class="monolith-footer__col">
+          <p class="label">{{ section.settings.footer_menu.title }}</p>
+          <ul class="monolith-footer__list flow-tight" role="list">
+            {%- for link in section.settings.footer_menu.links -%}
+              <li><a href="{{ link.url }}" class="monolith-footer__link">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
       {%- for block in section.blocks -%}
         {%- case block.type -%}
           {%- when 'menu' -%}
@@ -80,6 +90,18 @@
   "name": "Monolith footer",
   "class": "shopify-section-footer",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_footer_menu",
+      "label": "t:sections.footer.show_menu",
+      "default": true
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu",
+      "label": "t:sections.footer.menu",
+      "default": "footer"
+    },
     {
       "type": "checkbox",
       "id": "enable_signup",

@@ -51,6 +51,25 @@
   {%- endcomment -%}
 
   {%- comment -%} Global CSS — fixed order: tokens → base → layout → components → direction {%- endcomment -%}
+  {%- liquid
+    assign gap_min = 'var(--space-6)'
+    assign gap_max = 'var(--space-10)'
+    if settings.section_gap_scale == 'compact'
+      assign gap_min = 'var(--space-4)'
+      assign gap_max = 'var(--space-8)'
+    elsif settings.section_gap_scale == 'spacious'
+      assign gap_min = 'var(--space-8)'
+      assign gap_max = 'calc(var(--space-10) * 1.4)'
+    endif
+  -%}
+  <style>
+    :root {
+      --page-max: {{ settings.page_max | default: 1400 }}px;
+      --radius: {{ settings.base_radius | default: 0 }}px;
+      --speed: {{ settings.motion_speed | default: 180 }}ms;
+      --section-gap: clamp({{ gap_min }}, 8vw, {{ gap_max }});
+    }
+  </style>
   {{ 'tokens.css' | asset_url | stylesheet_tag }}
   {{ 'base.css' | asset_url | stylesheet_tag }}
   {{ 'layout.css' | asset_url | stylesheet_tag }}

@@ -190,5 +190,8 @@
     "message": "Message",
     "send": "Send",
     "success": "Message sent. The studio will reply by email."
+  },
+  "admin": {
+    "image_guide": "Recommended {{ rw }}:{{ rh }}, min width {{ min }}px"
   }
 }

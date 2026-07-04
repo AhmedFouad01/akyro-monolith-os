@@ -2,10 +2,10 @@
   {
     "name": "theme_info",
     "theme_name": "AKYRO MONOLITH OS",
-    "theme_version": "0.1.0",
-    "theme_author": "AKYRO",
-    "theme_support_email": "support@akyro.studio",
-    "theme_documentation_url": "https://akyro.studio"
+    "theme_version": "0.9.0",
+    "theme_author": "Ahmed Fouad",
+    "theme_documentation_url": "https://example.com/docs",
+    "theme_support_url": "https://example.com/support"
   },
   {
     "name": "Brand assets — locked",
@@ -107,6 +107,62 @@
       {
         "type": "paragraph",
         "content": "Both modes support EN LTR and AR RTL. Signal red stays functional only."
+      }
+    ]
+  },
+  {
+    "name": "Design controls",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_max",
+        "label": "Container width",
+        "min": 1200,
+        "max": 1680,
+        "step": 40,
+        "unit": "px",
+        "default": 1400
+      },
+      {
+        "type": "range",
+        "id": "base_radius",
+        "label": "Corner radius",
+        "min": 0,
+        "max": 8,
+        "step": 1,
+        "unit": "px",
+        "default": 0,
+        "info": "AKYRO system = 0. Exposed for resale flexibility."
+      },
+      {
+        "type": "range",
+        "id": "motion_speed",
+        "label": "Animation speed",
+        "min": 120,
+        "max": 320,
+        "step": 20,
+        "unit": "ms",
+        "default": 180
+      },
+      {
+        "type": "select",
+        "id": "section_gap_scale",
+        "label": "Section spacing scale",
+        "default": "default",
+        "options": [
+          {
+            "value": "compact",
+            "label": "Compact"
+          },
+          {
+            "value": "default",
+            "label": "Default"
+          },
+          {
+            "value": "spacious",
+            "label": "Spacious"
+          }
+        ]
       }
     ]
   },
