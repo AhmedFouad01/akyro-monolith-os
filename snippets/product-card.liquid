@@ -1,0 +1,59 @@
+{%- comment -%}
+  AKYRO — snippets/product-card.liquid (M02-D)
+  Hairline card, no radius, dark/light via tokens, RTL-safe.
+  Params: product, ratio ('4x5'|'1x1'|'16x9'), show_price,
+  show_status, show_sku, show_vendor, show_secondary_image
+  (default true; legacy alias enable_hover), quick_add (default false
+  and renders nothing — Product File is the point of sale).
+{%- endcomment -%}
+{%- liquid
+  assign r = ratio | default: '4x5'
+  if show_price == nil
+    assign show_price = true
+  endif
+  if show_status == nil
+    assign show_status = true
+  endif
+  if show_secondary_image != nil
+    assign enable_hover = show_secondary_image
+  endif
+  if enable_hover == nil
+    assign enable_hover = true
+  endif
+-%}
+<a href="{{ product.url }}" class="product-card">
+  <span class="product-card__media product-card__media--{{ r }}">
+    {% render 'media',
+      image: product.featured_image,
+      class: 'product-card__img',
+      sizes: '(min-width: 990px) 25vw, 50vw',
+      loading: 'lazy',
+      alt: product.title
+    %}
+    {%- if enable_hover and product.images[1] -%}
+      <span class="product-card__hover" aria-hidden="true">
+        {% render 'media',
+          image: product.images[1],
+          class: 'product-card__img',
+          sizes: '(min-width: 990px) 25vw, 50vw',
+          loading: 'lazy',
+          alt: ''
+        %}
+      </span>
+    {%- endif -%}
+  </span>
+  <span class="product-card__title">{{ product.title }}</span>
+  {%- if show_vendor and product.vendor != blank -%}
+    <span class="text-data">{{ product.vendor }}</span>
+  {%- endif -%}
+  {%- if show_sku -%}
+    {%- assign sku = product.selected_or_first_available_variant.sku -%}
+    {%- if sku != blank -%}<span class="text-data data-latin">{{ sku }}</span>{%- endif -%}
+  {%- endif -%}
+  {%- if show_price or show_status -%}
+    <span class="product-card__row">
+      {%- if show_price -%}{% render 'price', product: product %}{%- endif -%}
+      {%- if show_status -%}{% render 'badge-status', product: product %}{%- endif -%}
+    </span>
+  {%- endif -%}
+</a>

@@ -1,0 +1,53 @@
+{%- comment -%}
+  AKYRO — sections/drop-status.liquid (M01-D)
+  Current batch strip. No fake stock claims: inventory-derived only when a product is selected.
+{%- endcomment -%}
+
+{{ 'section-drop-status.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign status_product = section.settings.product
+  assign available_count = 0
+  if status_product != blank
+    for variant in status_product.variants
+      if variant.inventory_management != blank and variant.inventory_quantity > 0
+        assign available_count = available_count | plus: variant.inventory_quantity
+      endif
+    endfor
+  endif
+-%}
+
+<section class="drop-status section--strip line-block" data-section-id="{{ section.id }}">
+  <div class="frame drop-status__row">
+    <div class="drop-status__main">
+      <span class="label">{{ section.settings.label }}</span>
+      {%- if status_product != blank -%}
+        <a href="{{ status_product.url }}" class="drop-status__title">{{ status_product.title }}</a>
+      {%- else -%}
+        <span class="drop-status__title">{{ 'home.drop_status.pending' | t }}</span>
+      {%- endif -%}
+    </div>
+
+    <div class="drop-status__data">
+      {%- if status_product != blank -%}
+        {% render 'badge-status', product: status_product %}
+        {%- if available_count > 0 -%}
+          <span class="data-latin">{{ available_count }}</span>
+        {%- endif -%}
+      {%- else -%}
+        {% render 'badge-status', status: 'locked' %}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Drop status",
+  "settings": [
+    {"type": "product", "id": "product", "label": "Status product"},
+    {"type": "text", "id": "label", "label": "Label", "default": "CURRENT BATCH"}
+  ],
+  "presets": [{"name": "Drop status"}]
+}
+{% endschema %}

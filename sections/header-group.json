@@ -1,6 +1,13 @@
 {
   "type": "header",
-  "name": "t:sections.header_group.name",
-  "sections": {},
-  "order": []
+  "name": "sections.header_group.name",
+  "sections": {
+    "monolith_header": {
+      "type": "monolith-header",
+      "settings": {}
+    }
+  },
+  "order": [
+    "monolith_header"
+  ]
 }

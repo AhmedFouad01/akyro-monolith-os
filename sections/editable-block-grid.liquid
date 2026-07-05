@@ -1,0 +1,238 @@
+{%- comment -%}
+  AKYRO — sections/editable-block-grid.liquid (M02-D)
+  The Theme Editor CMS grid. Block types: text, media, text_media,
+  cta, proof, stat, link_card. Sizes map to the 6-col grid-system.
+  Grid-disciplined: no masonry, no text-over-image by default
+  (optional overlay uses the scrim token and stays readable).
+{%- endcomment -%}
+
+{{ 'section-editable-block-grid.css' | asset_url | stylesheet_tag }}
+
+<div class="section-shell {% render 'section-style', s: section.settings %} block-grid">
+  <div class="frame">
+    {%- if section.settings.eyebrow != blank or section.settings.heading != blank -%}
+      <div class="shell-head">
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+        {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading }}</h2>{%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="grid-system">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign size = block.settings.size | default: 'third'
+          assign al = block.settings.align | default: 'start'
+          assign bg = block.settings.bg_mode | default: 'default'
+          assign demo_asset = blank
+          case block.settings.demo_media
+            when 'fashion'
+              assign demo_asset = 'akyro-demo-fashion-index.png'
+            when 'objects'
+              assign demo_asset = 'akyro-demo-objects-index.png'
+            when 'scent'
+              assign demo_asset = 'akyro-demo-scent-index.png'
+            when 'tee_front'
+              assign demo_asset = 'akyro-demo-hero-tee.png'
+            when 'tee_back'
+              assign demo_asset = 'akyro-demo-tee-back.png'
+            when 'fabric'
+              assign demo_asset = 'akyro-demo-fabric-detail.png'
+            when 'construction'
+              assign demo_asset = 'akyro-demo-construction-detail.png'
+          endcase
+          if block.settings.image != blank
+            assign demo_asset = blank
+          endif
+          assign has_media = false
+          if block.settings.image != blank or demo_asset != blank
+            assign has_media = true
+          endif
+        -%}
+
+        <div
+          class="block block--{{ block.type | replace: '_', '-' }} block--{{ size }} block--align-{{ al }}{% if bg != 'default' %} block--bg-{{ bg }}{% endif %}{% if block.settings.overlay and has_media %} block--overlay{% endif %}"
+          {{ block.shopify_attributes }}
+        >
+          {%- if has_media and block.type != 'text' and block.type != 'cta' and block.type != 'stat' -%}
+            <div class="block__media{% if size == '3x2' %} block__media--3x2{% endif %}{% if size == 'square' %} block__media--square{% endif %}">
+              {% render 'media',
+                image: block.settings.image,
+                asset: demo_asset,
+                class: 'block__img',
+                sizes: '(min-width: 990px) 50vw, 100vw',
+                loading: 'lazy',
+                alt: block.settings.media_alt
+              %}
+            </div>
+          {%- endif -%}
+
+          {%- if block.type != 'media' -%}
+            <div class="block__body">
+              {%- if block.settings.num != blank -%}<span class="block__num data-latin">{{ block.settings.num }}</span>{%- endif -%}
+              {%- if block.settings.eyebrow != blank -%}<span class="label">{{ block.settings.eyebrow }}</span>{%- endif -%}
+              {%- if block.type == 'stat' and block.settings.stat_value != blank -%}
+                <span class="stat-value data-latin">{{ block.settings.stat_value }}</span>
+              {%- endif -%}
+              {%- if block.settings.heading != blank -%}<h3>{{ block.settings.heading }}</h3>{%- endif -%}
+              {%- if block.settings.body != blank -%}<p{% if block.type == 'proof' %} class="text-data"{% endif %}>{{ block.settings.body }}</p>{%- endif -%}
+              {%- if block.settings.button_label != blank -%}
+                <span class="block__cta">
+                  <a href="{{ block.settings.button_link | default: '#' }}" class="btn{% if block.type == 'cta' %} btn--primary{% endif %}">{{ block.settings.button_label }}</a>
+                </span>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+          {%- if block.type == 'link_card' and block.settings.button_link != blank -%}
+            <a href="{{ block.settings.button_link }}" class="block__link-cover" aria-label="{{ block.settings.heading | default: block.settings.button_label | escape }}"></a>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Block grid (CMS)",
+  "settings": [
+    {"type": "text", "id": "eyebrow", "label": "Eyebrow"},
+    {"type": "text", "id": "heading", "label": "Heading"},
+    {"type": "select", "id": "width", "label": "Section width", "default": "normal",
+     "options": [{"value": "normal", "label": "Normal"}, {"value": "wide", "label": "Wide"}, {"value": "full", "label": "Full"}]},
+    {"type": "select", "id": "spacing", "label": "Section spacing", "default": "default",
+     "options": [{"value": "compact", "label": "Compact"}, {"value": "default", "label": "Default"}, {"value": "spacious", "label": "Spacious"}]},
+    {"type": "select", "id": "bg_mode", "label": "Background", "default": "default",
+     "options": [{"value": "default", "label": "Default"}, {"value": "surface", "label": "Surface"}, {"value": "raised", "label": "Raised"}, {"value": "inverse", "label": "Inverse"}]}
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {"type": "select", "id": "size", "label": "Size", "default": "half",
+         "options": [{"value": "square", "label": "Square"}, {"value": "half", "label": "Half"}, {"value": "third", "label": "Third"}, {"value": "wide", "label": "Wide"}, {"value": "3x2", "label": "3×2"}, {"value": "full", "label": "Full"}]},
+        {"type": "text", "id": "num", "label": "Number (Latin digits)"},
+        {"type": "text", "id": "eyebrow", "label": "Eyebrow"},
+        {"type": "text", "id": "heading", "label": "Heading"},
+        {"type": "textarea", "id": "body", "label": "Body"},
+        {"type": "text", "id": "button_label", "label": "Button label"},
+        {"type": "url", "id": "button_link", "label": "Button link"},
+        {"type": "select", "id": "align", "label": "Alignment", "default": "start",
+         "options": [{"value": "start", "label": "Start"}, {"value": "center", "label": "Center"}, {"value": "end", "label": "End"}]},
+        {"type": "select", "id": "bg_mode", "label": "Background", "default": "default",
+         "options": [{"value": "default", "label": "Default"}, {"value": "surface", "label": "Surface"}, {"value": "raised", "label": "Raised"}, {"value": "inverse", "label": "Inverse"}]}
+      ]
+    },
+    {
+      "type": "media",
+      "name": "Media",
+      "settings": [
+        {"type": "select", "id": "size", "label": "Size", "default": "half",
+         "options": [{"value": "square", "label": "Square"}, {"value": "half", "label": "Half"}, {"value": "third", "label": "Third"}, {"value": "wide", "label": "Wide"}, {"value": "3x2", "label": "3×2"}, {"value": "full", "label": "Full"}]},
+        {"type": "image_picker", "id": "image", "label": "Image"},
+        {"type": "select", "id": "demo_media", "label": "Demo media", "default": "none",
+         "options": [{"value": "none", "label": "None"}, {"value": "fashion", "label": "Demo — fashion"}, {"value": "objects", "label": "Demo — objects"}, {"value": "scent", "label": "Demo — scent"}, {"value": "tee_front", "label": "Demo — tee front"}, {"value": "tee_back", "label": "Demo — tee back"}, {"value": "fabric", "label": "Demo — fabric"}, {"value": "construction", "label": "Demo — construction"}]},
+        {"type": "text", "id": "media_alt", "label": "Alt text", "default": "AKYRO demo image"}
+      ]
+    },
+    {
+      "type": "text_media",
+      "name": "Text + media",
+      "settings": [
+        {"type": "select", "id": "size", "label": "Size", "default": "half",
+         "options": [{"value": "square", "label": "Square"}, {"value": "half", "label": "Half"}, {"value": "third", "label": "Third"}, {"value": "wide", "label": "Wide"}, {"value": "3x2", "label": "3×2"}, {"value": "full", "label": "Full"}]},
+        {"type": "image_picker", "id": "image", "label": "Image"},
+        {"type": "select", "id": "demo_media", "label": "Demo media", "default": "none",
+         "options": [{"value": "none", "label": "None"}, {"value": "fashion", "label": "Demo — fashion"}, {"value": "objects", "label": "Demo — objects"}, {"value": "scent", "label": "Demo — scent"}, {"value": "tee_front", "label": "Demo — tee front"}, {"value": "tee_back", "label": "Demo — tee back"}, {"value": "fabric", "label": "Demo — fabric"}, {"value": "construction", "label": "Demo — construction"}]},
+        {"type": "text", "id": "media_alt", "label": "Alt text", "default": "AKYRO demo image"},
+        {"type": "checkbox", "id": "overlay", "label": "Overlay text on media (scrim)", "default": false},
+        {"type": "text", "id": "eyebrow", "label": "Eyebrow"},
+        {"type": "text", "id": "heading", "label": "Heading"},
+        {"type": "textarea", "id": "body", "label": "Body"},
+        {"type": "text", "id": "button_label", "label": "Button label"},
+        {"type": "url", "id": "button_link", "label": "Button link"},
+        {"type": "select", "id": "align", "label": "Alignment", "default": "start",
+         "options": [{"value": "start", "label": "Start"}, {"value": "center", "label": "Center"}, {"value": "end", "label": "End"}]},
+        {"type": "select", "id": "bg_mode", "label": "Background", "default": "default",
+         "options": [{"value": "default", "label": "Default"}, {"value": "surface", "label": "Surface"}, {"value": "raised", "label": "Raised"}, {"value": "inverse", "label": "Inverse"}]}
+      ]
+    },
+    {
+      "type": "cta",
+      "name": "CTA",
+      "settings": [
+        {"type": "select", "id": "size", "label": "Size", "default": "full",
+         "options": [{"value": "half", "label": "Half"}, {"value": "wide", "label": "Wide"}, {"value": "full", "label": "Full"}]},
+        {"type": "text", "id": "eyebrow", "label": "Eyebrow"},
+        {"type": "text", "id": "heading", "label": "Heading"},
+        {"type": "textarea", "id": "body", "label": "Body"},
+        {"type": "text", "id": "button_label", "label": "Button label", "default": "Request access"},
+        {"type": "url", "id": "button_link", "label": "Button link"},
+        {"type": "select", "id": "align", "label": "Alignment", "default": "start",
+         "options": [{"value": "start", "label": "Start"}, {"value": "center", "label": "Center"}]},
+        {"type": "select", "id": "bg_mode", "label": "Background", "default": "raised",
+         "options": [{"value": "default", "label": "Default"}, {"value": "surface", "label": "Surface"}, {"value": "raised", "label": "Raised"}, {"value": "inverse", "label": "Inverse"}]}
+      ]
+    },
+    {
+      "type": "proof",
+      "name": "Proof",
+      "settings": [
+        {"type": "select", "id": "size", "label": "Size", "default": "third",
+         "options": [{"value": "square", "label": "Square"}, {"value": "half", "label": "Half"}, {"value": "third", "label": "Third"}, {"value": "3x2", "label": "3×2"}]},
+        {"type": "text", "id": "num", "label": "Number (Latin digits)"},
+        {"type": "text", "id": "eyebrow", "label": "Label"},
+        {"type": "textarea", "id": "body", "label": "Line"},
+        {"type": "image_picker", "id": "image", "label": "Image"},
+        {"type": "select", "id": "demo_media", "label": "Demo media", "default": "none",
+         "options": [{"value": "none", "label": "None"}, {"value": "fashion", "label": "Demo — fashion"}, {"value": "objects", "label": "Demo — objects"}, {"value": "scent", "label": "Demo — scent"}, {"value": "tee_front", "label": "Demo — tee front"}, {"value": "tee_back", "label": "Demo — tee back"}, {"value": "fabric", "label": "Demo — fabric"}, {"value": "construction", "label": "Demo — construction"}]},
+        {"type": "text", "id": "media_alt", "label": "Alt text", "default": "AKYRO demo image"}
+      ]
+    },
+    {
+      "type": "stat",
+      "name": "Stat / data",
+      "settings": [
+        {"type": "select", "id": "size", "label": "Size", "default": "third",
+         "options": [{"value": "square", "label": "Square"}, {"value": "third", "label": "Third"}, {"value": "half", "label": "Half"}]},
+        {"type": "text", "id": "stat_value", "label": "Value (Latin digits, real data only)"},
+        {"type": "text", "id": "eyebrow", "label": "Label"},
+        {"type": "textarea", "id": "body", "label": "Note"},
+        {"type": "select", "id": "align", "label": "Alignment", "default": "start",
+         "options": [{"value": "start", "label": "Start"}, {"value": "center", "label": "Center"}]},
+        {"type": "select", "id": "bg_mode", "label": "Background", "default": "default",
+         "options": [{"value": "default", "label": "Default"}, {"value": "surface", "label": "Surface"}, {"value": "raised", "label": "Raised"}, {"value": "inverse", "label": "Inverse"}]}
+      ]
+    },
+    {
+      "type": "link_card",
+      "name": "Link card",
+      "settings": [
+        {"type": "select", "id": "size", "label": "Size", "default": "third",
+         "options": [{"value": "square", "label": "Square"}, {"value": "third", "label": "Third"}, {"value": "half", "label": "Half"}, {"value": "3x2", "label": "3×2"}]},
+        {"type": "text", "id": "eyebrow", "label": "Eyebrow"},
+        {"type": "text", "id": "heading", "label": "Heading"},
+        {"type": "textarea", "id": "body", "label": "Body"},
+        {"type": "url", "id": "button_link", "label": "Link"},
+        {"type": "image_picker", "id": "image", "label": "Image"},
+        {"type": "select", "id": "demo_media", "label": "Demo media", "default": "none",
+         "options": [{"value": "none", "label": "None"}, {"value": "fashion", "label": "Demo — fashion"}, {"value": "objects", "label": "Demo — objects"}, {"value": "scent", "label": "Demo — scent"}, {"value": "tee_front", "label": "Demo — tee front"}, {"value": "tee_back", "label": "Demo — tee back"}, {"value": "fabric", "label": "Demo — fabric"}, {"value": "construction", "label": "Demo — construction"}]},
+        {"type": "text", "id": "media_alt", "label": "Alt text", "default": "AKYRO demo image"},
+        {"type": "select", "id": "bg_mode", "label": "Background", "default": "default",
+         "options": [{"value": "default", "label": "Default"}, {"value": "surface", "label": "Surface"}, {"value": "raised", "label": "Raised"}, {"value": "inverse", "label": "Inverse"}]}
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Block grid (CMS)",
+      "blocks": [
+        {"type": "text", "settings": {"size": "half", "eyebrow": "SYSTEM", "heading": "Editable block.", "body": "Demo content — replace from Theme Editor."}},
+        {"type": "media", "settings": {"size": "half", "demo_media": "objects"}},
+        {"type": "proof", "settings": {"size": "third", "num": "01", "eyebrow": "FIT", "body": "Demo content — replace before launch.", "demo_media": "tee_back"}}
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,50 @@
+/* AKYRO — Product Proof (M01-D + polish) */
+.product-proof__head {
+  display: grid;
+  gap: var(--space-1);
+  margin-block-end: var(--space-4);
+  max-inline-size: 64ch;
+}
+
+.product-proof__card {
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  border: var(--border);
+  min-block-size: 100%;
+  background:
+    linear-gradient(90deg, transparent 0, transparent calc(100% - 1px), var(--line) calc(100% - 1px)),
+    var(--surface);
+}
+
+.product-proof__index {
+  position: absolute;
+  inset-block-start: var(--space-2);
+  inset-inline-start: var(--space-2);
+  z-index: 1;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.product-proof__media {
+  aspect-ratio: 4 / 5;
+  min-block-size: 300px;
+}
+
+.product-proof__media::after {
+  content: "";
+  position: absolute;
+  inset: var(--space-2);
+  border: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.product-proof__body {
+  padding: var(--space-2);
+  border-block-start: var(--border);
+}
+
+.product-proof__body p {
+  color: var(--text-muted);
+}

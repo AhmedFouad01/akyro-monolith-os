@@ -1,0 +1,115 @@
+{%- comment -%}
+  AKYRO — sections/monolith-header.liquid (M01-B)
+  Wordmark inline-start · nav · utils inline-end. Sticky, hairline.
+  Mobile menu uses the shared .drawer shell (components.css);
+  full focus trap arrives with monolith.js (M01-C).
+  One logo moment per composition: the wordmark here, nothing else.
+{%- endcomment -%}
+
+{{ 'section-monolith-header.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'header.js' | asset_url }}" defer></script>
+
+<header class="monolith-header" data-header>
+  <div class="frame monolith-header__row">
+
+    <button
+      type="button"
+      class="icon-btn monolith-header__menu-toggle"
+      data-menu-toggle
+      aria-expanded="false"
+      aria-controls="HeaderMenuPanel"
+      aria-label="{{ 'accessibility.menu' | t }}"
+    >
+      {% render 'icon', name: 'menu' %}
+    </button>
+
+    <div class="monolith-header__brand">
+      {% render 'logo-wordmark' %}
+    </div>
+
+    <nav class="monolith-header__nav" aria-label="{{ 'accessibility.primary_nav' | t }}">
+      {%- for link in section.settings.menu.links -%}
+        <a
+          href="{{ link.url }}"
+          class="monolith-header__link label"
+          {% if link.current %}aria-current="page"{% endif %}
+        >{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+
+    <div class="monolith-header__utils">
+      {%- if section.settings.show_locale_switcher -%}
+        <div class="monolith-header__locale">{% render 'locale-switcher' %}</div>
+      {%- endif -%}
+
+      <a href="{{ routes.search_url }}" class="icon-btn" aria-label="{{ 'accessibility.search' | t }}">
+        {% render 'icon', name: 'search' %}
+      </a>
+
+      <a
+        href="{{ routes.cart_url }}"
+        class="icon-btn monolith-header__cart"
+        data-cart-trigger
+        aria-label="{{ 'accessibility.cart' | t: count: cart.item_count }}"
+      >
+        {% render 'icon', name: 'cart' %}
+        {%- if cart.item_count > 0 -%}
+          <span class="monolith-header__count data-latin" aria-hidden="true">{{ cart.item_count }}</span>
+        {%- endif -%}
+      </a>
+    </div>
+
+  </div>
+</header>
+
+{%- comment -%} Mobile menu panel — shared drawer shell, inline-end anchored {%- endcomment -%}
+<div
+  class="drawer monolith-header__panel"
+  id="HeaderMenuPanel"
+  role="dialog"
+  aria-modal="true"
+  aria-label="{{ 'accessibility.menu' | t }}"
+>
+  <div class="drawer__header">
+    <span class="label">{{ 'accessibility.menu' | t }}</span>
+    <button type="button" class="icon-btn" data-menu-close aria-label="{{ 'accessibility.close' | t }}">
+      {% render 'icon', name: 'close' %}
+    </button>
+  </div>
+  <div class="drawer__body">
+    <nav class="monolith-header__panel-nav flow-tight" aria-label="{{ 'accessibility.primary_nav' | t }}">
+      {%- for link in section.settings.menu.links -%}
+        <a
+          href="{{ link.url }}"
+          class="monolith-header__panel-link"
+          {% if link.current %}aria-current="page"{% endif %}
+        >{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+  </div>
+  <div class="drawer__footer">
+    {% render 'locale-switcher' %}
+  </div>
+</div>
+<div class="overlay" data-header-overlay hidden></div>
+
+{% schema %}
+{
+  "name": "Monolith header",
+  "class": "shopify-section-header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Primary menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_locale_switcher",
+      "label": "Show language switcher (desktop)",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

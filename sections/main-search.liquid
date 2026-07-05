@@ -1,0 +1,98 @@
+{%- comment -%}
+  AKYRO — sections/main-search.liquid (M02-E)
+  Search form + product results on the shared card system, or a
+  controlled, editor-editable empty state.
+{%- endcomment -%}
+
+{{ 'section-pages.css' | asset_url | stylesheet_tag }}
+{{ 'section-search.css' | asset_url | stylesheet_tag }}
+
+<div class="section-shell {% render 'section-style', s: section.settings %} main-search">
+  <div class="frame">
+    <h1>{{ 'search.title' | t }}</h1>
+
+    <form action="{{ routes.search_url }}" method="get" role="search" class="main-search__form">
+      <label class="visually-hidden" for="SearchInput">{{ 'search.placeholder' | t }}</label>
+      <input
+        id="SearchInput"
+        class="field__input"
+        type="search"
+        name="q"
+        value="{{ search.terms | escape }}"
+        placeholder="{{ 'search.placeholder' | t }}"
+      >
+      <input type="hidden" name="type" value="product">
+      <button type="submit" class="btn">{{ 'search.submit' | t }}</button>
+    </form>
+
+    {%- if search.performed -%}
+      {%- paginate search.results by section.settings.per_page -%}
+        {%- if search.results_count > 0 -%}
+          <p class="text-data main-search__count">{{ 'search.results_count' | t: count: search.results_count }}</p>
+          <div
+            class="cards-grid"
+            style="--cols-m: {{ section.settings.cols_mobile }}; --cols-d: {{ section.settings.cols_desktop }};"
+          >
+            {%- for item in search.results -%}
+              {%- if item.object_type == 'product' -%}
+                {% render 'product-card',
+                  product: item,
+                  ratio: section.settings.card_ratio,
+                  show_price: section.settings.show_price,
+                  show_status: section.settings.show_status,
+                  show_sku: section.settings.show_sku
+                %}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          {%- if paginate.pages > 1 -%}
+            <nav class="main-collection__pagination">
+              {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" class="btn btn--quiet">{{ 'general.pagination.previous' | t }}</a>{%- endif -%}
+              {%- if paginate.next -%}<a href="{{ paginate.next.url }}" class="btn">{{ 'general.pagination.next' | t }}</a>{%- endif -%}
+            </nav>
+          {%- endif -%}
+        {%- else -%}
+          <div class="empty-state flow">
+            {%- liquid
+              assign empty_body = section.settings.empty_body
+              if empty_body == blank
+                assign empty_body = 'search.empty' | t
+              endif
+            -%}
+            {%- if section.settings.empty_heading != blank -%}<h2 class="h3">{{ section.settings.empty_heading }}</h2>{%- endif -%}
+            <p>{{ empty_body }}</p>
+          </div>
+        {%- endif -%}
+      {%- endpaginate -%}
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Search",
+  "settings": [
+    {"type": "header", "content": "Grid"},
+    {"type": "select", "id": "cols_desktop", "label": "Columns — desktop", "default": "4",
+     "options": [{"value": "2", "label": "2"}, {"value": "3", "label": "3"}, {"value": "4", "label": "4"}]},
+    {"type": "select", "id": "cols_mobile", "label": "Columns — mobile", "default": "2",
+     "options": [{"value": "1", "label": "1"}, {"value": "2", "label": "2"}]},
+    {"type": "select", "id": "card_ratio", "label": "Image ratio", "default": "4x5",
+     "options": [{"value": "4x5", "label": "4:5"}, {"value": "1x1", "label": "1:1"}, {"value": "16x9", "label": "16:9"}]},
+    {"type": "range", "id": "per_page", "label": "Results per page", "min": 4, "max": 24, "step": 2, "default": 12},
+    {"type": "checkbox", "id": "show_price", "label": "Show price", "default": true},
+    {"type": "checkbox", "id": "show_status", "label": "Show status badge", "default": true},
+    {"type": "checkbox", "id": "show_sku", "label": "Show style no (SKU)", "default": false},
+    {"type": "header", "content": "Empty state"},
+    {"type": "text", "id": "empty_heading", "label": "Heading"},
+    {"type": "textarea", "id": "empty_body", "label": "Body (blank = default)"},
+    {"type": "header", "content": "Layout"},
+    {"type": "select", "id": "width", "label": "Section width", "default": "normal",
+     "options": [{"value": "normal", "label": "Normal"}, {"value": "wide", "label": "Wide"}, {"value": "full", "label": "Full"}]},
+    {"type": "select", "id": "spacing", "label": "Section spacing", "default": "default",
+     "options": [{"value": "compact", "label": "Compact"}, {"value": "default", "label": "Default"}, {"value": "spacious", "label": "Spacious"}]},
+    {"type": "select", "id": "bg_mode", "label": "Background", "default": "default",
+     "options": [{"value": "default", "label": "Default"}, {"value": "surface", "label": "Surface"}, {"value": "raised", "label": "Raised"}, {"value": "inverse", "label": "Inverse"}]}
+  ]
+}
+{% endschema %}

@@ -1,0 +1,26 @@
+{%- comment -%}
+  AKYRO — snippets/drawer.liquid (M01-C)
+  Generic drawer shell, anchored inline-end (components.css .drawer;
+  slide pair in direction.css). params: id, title, body, footer.
+  role=dialog / aria-modal; open/close/trap in drawer.js.
+{%- endcomment -%}
+<aside
+  class="drawer"
+  id="{{ id }}"
+  role="dialog"
+  aria-modal="true"
+  aria-label="{{ title }}"
+  data-drawer
+  tabindex="-1"
+>
+  <div class="drawer__header">
+    <span class="label">{{ title }}</span>
+    <button type="button" class="icon-btn" data-drawer-close aria-label="{{ 'accessibility.close' | t }}">
+      {% render 'icon', name: 'close' %}
+    </button>
+  </div>
+  <div class="drawer__body">{{ body }}</div>
+  {%- if footer != blank -%}
+    <div class="drawer__footer">{{ footer }}</div>
+  {%- endif -%}
+</aside>

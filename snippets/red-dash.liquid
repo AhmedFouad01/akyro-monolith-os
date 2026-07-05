@@ -1,0 +1,29 @@
+{%- comment -%}
+  AKYRO — snippets/red-dash.liquid (M02-C)
+  Distinction (locked):
+  - AKYRO red dash ASSET = settings.logo_red_dash upload only. Never
+    redrawn, recolored, stretched, or mirrored.
+  - UI functional red micro-line = CSS token fallback below. It is a
+    system accent, NOT a logo recreation, and renders only while the
+    locked asset is absent.
+{%- endcomment -%}
+
+{%- liquid
+  assign dash = settings.logo_red_dash
+  if settings.theme_mode == 'light' and settings.logo_red_dash_light != blank
+    assign dash = settings.logo_red_dash_light
+  endif
+-%}
+{%- if dash != blank -%}
+  <img
+    src="{{ dash | image_url: width: 64 }}"
+    alt=""
+    class="red-dash red-dash--asset"
+    width="32"
+    height="6"
+    loading="lazy"
+    aria-hidden="true"
+  >
+{%- else -%}
+  <span class="red-dash" aria-hidden="true"></span>
+{%- endif -%}

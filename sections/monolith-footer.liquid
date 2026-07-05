@@ -1,0 +1,145 @@
+{%- comment -%}
+  AKYRO — sections/monolith-footer.liquid (M01-B)
+  Grid footer: menu columns (blocks) · access signup · base row
+  (legal, optional locale switcher, gated restricted phrase).
+  "BUILT TO LAST": one placement max, default off, never translated —
+  the key exists only in en.default.json so Arabic falls back to English.
+{%- endcomment -%}
+
+{{ 'section-monolith-footer.css' | asset_url | stylesheet_tag }}
+
+<footer class="monolith-footer section line-block">
+  <div class="frame">
+
+    <div class="monolith-footer__grid">
+      {%- if section.settings.show_footer_menu and section.settings.footer_menu != blank and section.settings.footer_menu.links.size > 0 -%}
+        <div class="monolith-footer__col">
+          <p class="label">{{ section.settings.footer_menu.title }}</p>
+          <ul class="monolith-footer__list flow-tight" role="list">
+            {%- for link in section.settings.footer_menu.links -%}
+              <li><a href="{{ link.url }}" class="monolith-footer__link">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'menu' -%}
+            {%- if block.settings.menu != blank -%}
+              <div class="monolith-footer__col" {{ block.shopify_attributes }}>
+                <p class="label">{{ block.settings.menu.title }}</p>
+                <ul class="monolith-footer__list flow-tight" role="list">
+                  {%- for link in block.settings.menu.links -%}
+                    <li><a href="{{ link.url }}" class="monolith-footer__link">{{ link.title }}</a></li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {%- endif -%}
+        {%- endcase -%}
+      {%- endfor -%}
+
+      {%- if section.settings.enable_signup -%}
+        <div class="monolith-footer__col monolith-footer__signup">
+          <p class="label">{{ section.settings.signup_heading }}</p>
+          {%- form 'customer', class: 'monolith-footer__form' -%}
+            <input type="hidden" name="contact[tags]" value="access-list">
+            {%- if form.posted_successfully? -%}
+              <p class="text-data">{{ 'footer.signup.success' | t }}</p>
+            {%- else -%}
+              <div class="monolith-footer__field">
+                <label class="visually-hidden" for="FooterEmail">{{ 'footer.signup.email_label' | t }}</label>
+                <input
+                  id="FooterEmail"
+                  class="field__input"
+                  type="email"
+                  name="contact[email]"
+                  required
+                  autocomplete="email"
+                  placeholder="{{ 'footer.signup.email_label' | t }}"
+                >
+                <button type="submit" class="btn">{{ 'footer.signup.submit' | t }}</button>
+              </div>
+              {%- if form.errors -%}
+                <p class="field__error">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endform -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="monolith-footer__base line-block">
+      <small class="monolith-footer__legal">
+        &copy; <span class="data-latin">{{ 'now' | date: '%Y' }}</span> {{ shop.name }}
+      </small>
+
+      {%- if section.settings.show_locale_switcher -%}
+        {% render 'locale-switcher' %}
+      {%- endif -%}
+
+      {%- if section.settings.show_tagline -%}
+        <span class="label monolith-footer__tagline">{{ 'general.built_to_last' | t }}</span>
+      {%- endif -%}
+    </div>
+
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Monolith footer",
+  "class": "shopify-section-footer",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_footer_menu",
+      "label": "t:sections.footer.show_menu",
+      "default": true
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu",
+      "label": "t:sections.footer.menu",
+      "default": "footer"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_signup",
+      "label": "Show access list signup",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "signup_heading",
+      "label": "Signup heading",
+      "default": "Access"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_locale_switcher",
+      "label": "Show language switcher",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tagline",
+      "label": "Show restricted phrase (one placement max — Brand Guidelines)",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu column",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4
+}
+{% endschema %}

@@ -1,0 +1,43 @@
+{%- comment -%}
+  AKYRO — snippets/logo-wordmark.liquid (S1b)
+  LOCKED wordmark. Mode-aware: light-ink export on dark theme,
+  dark-ink export on light theme (settings.logo_wordmark[_light]).
+  Optional mobile logo swaps in under 750px via <picture>.
+  Never redrawn, recolored (no filters), stretched, or mirrored.
+  Fallback: shop name in display type.
+{%- endcomment -%}
+
+{%- liquid
+  assign w = settings.logo_wordmark_width | default: 146
+  assign w2x = w | times: 2
+  assign is_light = false
+  if settings.theme_mode == 'light'
+    assign is_light = true
+  endif
+  assign mark = settings.logo_wordmark
+  if is_light and settings.logo_wordmark_light != blank
+    assign mark = settings.logo_wordmark_light
+  endif
+  assign mobile = settings.logo_mobile
+-%}
+
+{%- if mark != blank -%}
+  <a href="{{ routes.root_url }}" class="logo-wordmark" aria-label="{{ shop.name | escape }}" data-home-link>
+    <picture>
+      {%- if mobile != blank -%}
+        <source media="(max-width: 749px)" srcset="{{ mobile | image_url: width: 192 }}">
+      {%- endif -%}
+      <img
+        src="{{ mark | image_url: width: w2x }}"
+        alt="{{ shop.name | escape }}"
+        class="logo-wordmark__img"
+        style="--logo-w: {{ w }}px"
+        width="{{ w }}"
+        height="24"
+        loading="eager"
+      >
+    </picture>
+  </a>
+{%- else -%}
+  <a href="{{ routes.root_url }}" class="logo-wordmark logo-wordmark--text" data-home-link>{{ shop.name }}</a>
+{%- endif -%}
