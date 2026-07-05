@@ -93,9 +93,42 @@
     "access_list": {
       "type": "access-list",
       "settings": {}
+    },
+    "art_collection_stage": {
+      "type": "art-collection-stage",
+      "blocks": {
+        "form_held": {
+          "type": "collection",
+          "settings": {
+            "eyebrow": "ART COLLECTION",
+            "title": "FORM, HELD.",
+            "statement": "Cut by structure. Proven by wear.",
+            "support_copy": "Demo content — replace before launch.",
+            "demo_media": "tee_front",
+            "align": "start"
+          }
+        },
+        "every_cut": {
+          "type": "collection",
+          "settings": {
+            "eyebrow": "ART COLLECTION",
+            "title": "Every cut has a job.",
+            "statement": "Form, cut, pattern, hold.",
+            "support_copy": "Demo content — replace before launch.",
+            "demo_media": "construction",
+            "align": "start"
+          }
+        }
+      },
+      "block_order": [
+        "form_held",
+        "every_cut"
+      ],
+      "settings": {}
     }
   },
   "order": [
+    "art_collection_stage",
     "hero_monolith",
     "drop_status",
     "product_proof",

@@ -153,6 +153,11 @@
     "featured": {
       "empty_collection": "Select a collection in section settings.",
       "empty_products": "Select products in section settings."
+    },
+    "art_stage": {
+      "roledescription": "carousel",
+      "nav_label": "Art Collections",
+      "untitled": "Art Collection"
     }
   },
   "collections": {

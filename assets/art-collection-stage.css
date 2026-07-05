@@ -1,0 +1,129 @@
+/* AKYRO — assets/art-collection-stage.css (M05-B)
+   Vertical DOM is the real document; horizontal is a desktop-only
+   enhancement applied by JS (adds .is-enhanced). No-JS/mobile = plain
+   vertical stack, full width, normal scroll. Logical properties only. */
+
+.art-stage {
+  position: relative;
+}
+
+.art-stage__track {
+  display: flex;
+  flex-direction: column;
+}
+
+.art-stage__panel {
+  position: relative;
+  min-block-size: var(--art-stage-h, 100vh);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--surface);
+  border-block-end: var(--border);
+}
+
+.art-stage--tone-light .art-stage__panel { background: var(--surface); color: var(--text); }
+
+.art-stage__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.art-stage__media .media-shell__img,
+.art-stage__media img {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.art-stage__body {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-6) var(--frame-pad, var(--space-4));
+  max-inline-size: 56ch;
+}
+
+.art-stage__panel--align-center .art-stage__body { margin-inline: auto; text-align: center; }
+.art-stage__panel--align-end .art-stage__body { margin-inline-start: auto; text-align: end; }
+
+.art-stage__statement {
+  font-family: var(--font-display-active);
+  font-size: calc(var(--t-h2-size) * var(--type-scale));
+  font-weight: var(--t-h2-weight);
+  line-height: var(--leading-display);
+}
+
+.art-stage__support {
+  color: var(--text-muted);
+  max-inline-size: 48ch;
+}
+
+/* Nav dots — vertical stack in the non-enhanced (default) layout */
+.art-stage__nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: var(--space-2);
+  padding-block: var(--space-2);
+}
+
+.art-stage__dot {
+  inline-size: var(--space-2);
+  block-size: var(--space-2);
+  border: var(--border);
+  background: transparent;
+  padding: 0;
+}
+
+.art-stage__dot.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ---- Enhanced (desktop, JS-confirmed) horizontal stage ---- */
+.art-stage.is-enhanced {
+  overflow: hidden;
+}
+
+.art-stage.is-enhanced .art-stage__track {
+  flex-direction: row;
+  inline-size: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.art-stage.is-enhanced[data-snap="true"] .art-stage__track {
+  scroll-snap-type: x mandatory;
+}
+
+.art-stage.is-enhanced .art-stage__panel {
+  flex: 0 0 100%;
+  inline-size: 100%;
+  scroll-snap-align: start;
+}
+
+.art-stage.is-enhanced .art-stage__nav {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: var(--space-3);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  padding-block: 0;
+}
+
+.art-stage.is-enhanced.art-stage--nav-start .art-stage__nav {
+  inset-inline-end: auto;
+  inset-inline-start: var(--space-3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .art-stage.is-enhanced .art-stage__track {
+    scroll-behavior: auto;
+  }
+}

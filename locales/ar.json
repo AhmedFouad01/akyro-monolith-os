@@ -153,6 +153,11 @@
     "featured": {
       "empty_collection": "اختر مجموعة من إعدادات القسم.",
       "empty_products": "اختر منتجات من إعدادات القسم."
+    },
+    "art_stage": {
+      "roledescription": "معرض دوّار",
+      "nav_label": "المجموعات الفنية",
+      "untitled": "مجموعة فنية"
     }
   },
   "collections": {

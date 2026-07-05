@@ -1,0 +1,160 @@
+{%- comment -%}
+  AKYRO — sections/art-collection-stage.liquid (M05-B)
+  Horizontal Art Collection stage. Vertical semantic DOM is the
+  source of truth (SEO/AIEO/a11y/no-JS/mobile); horizontal snap is
+  a progressive-enhancement layer added by JS only when it can run.
+  No product logic yet — image/copy/link blocks only.
+{%- endcomment -%}
+
+{{ 'art-collection-stage.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'art-collection-stage.js' | asset_url }}" defer></script>
+
+{%- liquid
+  assign nav_pos = section.settings.nav_position | default: 'end'
+  assign tone = section.settings.tone | default: 'dark'
+  assign wheel_nav = section.settings.enable_wheel_nav
+  assign snap = section.settings.enable_snap
+  assign panel_h = section.settings.panel_height | default: 100
+-%}
+
+<section
+  class="art-stage art-stage--tone-{{ tone }} art-stage--nav-{{ nav_pos }}"
+  data-art-stage
+  data-wheel-nav="{{ wheel_nav }}"
+  data-snap="{{ snap }}"
+  style="--art-stage-h: {{ panel_h }}vh;"
+  aria-roledescription="{{ 'sections.art_stage.roledescription' | t }}"
+>
+  <div class="art-stage__track" data-art-track>
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'collection' -%}
+        {%- liquid
+          assign align = block.settings.align | default: 'start'
+          assign demo_asset = blank
+          case block.settings.demo_media
+            when 'fashion'
+              assign demo_asset = 'akyro-demo-fashion-index.png'
+            when 'objects'
+              assign demo_asset = 'akyro-demo-objects-index.png'
+            when 'scent'
+              assign demo_asset = 'akyro-demo-scent-index.png'
+            when 'tee_front'
+              assign demo_asset = 'akyro-demo-hero-tee.png'
+            when 'tee_back'
+              assign demo_asset = 'akyro-demo-tee-back.png'
+            when 'fabric'
+              assign demo_asset = 'akyro-demo-fabric-detail.png'
+            when 'construction'
+              assign demo_asset = 'akyro-demo-construction-detail.png'
+          endcase
+          if block.settings.image != blank
+            assign demo_asset = blank
+          endif
+          assign has_media = false
+          if block.settings.image != blank or demo_asset != blank
+            assign has_media = true
+          endif
+        -%}
+        <article
+          class="art-stage__panel art-stage__panel--align-{{ align }}"
+          id="ArtPanel-{{ forloop.index }}"
+          role="region"
+          aria-label="{{ block.settings.title | default: 'sections.art_stage.untitled' | t | escape }}"
+          data-art-panel
+          {{ block.shopify_attributes }}
+        >
+          {%- if has_media -%}
+            <div class="art-stage__media">
+              {% render 'media',
+                image: block.settings.image,
+                asset: demo_asset,
+                class: 'art-stage__img',
+                sizes: '100vw',
+                loading: forloop.first | default: 'eager',
+                alt: block.settings.title
+              %}
+            </div>
+          {%- endif -%}
+
+          <div class="art-stage__body flow">
+            {%- if block.settings.eyebrow != blank -%}
+              <p class="eyebrow">{{ block.settings.eyebrow }}</p>
+            {%- endif -%}
+            {%- if block.settings.title != blank -%}
+              <h2>{{ block.settings.title }}</h2>
+            {%- endif -%}
+            {%- if block.settings.statement != blank -%}
+              <p class="art-stage__statement">{{ block.settings.statement }}</p>
+            {%- endif -%}
+            {%- if block.settings.support_copy != blank -%}
+              <p class="art-stage__support text-data">{{ block.settings.support_copy }}</p>
+            {%- endif -%}
+            {%- if block.settings.cta_label != blank -%}
+              <a href="{{ block.settings.collection_link | default: '#' }}" class="btn btn--primary">{{ block.settings.cta_label }}</a>
+            {%- endif -%}
+          </div>
+        </article>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  {%- if section.blocks.size > 1 -%}
+    <nav class="art-stage__nav" data-art-nav aria-label="{{ 'sections.art_stage.nav_label' | t }}">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'collection' -%}
+          <button
+            type="button"
+            class="art-stage__dot"
+            data-art-nav-item
+            data-art-target="ArtPanel-{{ forloop.index }}"
+            aria-controls="ArtPanel-{{ forloop.index }}"
+            aria-label="{{ block.settings.title | default: 'sections.art_stage.untitled' | t | escape }}"
+          ></button>
+        {%- endif -%}
+      {%- endfor -%}
+    </nav>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Art Collection stage",
+  "settings": [
+    {"type": "checkbox", "id": "enable_wheel_nav", "label": "Translate vertical scroll to horizontal movement (desktop)", "default": true},
+    {"type": "checkbox", "id": "enable_snap", "label": "Snap between panels", "default": true},
+    {"type": "range", "id": "panel_height", "label": "Panel height", "min": 60, "max": 100, "step": 5, "unit": "vh", "default": 100},
+    {"type": "select", "id": "nav_position", "label": "Navigation position", "default": "end",
+     "options": [{"value": "start", "label": "Start"}, {"value": "end", "label": "End"}]},
+    {"type": "select", "id": "tone", "label": "Tone", "default": "dark",
+     "options": [{"value": "dark", "label": "Dark"}, {"value": "light", "label": "Light"}]}
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Art Collection panel",
+      "settings": [
+        {"type": "text", "id": "eyebrow", "label": "Eyebrow"},
+        {"type": "text", "id": "title", "label": "Title"},
+        {"type": "text", "id": "statement", "label": "Statement", "info": "Short line. Product-evidence language: form, cut, pattern, hold, weight, proof, construction, fit."},
+        {"type": "textarea", "id": "support_copy", "label": "Support copy"},
+        {"type": "image_picker", "id": "image", "label": "Image", "info": "2400×3000 px · 4:5 or full-bleed · JPEG ≤ 700 KB"},
+        {"type": "select", "id": "demo_media", "label": "Demo media (used if no image)", "default": "none",
+         "options": [{"value": "none", "label": "None"}, {"value": "fashion", "label": "Demo — fashion"}, {"value": "objects", "label": "Demo — objects"}, {"value": "scent", "label": "Demo — scent"}, {"value": "tee_front", "label": "Demo — tee front"}, {"value": "tee_back", "label": "Demo — tee back"}, {"value": "fabric", "label": "Demo — fabric"}, {"value": "construction", "label": "Demo — construction"}]},
+        {"type": "url", "id": "collection_link", "label": "Collection link"},
+        {"type": "text", "id": "cta_label", "label": "CTA label"},
+        {"type": "select", "id": "align", "label": "Text alignment", "default": "start",
+         "options": [{"value": "start", "label": "Start"}, {"value": "center", "label": "Center"}, {"value": "end", "label": "End"}]}
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Art Collection stage",
+      "blocks": [
+        {"type": "collection", "settings": {"eyebrow": "ART COLLECTION", "title": "FORM, HELD.", "statement": "Cut by structure. Proven by wear."}},
+        {"type": "collection", "settings": {"eyebrow": "ART COLLECTION", "title": "Every cut has a job.", "statement": "Form, cut, pattern, hold."}}
+      ]
+    }
+  ]
+}
+{% endschema %}
