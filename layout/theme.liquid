@@ -51,6 +51,67 @@
   {%- endcomment -%}
 
   {%- comment -%} Global CSS — fixed order: tokens → base → layout → components → direction {%- endcomment -%}
+  {%- liquid
+    assign gap_min = 'var(--space-6)'
+    assign gap_max = 'var(--space-10)'
+    if settings.section_gap_scale == 'compact'
+      assign gap_min = 'var(--space-4)'
+      assign gap_max = 'var(--space-8)'
+    elsif settings.section_gap_scale == 'spacious'
+      assign gap_min = 'var(--space-8)'
+      assign gap_max = 'calc(var(--space-10) * 1.4)'
+    endif
+  -%}
+  <style>
+    :root {
+      --page-max: {{ settings.page_max | default: 1400 }}px;
+      --radius: {{ settings.base_radius | default: 0 }}px;
+      --speed: {{ settings.motion_speed | default: 180 }}ms;
+      --section-gap: clamp({{ gap_min }}, 8vw, {{ gap_max }});
+    }
+    {%- liquid
+      assign en_disp = 'Inter, sans-serif'
+      if settings.en_display_font == 'system'
+        assign en_disp = '-apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif'
+      endif
+      assign en_body = 'Inter, sans-serif'
+      if settings.en_body_font == 'system'
+        assign en_body = '-apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif'
+      endif
+      assign ar_disp = 'Cairo, Tahoma, sans-serif'
+      if settings.ar_display_font == 'plex'
+        assign ar_disp = 'IBM Plex Sans Arabic, Tahoma, sans-serif'
+      endif
+      assign ar_body = 'IBM Plex Sans Arabic, Tahoma, sans-serif'
+      if settings.ar_body_font == 'cairo'
+        assign ar_body = 'Cairo, Tahoma, sans-serif'
+      endif
+    -%}
+    :root {
+      --font-display: {{ en_disp }};
+      --font-body: {{ en_body }};
+      --font-display-ar: {{ ar_disp }};
+      --font-body-ar: {{ ar_body }};
+      --type-scale: {{ settings.en_scale | default: 100 | divided_by: 100.0 }};
+    }
+    :root:lang(ar) { --type-scale: {{ settings.ar_scale | default: 104 | divided_by: 100.0 }}; }
+    :root {
+      --h1-size: {{ settings.h1_size | default: 49 }}px;   --h1-weight: {{ settings.h1_weight | default: 700 }};
+      --h2-size: {{ settings.h2_size | default: 31 }}px;   --h2-weight: {{ settings.h2_weight | default: 700 }};
+      --h3-size: {{ settings.h3_size | default: 25 }}px;   --h3-weight: {{ settings.h3_weight | default: 700 }};
+      --h4-size: {{ settings.h4_size | default: 20 }}px;   --h4-weight: {{ settings.h4_weight | default: 600 }};
+      --h5-size: {{ settings.h5_size | default: 17 }}px;   --h5-weight: {{ settings.h5_weight | default: 600 }};
+      --h6-size: {{ settings.h6_size | default: 15 }}px;   --h6-weight: {{ settings.h6_weight | default: 600 }};
+      --title-size: {{ settings.title_size | default: 18 }}px; --title-weight: {{ settings.title_weight | default: 700 }};
+      --para-size: {{ settings.para_size | default: 16 }}px;   --para-weight: {{ settings.para_weight | default: 400 }};
+    }
+  </style>
+  {%- if request.locale.iso_code contains 'ar' -%}
+    {{ 'cairo-var.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: '' }}
+    {{ 'plex-ar-400.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: '' }}
+  {%- else -%}
+    {{ 'inter-var.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: '' }}
+  {%- endif -%}
   {{ 'tokens.css' | asset_url | stylesheet_tag }}
   {{ 'base.css' | asset_url | stylesheet_tag }}
   {{ 'layout.css' | asset_url | stylesheet_tag }}
@@ -58,9 +119,12 @@
   {{ 'direction.css' | asset_url | stylesheet_tag }}
 
   {{ content_for_header }}
+  <script src="{{ 'drawer.js' | asset_url }}" defer></script>
+  <script src="{{ 'monolith.js' | asset_url }}" defer></script>
+
 </head>
 
-<body class="template-{{ template.name | handle }} {{ dir_class }}">
+<body class="template-{{ template.name | handle }} {{ dir_class }} theme-mode-{{ settings.theme_mode | default: 'dark' }}">
 
   <a class="skip-link" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
 
@@ -73,7 +137,7 @@
 
   {% sections 'footer-group' %}
 
-  {%- comment -%} Cart drawer renders here in M01-C (sections/cart-drawer.liquid) {%- endcomment -%}
+  {% section 'cart-drawer' %}
 
 </body>
 </html>

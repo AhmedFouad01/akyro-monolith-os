@@ -1,0 +1,25 @@
+{%- comment -%}
+  AKYRO — snippets/quantity-input.liquid (M01-C)
+  Accessible stepper. params: name, value, id.
+  +/- adjust the input client-side (drawer.js); form submit applies.
+  Order mirrors in RTL via flex flow; digits stay Latin (.data-latin).
+{%- endcomment -%}
+{%- assign qid = id | default: name | handleize -%}
+<div class="qty" data-qty>
+  <button type="button" class="qty__btn" data-qty-minus aria-label="{{ 'cart.decrease' | t }}">
+    {% render 'icon', name: 'minus' %}
+  </button>
+  <label class="visually-hidden" for="{{ qid }}">{{ 'cart.quantity' | t }}</label>
+  <input
+    id="{{ qid }}"
+    class="qty__input data-latin"
+    type="number"
+    name="{{ name }}"
+    value="{{ value }}"
+    min="0"
+    inputmode="numeric"
+  >
+  <button type="button" class="qty__btn" data-qty-plus aria-label="{{ 'cart.increase' | t }}">
+    {% render 'icon', name: 'plus' %}
+  </button>
+</div>

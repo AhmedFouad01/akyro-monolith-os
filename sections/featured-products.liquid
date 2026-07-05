@@ -1,0 +1,84 @@
+{%- comment -%}
+  AKYRO — sections/featured-products.liquid (M02-D)
+  Editor-picked individual products via blocks. Controlled empty state.
+{%- endcomment -%}
+
+{{ 'section-featured.css' | asset_url | stylesheet_tag }}
+
+<div class="section-shell {% render 'section-style', s: section.settings %} featured-products">
+  <div class="frame">
+    <div class="shell-head">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.body != blank -%}<p class="featured__body">{{ section.settings.body }}</p>{%- endif -%}
+    </div>
+
+    {%- liquid
+      assign picked = 0
+      for block in section.blocks
+        if block.settings.product != blank
+          assign picked = picked | plus: 1
+        endif
+      endfor
+    -%}
+
+    {%- if picked > 0 -%}
+      <div
+        class="cards-grid"
+        style="--cols-m: {{ section.settings.cols_mobile }}; --cols-d: {{ section.settings.cols_desktop }};"
+      >
+        {%- for block in section.blocks -%}
+          {%- if block.settings.product != blank -%}
+            <div {{ block.shopify_attributes }}>
+              {% render 'product-card',
+                product: block.settings.product,
+                ratio: section.settings.card_ratio,
+                show_price: section.settings.show_price,
+                show_status: section.settings.show_status,
+                show_sku: section.settings.show_sku
+              %}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="empty-state flow">
+        <p>{{ 'sections.featured.empty_products' | t }}</p>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Featured products",
+  "settings": [
+    {"type": "text", "id": "eyebrow", "label": "Eyebrow"},
+    {"type": "text", "id": "heading", "label": "Heading", "default": "Featured product files"},
+    {"type": "textarea", "id": "body", "label": "Body"},
+    {"type": "select", "id": "cols_desktop", "label": "Columns — desktop", "default": "3",
+     "options": [{"value": "2", "label": "2"}, {"value": "3", "label": "3"}, {"value": "4", "label": "4"}]},
+    {"type": "select", "id": "cols_mobile", "label": "Columns — mobile", "default": "2",
+     "options": [{"value": "1", "label": "1"}, {"value": "2", "label": "2"}]},
+    {"type": "select", "id": "card_ratio", "label": "Image ratio", "default": "4x5",
+     "options": [{"value": "4x5", "label": "4:5"}, {"value": "1x1", "label": "1:1"}, {"value": "16x9", "label": "16:9"}]},
+    {"type": "checkbox", "id": "show_price", "label": "Show price", "default": true},
+    {"type": "checkbox", "id": "show_status", "label": "Show status badge", "default": true},
+    {"type": "checkbox", "id": "show_sku", "label": "Show style no (SKU)", "default": false},
+    {"type": "select", "id": "width", "label": "Section width", "default": "normal",
+     "options": [{"value": "normal", "label": "Normal"}, {"value": "wide", "label": "Wide"}, {"value": "full", "label": "Full"}]},
+    {"type": "select", "id": "spacing", "label": "Section spacing", "default": "default",
+     "options": [{"value": "compact", "label": "Compact"}, {"value": "default", "label": "Default"}, {"value": "spacious", "label": "Spacious"}]},
+    {"type": "select", "id": "bg_mode", "label": "Background", "default": "default",
+     "options": [{"value": "default", "label": "Default"}, {"value": "surface", "label": "Surface"}, {"value": "raised", "label": "Raised"}, {"value": "inverse", "label": "Inverse"}]},
+    {"type": "select", "id": "align", "label": "Text alignment", "default": "start",
+     "options": [{"value": "start", "label": "Start"}, {"value": "center", "label": "Center"}]}
+  ],
+  "blocks": [
+    {"type": "product", "name": "Product",
+     "settings": [{"type": "product", "id": "product", "label": "Product"}]}
+  ],
+  "max_blocks": 12,
+  "presets": [{"name": "Featured products"}]
+}
+{% endschema %}

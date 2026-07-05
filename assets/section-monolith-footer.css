@@ -1,0 +1,84 @@
+/* AKYRO — assets/section-monolith-footer.css (M01-B + M01-D polish)
+   Grid footer. Logical properties only; mirrors free in RTL. */
+
+.monolith-footer {
+  background: var(--surface);
+}
+
+.monolith-footer__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4) var(--gutter);
+}
+
+.monolith-footer__col > .label {
+  margin-block-end: var(--space-2);
+}
+
+.monolith-footer__list {
+  list-style: none;
+}
+
+.monolith-footer__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  color: var(--text-muted);
+  font-size: var(--text-data);
+}
+
+.monolith-footer__link:hover {
+  color: var(--text);
+  opacity: 1;
+}
+
+.monolith-footer__signup {
+  grid-column: 1 / -1;
+}
+
+.monolith-footer__field {
+  display: flex;
+  gap: var(--space-1);
+  max-inline-size: 42ch;
+}
+
+.monolith-footer__field .field__input {
+  flex: 1;
+}
+
+.monolith-footer__base {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-block-start: var(--space-6);
+  padding-block-start: var(--space-2);
+}
+
+.monolith-footer__legal {
+  margin-inline-end: auto;
+}
+
+.monolith-footer__tagline {
+  color: var(--text-muted);
+}
+
+/* M01-D polish: homepage already has its own access section.
+   Keep footer as a quiet legal row on index to avoid duplicate signup UI. */
+.template-index .monolith-footer__signup {
+  display: none;
+}
+
+.template-index .monolith-footer__base {
+  margin-block-start: 0;
+}
+
+@media (min-width: 750px) {
+  .monolith-footer__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .monolith-footer__signup {
+    grid-column: auto / span 2;
+  }
+}

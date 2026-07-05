@@ -1,0 +1,22 @@
+{%- comment -%}
+  AKYRO — snippets/image-guide.liquid (S1)
+  Theme-Editor-only dimension warning. Renders NOTHING on live store.
+  params: image, rw, rh (expected ratio), min_w (min pixel width)
+{%- endcomment -%}
+{%- if request.design_mode and image != blank -%}
+  {%- liquid
+    assign expected = rw | times: 1.0 | divided_by: rh
+    assign actual = image.width | times: 1.0 | divided_by: image.height
+    assign diff = expected | minus: actual | abs
+    assign tolerance = expected | times: 0.1
+    assign too_small = false
+    if min_w and image.width < min_w
+      assign too_small = true
+    endif
+  -%}
+  {%- if diff > tolerance or too_small -%}
+    <div class="image-guide-warning caption" role="note">
+      ⚠ {{ 'admin.image_guide' | t: rw: rw, rh: rh, min: min_w }} — {{ image.width }}×{{ image.height }}
+    </div>
+  {%- endif -%}
+{%- endif -%}

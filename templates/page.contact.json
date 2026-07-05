@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "eyebrow": "CONTACT",
+        "heading": "Studio support."
+      }
+    },
+    "contact": {
+      "type": "main-contact",
+      "settings": {
+        "intro": "Demo content — replace before launch. Questions on orders, sizing or product files."
+      }
+    }
+  },
+  "order": ["hero", "contact"]
+}

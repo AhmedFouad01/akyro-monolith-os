@@ -1,0 +1,95 @@
+/* AKYRO — assets/section-monolith-header.css (M01-B)
+   Sticky hairline header. Logical properties only.
+   Consumes tokens + components; restyles nothing global (R6). */
+
+.shopify-section-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-header);
+}
+
+.monolith-header {
+  background: var(--surface);
+  border-block-end: var(--border);
+}
+
+.monolith-header__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: calc(var(--unit) * 8);
+}
+
+.monolith-header__brand {
+  display: flex;
+  align-items: center;
+}
+
+/* Nav — desktop only */
+.monolith-header__nav {
+  display: none;
+}
+
+.monolith-header__utils {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-inline-start: auto;
+}
+
+.monolith-header__locale {
+  display: none;
+}
+
+/* Cart count — quiet data mark, not a red bubble */
+.monolith-header__cart {
+  position: relative;
+}
+
+.monolith-header__count {
+  position: absolute;
+  inset-block-start: 4px;
+  inset-inline-end: 2px;
+  min-inline-size: 14px;
+  padding-inline: 2px;
+  font-size: 10px;
+  line-height: 14px;
+  text-align: center;
+  background: var(--surface-raised);
+  border: var(--border);
+}
+
+/* Mobile menu panel — drawer shell from components.css */
+.monolith-header__panel-link {
+  display: block;
+  padding-block: var(--space-1);
+  min-height: var(--tap-min);
+  font-family: var(--font-display-active);
+  font-size: var(--text-h3);
+  line-height: var(--tap-min);
+  text-align: start;
+}
+
+@media (min-width: 990px) {
+  .monolith-header__menu-toggle {
+    display: none;
+  }
+
+  .monolith-header__nav {
+    display: flex;
+    gap: var(--space-3);
+    margin-inline-start: var(--space-4);
+  }
+
+  .monolith-header__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-min);
+    color: var(--text);
+  }
+
+  .monolith-header__locale {
+    display: block;
+    margin-inline-end: var(--space-1);
+  }
+}

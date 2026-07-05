@@ -2,9 +2,695 @@
   {
     "name": "theme_info",
     "theme_name": "AKYRO MONOLITH OS",
-    "theme_version": "0.1.0",
-    "theme_author": "AKYRO",
-    "theme_support_email": "support@akyro-studio.com",
-    "theme_documentation_url": "https://akyro-studio.com"
+    "theme_version": "0.9.0",
+    "theme_author": "Ahmed Fouad",
+    "theme_documentation_url": "https://example.com/docs",
+    "theme_support_url": "https://example.com/support"
+  },
+  {
+    "name": "Brand assets — locked",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Use locked AKYRO production exports only. Do not upload alternate, recolored, stretched, or reinterpreted marks."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_wordmark",
+        "label": "Locked AKYRO wordmark",
+        "info": "Light-ink export for dark theme. ~600×100 px · transparent PNG/SVG · clear-space ≥ cap height."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_a_mark",
+        "label": "Locked iconic A mark",
+        "info": "Light A for dark theme. ~64×64 px · transparent · never recolored/mirrored."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_red_dash",
+        "label": "Locked red dash asset",
+        "info": "Locked red dash asset. ~64×12 px · transparent · image only (not CSS)."
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "~64×64 px square · transparent PNG."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_wordmark_light",
+        "label": "Wordmark — light mode",
+        "info": "Dark-ink export for light theme. ~600×100 px · transparent PNG/SVG · clear-space ≥ cap height."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_mobile",
+        "label": "Mobile logo",
+        "info": "Compact wordmark or A-mark for small headers. ~96×96 px · transparent."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_a_mark_light",
+        "label": "Iconic A — light mode",
+        "info": "Dark-ink A for light theme. ~64×64 px · transparent · never recolored."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_red_dash_light",
+        "label": "Red dash — light mode",
+        "info": "Optional. Same locked red. ~64×12 px · transparent."
+      },
+      {
+        "type": "range",
+        "id": "logo_wordmark_width",
+        "label": "Wordmark width",
+        "min": 100,
+        "max": 220,
+        "step": 2,
+        "unit": "px",
+        "default": 146
+      }
+    ]
+  },
+  {
+    "name": "Palette — system",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Signal red is functional only. Do not use as a decorative background."
+      },
+      {
+        "type": "color",
+        "id": "akyro_black",
+        "label": "Black",
+        "default": "#0A0A0A"
+      },
+      {
+        "type": "color",
+        "id": "akyro_charcoal",
+        "label": "Charcoal",
+        "default": "#1A1A1C"
+      },
+      {
+        "type": "color",
+        "id": "akyro_warm_grey",
+        "label": "Warm grey",
+        "default": "#D9D9D9"
+      },
+      {
+        "type": "color",
+        "id": "akyro_white",
+        "label": "Off white",
+        "default": "#F2F2F2"
+      },
+      {
+        "type": "color",
+        "id": "akyro_red",
+        "label": "Signal red",
+        "default": "#E30613"
+      }
+    ]
+  },
+  {
+    "name": "Theme mode",
+    "settings": [
+      {
+        "type": "select",
+        "id": "theme_mode",
+        "label": "Mode",
+        "default": "dark",
+        "options": [
+          {
+            "value": "dark",
+            "label": "Dark — MONOLITH OS"
+          },
+          {
+            "value": "light",
+            "label": "Light — concrete"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": "Both modes support EN LTR and AR RTL. Signal red stays functional only."
+      }
+    ]
+  },
+  {
+    "name": "Design controls",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_max",
+        "label": "Container width",
+        "min": 1200,
+        "max": 1680,
+        "step": 40,
+        "unit": "px",
+        "default": 1400
+      },
+      {
+        "type": "range",
+        "id": "base_radius",
+        "label": "Corner radius",
+        "min": 0,
+        "max": 8,
+        "step": 1,
+        "unit": "px",
+        "default": 0,
+        "info": "AKYRO system = 0. Exposed for resale flexibility."
+      },
+      {
+        "type": "range",
+        "id": "motion_speed",
+        "label": "Animation speed",
+        "min": 120,
+        "max": 320,
+        "step": 20,
+        "unit": "ms",
+        "default": 180
+      },
+      {
+        "type": "select",
+        "id": "section_gap_scale",
+        "label": "Section spacing scale",
+        "default": "default",
+        "options": [
+          {
+            "value": "compact",
+            "label": "Compact"
+          },
+          {
+            "value": "default",
+            "label": "Default"
+          },
+          {
+            "value": "spacious",
+            "label": "Spacious"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Fonts — English"
+      },
+      {
+        "type": "select",
+        "id": "en_display_font",
+        "label": "Display / headings",
+        "default": "inter",
+        "options": [
+          {
+            "value": "inter",
+            "label": "Inter"
+          },
+          {
+            "value": "system",
+            "label": "System sans"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "en_body_font",
+        "label": "Body",
+        "default": "inter",
+        "options": [
+          {
+            "value": "inter",
+            "label": "Inter"
+          },
+          {
+            "value": "system",
+            "label": "System sans"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "en_scale",
+        "label": "Type scale",
+        "min": 90,
+        "max": 115,
+        "step": 1,
+        "unit": "%",
+        "default": 100
+      },
+      {
+        "type": "header",
+        "content": "Fonts — Arabic (عربي)"
+      },
+      {
+        "type": "select",
+        "id": "ar_display_font",
+        "label": "Display / headings (عربي)",
+        "default": "cairo",
+        "options": [
+          {
+            "value": "cairo",
+            "label": "Cairo"
+          },
+          {
+            "value": "plex",
+            "label": "IBM Plex Sans Arabic"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "ar_body_font",
+        "label": "Body (عربي)",
+        "default": "plex",
+        "options": [
+          {
+            "value": "cairo",
+            "label": "Cairo"
+          },
+          {
+            "value": "plex",
+            "label": "IBM Plex Sans Arabic"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "ar_scale",
+        "label": "Type scale (عربي)",
+        "min": 90,
+        "max": 120,
+        "step": 1,
+        "unit": "%",
+        "default": 104
+      },
+      {
+        "type": "paragraph",
+        "content": "Unified EN/AR typography with full RTL support. Arabic uses its own family + scale, never letter-spacing, with generous line-height."
+      },
+      {
+        "type": "header",
+        "content": "Element presets (shared EN/AR)"
+      },
+      {
+        "type": "range",
+        "id": "h1_size",
+        "label": "H1 size",
+        "min": 28,
+        "max": 72,
+        "step": 1,
+        "unit": "px",
+        "default": 49
+      },
+      {
+        "type": "select",
+        "id": "h1_weight",
+        "label": "H1 weight",
+        "default": "700",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light 300"
+          },
+          {
+            "value": "400",
+            "label": "Regular 400"
+          },
+          {
+            "value": "500",
+            "label": "Medium 500"
+          },
+          {
+            "value": "600",
+            "label": "SemiBold 600"
+          },
+          {
+            "value": "700",
+            "label": "Bold 700"
+          },
+          {
+            "value": "800",
+            "label": "ExtraBold 800"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "h2_size",
+        "label": "H2 size",
+        "min": 24,
+        "max": 56,
+        "step": 1,
+        "unit": "px",
+        "default": 31
+      },
+      {
+        "type": "select",
+        "id": "h2_weight",
+        "label": "H2 weight",
+        "default": "700",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light 300"
+          },
+          {
+            "value": "400",
+            "label": "Regular 400"
+          },
+          {
+            "value": "500",
+            "label": "Medium 500"
+          },
+          {
+            "value": "600",
+            "label": "SemiBold 600"
+          },
+          {
+            "value": "700",
+            "label": "Bold 700"
+          },
+          {
+            "value": "800",
+            "label": "ExtraBold 800"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "h3_size",
+        "label": "H3 size",
+        "min": 20,
+        "max": 40,
+        "step": 1,
+        "unit": "px",
+        "default": 25
+      },
+      {
+        "type": "select",
+        "id": "h3_weight",
+        "label": "H3 weight",
+        "default": "700",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light 300"
+          },
+          {
+            "value": "400",
+            "label": "Regular 400"
+          },
+          {
+            "value": "500",
+            "label": "Medium 500"
+          },
+          {
+            "value": "600",
+            "label": "SemiBold 600"
+          },
+          {
+            "value": "700",
+            "label": "Bold 700"
+          },
+          {
+            "value": "800",
+            "label": "ExtraBold 800"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "h4_size",
+        "label": "H4 size",
+        "min": 18,
+        "max": 32,
+        "step": 1,
+        "unit": "px",
+        "default": 20
+      },
+      {
+        "type": "select",
+        "id": "h4_weight",
+        "label": "H4 weight",
+        "default": "600",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light 300"
+          },
+          {
+            "value": "400",
+            "label": "Regular 400"
+          },
+          {
+            "value": "500",
+            "label": "Medium 500"
+          },
+          {
+            "value": "600",
+            "label": "SemiBold 600"
+          },
+          {
+            "value": "700",
+            "label": "Bold 700"
+          },
+          {
+            "value": "800",
+            "label": "ExtraBold 800"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "h5_size",
+        "label": "H5 size",
+        "min": 16,
+        "max": 26,
+        "step": 1,
+        "unit": "px",
+        "default": 17
+      },
+      {
+        "type": "select",
+        "id": "h5_weight",
+        "label": "H5 weight",
+        "default": "600",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light 300"
+          },
+          {
+            "value": "400",
+            "label": "Regular 400"
+          },
+          {
+            "value": "500",
+            "label": "Medium 500"
+          },
+          {
+            "value": "600",
+            "label": "SemiBold 600"
+          },
+          {
+            "value": "700",
+            "label": "Bold 700"
+          },
+          {
+            "value": "800",
+            "label": "ExtraBold 800"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "h6_size",
+        "label": "H6 size",
+        "min": 14,
+        "max": 22,
+        "step": 1,
+        "unit": "px",
+        "default": 15
+      },
+      {
+        "type": "select",
+        "id": "h6_weight",
+        "label": "H6 weight",
+        "default": "600",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light 300"
+          },
+          {
+            "value": "400",
+            "label": "Regular 400"
+          },
+          {
+            "value": "500",
+            "label": "Medium 500"
+          },
+          {
+            "value": "600",
+            "label": "SemiBold 600"
+          },
+          {
+            "value": "700",
+            "label": "Bold 700"
+          },
+          {
+            "value": "800",
+            "label": "ExtraBold 800"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "title_size",
+        "label": "Title size",
+        "min": 16,
+        "max": 28,
+        "step": 1,
+        "unit": "px",
+        "default": 18
+      },
+      {
+        "type": "select",
+        "id": "title_weight",
+        "label": "Title weight",
+        "default": "700",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light 300"
+          },
+          {
+            "value": "400",
+            "label": "Regular 400"
+          },
+          {
+            "value": "500",
+            "label": "Medium 500"
+          },
+          {
+            "value": "600",
+            "label": "SemiBold 600"
+          },
+          {
+            "value": "700",
+            "label": "Bold 700"
+          },
+          {
+            "value": "800",
+            "label": "ExtraBold 800"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "para_size",
+        "label": "Paragraph size",
+        "min": 14,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "default": 16
+      },
+      {
+        "type": "select",
+        "id": "para_weight",
+        "label": "Paragraph weight",
+        "default": "400",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light 300"
+          },
+          {
+            "value": "400",
+            "label": "Regular 400"
+          },
+          {
+            "value": "500",
+            "label": "Medium 500"
+          },
+          {
+            "value": "600",
+            "label": "SemiBold 600"
+          },
+          {
+            "value": "700",
+            "label": "Bold 700"
+          },
+          {
+            "value": "800",
+            "label": "ExtraBold 800"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "main_menu",
+        "label": "Main menu"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_locale_switcher_header",
+        "label": "Show locale switcher in header",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_footer_access",
+        "label": "Show footer access form",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_footer_locale_switcher",
+        "label": "Show locale switcher in footer",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_restricted_tagline",
+        "label": "Show restricted tagline",
+        "default": false
+      },
+      {
+        "type": "paragraph",
+        "content": "Restricted AKYRO phrases must not be used casually. Keep this off unless approved."
+      }
+    ]
+  },
+  {
+    "name": "Product system",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Product proof blocks must render from approved inputs only. Do not invent measurements, validation results, stock claims, or batch data."
+      },
+      {
+        "type": "text",
+        "id": "metafield_namespace",
+        "label": "Product metafield namespace",
+        "default": "akyro"
+      }
+    ]
   }
 ]

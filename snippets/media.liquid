@@ -1,0 +1,43 @@
+{%- comment -%}
+  AKYRO — snippets/media.liquid (M02-A fix)
+  Responsive image wrapper.
+  Priority:
+  1. Shopify image_picker image object
+  2. Theme asset demo media filename
+  3. Controlled empty state
+
+  Theme Check note:
+  Asset fallback img tags must include width + height attributes.
+{%- endcomment -%}
+
+{%- liquid
+  assign media_class = class | default: 'media'
+  assign media_widths = widths | default: '360, 540, 720, 960, 1200, 1600'
+  assign media_sizes = sizes | default: '100vw'
+  assign media_loading = loading | default: 'lazy'
+  assign media_alt = alt | default: image.alt | default: ''
+  assign media_asset = asset
+-%}
+
+<div class="{{ media_class }} media-shell{% if image == blank and media_asset == blank %} media-shell--empty{% endif %}">
+  {%- if image != blank -%}
+    {{ image
+      | image_url: width: 1600
+      | image_tag:
+        widths: media_widths,
+        sizes: media_sizes,
+        loading: media_loading,
+        alt: media_alt,
+        class: 'media-shell__img'
+    }}
+  {%- elsif media_asset != blank -%}
+    <img
+      src="{{ media_asset | asset_url }}"
+      alt="{{ media_alt | escape }}"
+      class="media-shell__img"
+      loading="{{ media_loading }}"
+      width="1024"
+      height="1536"
+    >
+  {%- endif -%}
+</div>

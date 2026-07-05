@@ -1,0 +1,6 @@
+/* AKYRO — Drop Status (M01-D) */
+.drop-status { background: var(--surface); }
+.drop-status__row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); min-block-size: var(--space-8); }
+.drop-status__main, .drop-status__data { display: flex; align-items: center; gap: var(--space-2); min-inline-size: 0; }
+.drop-status__title { font-family: var(--font-display-active); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.drop-status__data { justify-content: flex-end; }

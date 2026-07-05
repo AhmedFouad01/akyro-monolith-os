@@ -1,0 +1,54 @@
+{%- comment -%}
+  AKYRO — sections/main-contact.liquid (M02-B)
+  Contact form. Editable intro; no fake address defaults.
+{%- endcomment -%}
+
+{{ 'section-pages.css' | asset_url | stylesheet_tag }}
+
+<div class="section frame main-contact">
+  <div class="grid grid--split">
+    <div class="flow">
+      {%- if section.settings.intro != blank -%}
+        <p class="main-contact__intro">{{ section.settings.intro }}</p>
+      {%- endif -%}
+      {%- if section.settings.email_line != blank -%}
+        <p class="text-data data-latin">{{ section.settings.email_line }}</p>
+      {%- endif -%}
+    </div>
+
+    <div>
+      {%- form 'contact', class: 'main-contact__form flow' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="field__success">{{ 'contact.success' | t }}</p>
+        {%- endif -%}
+        {%- if form.errors -%}
+          <p class="field__error">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+        {%- endif -%}
+
+        <div class="field">
+          <label class="field__label" for="ContactName">{{ 'contact.name' | t }}</label>
+          <input id="ContactName" class="field__input" type="text" name="contact[name]" autocomplete="name">
+        </div>
+        <div class="field">
+          <label class="field__label" for="ContactEmail">{{ 'contact.email' | t }}</label>
+          <input id="ContactEmail" class="field__input" type="email" name="contact[email]" required autocomplete="email">
+        </div>
+        <div class="field">
+          <label class="field__label" for="ContactBody">{{ 'contact.message' | t }}</label>
+          <textarea id="ContactBody" class="field__input" name="contact[body]" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn--primary">{{ 'contact.send' | t }}</button>
+      {%- endform -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact",
+  "settings": [
+    {"type": "textarea", "id": "intro", "label": "Intro"},
+    {"type": "text", "id": "email_line", "label": "Studio email (optional)"}
+  ]
+}
+{% endschema %}

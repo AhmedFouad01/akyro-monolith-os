@@ -1,10 +1,197 @@
 {
   "accessibility": {
-    "skip_to_content": "Skip to content"
+    "skip_to_content": "Skip to content",
+    "menu": "Menu",
+    "close": "Close",
+    "search": "Search",
+    "primary_nav": "Primary navigation",
+    "cart": "Cart ({{ count }})",
+    "language": "Language"
   },
   "general": {
     "pagination": {
-      "page": "Page {{ page }}"
+      "page": "Page {{ page }}",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "built_to_last": "BUILT TO LAST",
+    "back_home": "Back to home",
+    "apply": "Apply"
+  },
+  "badges": {
+    "live": "Live",
+    "low": "Low",
+    "archived": "Archived",
+    "locked": "Locked"
+  },
+  "header": {
+    "home": "Home",
+    "catalog": "Catalog",
+    "contact": "Contact"
+  },
+  "footer": {
+    "signup": {
+      "success": "Access request received.",
+      "email_label": "Email address",
+      "submit": "Request access"
     }
+  },
+  "cart": {
+    "title": "Cart",
+    "title_count": "Cart ({{ count }})",
+    "empty": "Cart is empty.",
+    "empty_cta": "View drops",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout",
+    "view_cart": "View cart",
+    "update": "Update",
+    "remove": "Remove",
+    "quantity": "Quantity",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Product-led system",
+      "title": "Designed from product proof, not decoration.",
+      "text": "AKYRO releases are built around fit, material, construction and controlled drop logic. The first product file appears when approved data lands.",
+      "note": "Product file pending approved input.",
+      "view_product_file": "View product file",
+      "no_product": "Product file pending approved input."
+    },
+    "drop_status": {
+      "label": "Current batch",
+      "empty": "No active batch selected.",
+      "pending": "No active batch selected."
+    },
+    "product_proof": {
+      "eyebrow": "Product proof",
+      "title": "Fit, fabric and construction before launch.",
+      "fit": "Fit",
+      "fit_text": "Approved fit notes land here after sample review.",
+      "fabric": "Fabric",
+      "fabric_text": "Material details render only from approved product decisions.",
+      "construction": "Construction",
+      "construction_text": "Construction language stays tied to real product files."
+    },
+    "collection_index": {
+      "eyebrow": "Index",
+      "title": "Streams built as repeatable systems.",
+      "fashion": "Fashion",
+      "fashion_text": "Garments built through fit and construction.",
+      "objects": "Objects",
+      "objects_text": "Objects treated with the same material discipline.",
+      "scent": "Scent",
+      "scent_text": "Scent as another controlled product stream."
+    },
+    "access": {
+      "eyebrow": "Access",
+      "title": "Enter the drop system.",
+      "text": "Receive release notes only when a product file is ready to launch."
+    }
+  },
+  "homepage": {
+    "hero": {
+      "eyebrow": "Product-led system",
+      "title": "Designed from product proof, not decoration.",
+      "text": "AKYRO releases are built around fit, material, construction and controlled drop logic. The first product file appears when approved data lands.",
+      "note": "Product file pending approved input.",
+      "view_product_file": "View product file",
+      "no_product": "Product file pending approved input."
+    },
+    "drop_status": {
+      "label": "Current batch",
+      "empty": "No active batch selected.",
+      "pending": "No active batch selected."
+    },
+    "product_proof": {
+      "eyebrow": "Product proof",
+      "title": "Fit, fabric and construction before launch.",
+      "fit": "Fit",
+      "fit_text": "Approved fit notes land here after sample review.",
+      "fabric": "Fabric",
+      "fabric_text": "Material details render only from approved product decisions.",
+      "construction": "Construction",
+      "construction_text": "Construction language stays tied to real product files."
+    },
+    "collection_index": {
+      "eyebrow": "Index",
+      "title": "Streams built as repeatable systems.",
+      "fashion": "Fashion",
+      "fashion_text": "Garments built through fit and construction.",
+      "objects": "Objects",
+      "objects_text": "Objects treated with the same material discipline.",
+      "scent": "Scent",
+      "scent_text": "Scent as another controlled product stream."
+    },
+    "access": {
+      "eyebrow": "Access",
+      "title": "Enter the drop system.",
+      "text": "Receive release notes only when a product file is ready to launch."
+    }
+  },
+  "not_found": {
+    "eyebrow": "Error 404",
+    "title": "Record not found.",
+    "text": "The requested file is outside the current AKYRO system.",
+    "home": "Return home",
+    "drops": "View drops"
+  },
+  "gift_cards": {
+    "title": "Gift card",
+    "code": "Code",
+    "balance": "Balance",
+    "shop": "Enter store"
+  },
+  "sections": {
+    "header_group": {
+      "name": "Header"
+    },
+    "footer_group": {
+      "name": "Footer"
+    },
+    "featured": {
+      "empty_collection": "Select a collection in section settings.",
+      "empty_products": "Select products in section settings."
+    }
+  },
+  "collections": {
+    "count": "{{ count }} products",
+    "empty": "No products in this stream yet.",
+    "sort": "Sort"
+  },
+  "products": {
+    "add_to_cart": "Add to cart",
+    "sold_out": "Sold out",
+    "variant": "Variant",
+    "data_pending": "Product file pending approved input.",
+    "price_regular": "Regular price",
+    "price_sale": "Sale price",
+    "proof_fit": "Fit",
+    "proof_fabric": "Fabric",
+    "proof_construction": "Construction",
+    "fit": "Fit",
+    "fabric": "Fabric",
+    "construction": "Construction",
+    "care": "Care",
+    "batch": "Batch",
+    "description": "Description"
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search products",
+    "submit": "Search",
+    "results_count": "{{ count }} results",
+    "empty": "No results. Try a different term."
+  },
+  "contact": {
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send",
+    "success": "Message sent. The studio will reply by email."
+  },
+  "admin": {
+    "image_guide": "Recommended {{ rw }}:{{ rh }}, min width {{ min }}px"
   }
 }

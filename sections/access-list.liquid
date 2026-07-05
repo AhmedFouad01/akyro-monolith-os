@@ -1,0 +1,52 @@
+{%- comment -%}
+  AKYRO — sections/access-list.liquid (M01-D)
+  Homepage access capture. Functional copy only.
+{%- endcomment -%}
+
+{{ 'section-access-list.css' | asset_url | stylesheet_tag }}
+
+<section class="access-list section line-block" data-section-id="{{ section.id }}">
+  <div class="frame access-list__grid">
+    <div class="access-list__copy flow-tight">
+      <p class="label">{{ section.settings.eyebrow }}</p>
+      <h2>{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.body }}</p>
+    </div>
+
+    <div class="access-list__form-wrap">
+      {%- form 'customer', class: 'access-list__form' -%}
+        <input type="hidden" name="contact[tags]" value="access-list,homepage">
+        {%- if form.posted_successfully? -%}
+          <p class="text-data">{{ 'footer.signup.success' | t }}</p>
+        {%- else -%}
+          <label class="visually-hidden" for="AccessListEmail-{{ section.id }}">{{ 'footer.signup.email_label' | t }}</label>
+          <input
+            id="AccessListEmail-{{ section.id }}"
+            class="field__input"
+            type="email"
+            name="contact[email]"
+            autocomplete="email"
+            required
+            placeholder="{{ 'footer.signup.email_label' | t }}"
+          >
+          <button type="submit" class="btn">{{ 'footer.signup.submit' | t }}</button>
+          {%- if form.errors -%}
+            <p class="field__error">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Access list",
+  "settings": [
+    {"type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "ACCESS"},
+    {"type": "text", "id": "heading", "label": "Heading", "default": "Enter the drop system."},
+    {"type": "textarea", "id": "body", "label": "Body", "default": "Receive release notes only when a product file is ready to launch."}
+  ],
+  "presets": [{"name": "Access list"}]
+}
+{% endschema %}

@@ -12,37 +12,47 @@
    File names are final; licensed files drop in without CSS changes. */
 
 @font-face {
-  font-family: 'AKYRO Display';
-  src: url('akyro-display.woff2') format('woff2');
+  font-family: 'Inter';
+  src: url('inter-var.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cairo';
+  src: url('cairo-var.woff2') format('woff2-variations');
+  font-weight: 200 1000;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF, U+0020-007E;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  src: url('plex-ar-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF, U+0020-007E;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  src: url('plex-ar-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF, U+0020-007E;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  src: url('plex-ar-700.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
-}
-
-@font-face {
-  font-family: 'AKYRO Body';
-  src: url('akyro-body.woff2') format('woff2');
-  font-weight: 400 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'AKYRO Display AR';
-  src: url('akyro-display-ar.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF;
-}
-
-@font-face {
-  font-family: 'AKYRO Body AR';
-  src: url('akyro-body-ar.woff2') format('woff2');
-  font-weight: 400 600;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF, U+0020-007E;
 }
 
 /* ---- RESET ---- */
@@ -114,9 +124,9 @@ h1, h2, h3, h4 {
   text-wrap: balance;
 }
 
-h1 { font-size: var(--text-h1); }
-h2 { font-size: var(--text-h2); }
-h3 { font-size: var(--text-h3); }
+h1 { font-size: calc(var(--h1-size) * var(--type-scale)); font-weight: var(--h1-weight); }
+h2 { font-size: calc(var(--h2-size) * var(--type-scale)); font-weight: var(--h2-weight); }
+h3 { font-size: calc(var(--h3-size) * var(--type-scale)); font-weight: var(--h3-weight); }
 
 p {
   max-width: 65ch;
