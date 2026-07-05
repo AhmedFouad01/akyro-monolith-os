@@ -1,12 +1,8 @@
-{%- comment -%}
-  AKYRO — Locale Switcher
-  Quiet EN / AR switcher.
-  Uses Shopify localization form correctly.
-{%- endcomment -%}
-
 {%- if localization.available_languages.size > 1 -%}
   <div class="locale-switcher" aria-label="{{ 'accessibility.language' | t }}">
     {%- form 'localization', id: 'AkyroLocaleForm', class: 'locale-switcher__form' -%}
+      <input type="hidden" name="return_to" value="{{ request.path }}">
+
       <div class="locale-switcher__list" role="list">
         {%- for language in localization.available_languages -%}
           <button
@@ -16,11 +12,7 @@
             class="locale-switcher__item{% if language.iso_code == localization.language.iso_code %} is-active{% endif %}"
             {% if language.iso_code == localization.language.iso_code %}aria-current="true"{% endif %}
           >
-            {%- if language.iso_code contains 'ar' -%}
-              AR
-            {%- else -%}
-              EN
-            {%- endif -%}
+            {%- if language.iso_code contains 'ar' -%}AR{%- else -%}EN{%- endif -%}
           </button>
 
           {%- unless forloop.last -%}
