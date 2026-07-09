@@ -1,0 +1,9 @@
+/* AKYRO — assets/section-search.css (M02-E) */
+.main-search__form {
+  display: flex;
+  gap: var(--space-1);
+  max-inline-size: 48ch;
+  margin-block: var(--space-4);
+}
+.main-search__form .field__input { flex: 1; }
+.main-search__count { margin-block-end: var(--space-2); }

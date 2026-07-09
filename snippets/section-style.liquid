@@ -1,0 +1,13 @@
+{%- comment -%}
+  AKYRO — snippets/section-style.liquid (M02-D)
+  Emits shell modifier classes from shared Theme Editor controls.
+  Usage: <section class="section-shell {% render 'section-style', s: section.settings %}">
+  Controls: width / spacing / bg_mode / align (all optional).
+{%- endcomment -%}
+{%- liquid
+  assign w  = s.width    | default: 'normal'
+  assign sp = s.spacing  | default: 'default'
+  assign bg = s.bg_mode  | default: 'default'
+  assign al = s.align    | default: 'start'
+-%}
+shell--w-{{ w }} shell--pad-{{ sp }} shell--bg-{{ bg }} shell--align-{{ al }}

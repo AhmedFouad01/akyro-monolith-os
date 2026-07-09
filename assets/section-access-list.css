@@ -1,0 +1,8 @@
+/* AKYRO — Access List (M01-D) */
+.access-list__grid { display: grid; gap: var(--space-4); align-items: end; }
+.access-list__copy { max-inline-size: 48ch; }
+.access-list__copy p { color: var(--text-muted); }
+.access-list__form { display: flex; gap: var(--space-1); max-inline-size: 44ch; }
+.access-list__form .field__input { flex: 1; }
+@media (min-width: 990px) { .access-list__grid { grid-template-columns: 1fr auto; } }
+@media (max-width: 749px) { .access-list__form { display: grid; } }

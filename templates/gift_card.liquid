@@ -1,0 +1,33 @@
+{%- comment -%}
+  AKYRO STUDIO — MONOLITH OS
+  templates/gift_card.liquid — minimal required template.
+
+  Shopify renders the gift card template standalone; it is never
+  wrapped by layout/theme.liquid. This file intentionally stays a
+  bare, unstyled document — no section groups, no design system
+  classes. Extending it is out of scope for this task.
+{%- endcomment -%}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <title>{{ shop.name }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="{{ canonical_url }}">
+  {%- if settings.favicon != blank -%}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+  {%- endif -%}
+  {{ content_for_header }}
+</head>
+<body>
+  {%- if gift_card.enabled and gift_card.expired == false -%}
+    <p>{{ shop.name }}</p>
+    <p>{{ gift_card.formatted_initial_value }}</p>
+    <p>{{ gift_card.code | format_code }}</p>
+    <p><a href="{{ gift_card.url }}">{{ gift_card.url }}</a></p>
+  {%- else -%}
+    <p>{{ shop.name }}</p>
+  {%- endif -%}
+</body>
+</html>

@@ -1,4 +1,138 @@
 {
-  "sections": {},
-  "order": []
+  "sections": {
+    "hero_monolith": {
+      "type": "hero-monolith",
+      "settings": {
+        "demo_media": "tee_front",
+        "media_alt": "AKYRO demo black oversized tee image",
+        "eyebrow": "PRODUCT-LED SYSTEM",
+        "heading": "Designed from product proof, not decoration.",
+        "body": "AKYRO releases are built around fit, material, construction and controlled drop logic. The first product file appears when approved data lands."
+      }
+    },
+    "drop_status": {
+      "type": "drop-status",
+      "settings": {}
+    },
+    "product_proof": {
+      "type": "product-proof",
+      "blocks": {
+        "proof_fit": {
+          "type": "proof",
+          "settings": {
+            "label": "FIT",
+            "line": "Demo fit image. Replace with approved fit proof before launch.",
+            "demo_media": "tee_back",
+            "media_alt": "AKYRO demo oversized tee fit image"
+          }
+        },
+        "proof_fabric": {
+          "type": "proof",
+          "settings": {
+            "label": "FABRIC",
+            "line": "Demo material detail. Replace with approved fabric proof before launch.",
+            "demo_media": "fabric",
+            "media_alt": "AKYRO demo fabric and label detail"
+          }
+        },
+        "proof_construction": {
+          "type": "proof",
+          "settings": {
+            "label": "CONSTRUCTION",
+            "line": "Demo construction detail. Replace with approved construction proof before launch.",
+            "demo_media": "construction",
+            "media_alt": "AKYRO demo garment construction detail"
+          }
+        }
+      },
+      "block_order": [
+        "proof_fit",
+        "proof_fabric",
+        "proof_construction"
+      ],
+      "settings": {}
+    },
+    "collection_index": {
+      "type": "collection-index",
+      "blocks": {
+        "fashion": {
+          "type": "entry",
+          "settings": {
+            "label": "FASHION",
+            "line": "Garments built through fit and construction.",
+            "demo_media": "fashion",
+            "media_alt": "AKYRO demo fashion stream image"
+          }
+        },
+        "objects": {
+          "type": "entry",
+          "settings": {
+            "label": "OBJECTS",
+            "line": "Objects treated with the same material discipline.",
+            "demo_media": "objects",
+            "media_alt": "AKYRO demo objects stream image"
+          }
+        },
+        "scent": {
+          "type": "entry",
+          "settings": {
+            "label": "SCENT",
+            "line": "Scent as another controlled product stream.",
+            "demo_media": "scent",
+            "media_alt": "AKYRO demo scent stream image"
+          }
+        }
+      },
+      "block_order": [
+        "fashion",
+        "objects",
+        "scent"
+      ],
+      "settings": {}
+    },
+    "access_list": {
+      "type": "access-list",
+      "settings": {}
+    },
+    "art_collection_stage": {
+      "type": "art-collection-stage",
+      "blocks": {
+        "form_held": {
+          "type": "collection",
+          "settings": {
+            "eyebrow": "ART COLLECTION",
+            "title": "FORM, HELD.",
+            "statement": "Cut by structure. Proven by wear.",
+            "support_copy": "Demo content — replace before launch.",
+            "demo_media": "tee_front",
+            "align": "start"
+          }
+        },
+        "every_cut": {
+          "type": "collection",
+          "settings": {
+            "eyebrow": "ART COLLECTION",
+            "title": "Every cut has a job.",
+            "statement": "Form, cut, pattern, hold.",
+            "support_copy": "Demo content — replace before launch.",
+            "demo_media": "construction",
+            "align": "start"
+          }
+        }
+      },
+      "block_order": [
+        "form_held",
+        "every_cut"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "art_collection_stage",
+    "hero_monolith",
+    "drop_status",
+    "product_proof",
+    "collection_index",
+    "access_list"
+  ]
 }

@@ -1,0 +1,64 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "eyebrow": "PROCESS",
+        "heading": "Concept to launch, gated by approval.",
+        "body": "Demo content — replace before launch. Nothing ships without passing its stage."
+      }
+    },
+    "blocks": {
+      "type": "editable-block-grid",
+      "blocks": {
+        "s1": {
+          "type": "text",
+          "settings": {
+            "size": "third",
+            "num": "01",
+            "label": "CONCEPT",
+            "body": "Demo content — replace before launch. Product intent defined as a file, not a moodboard."
+          }
+        },
+        "s2": {
+          "type": "text",
+          "settings": {
+            "size": "third",
+            "num": "02",
+            "label": "SAMPLE",
+            "body": "Demo content — replace before launch. Fit samples cut and reviewed against the sheet."
+          }
+        },
+        "s3": {
+          "type": "text",
+          "settings": {
+            "size": "third",
+            "num": "03",
+            "label": "VALIDATION",
+            "body": "Demo content — replace before launch. Approved data pending; results publish when recorded."
+          }
+        },
+        "s4": {
+          "type": "text",
+          "settings": {
+            "size": "third",
+            "num": "04",
+            "label": "LAUNCH",
+            "body": "Demo content — replace before launch. Controlled release with real inventory states."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "blocks"
+  ]
+}

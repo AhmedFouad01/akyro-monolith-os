@@ -1,0 +1,109 @@
+{%- comment -%}
+  AKYRO — sections/product-proof.liquid (M02-A)
+  FIT / FABRIC / CONSTRUCTION triptych.
+  Demo images are Theme Editor controlled. No fake measurements or claims.
+{%- endcomment -%}
+
+{{ 'section-product-proof.css' | asset_url | stylesheet_tag }}
+
+<section class="product-proof section" data-section-id="{{ section.id }}">
+  <div class="frame">
+    <div class="product-proof__head">
+      <p class="label">{{ section.settings.eyebrow }}</p>
+      <h2>{{ section.settings.heading }}</h2>
+    </div>
+
+    <div class="grid grid--proof product-proof__grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign demo_asset = blank
+          case block.settings.demo_media
+            when 'tee_front'
+              assign demo_asset = 'akyro-demo-hero-tee.png'
+            when 'tee_back'
+              assign demo_asset = 'akyro-demo-tee-back.png'
+            when 'fabric'
+              assign demo_asset = 'akyro-demo-fabric-detail.png'
+            when 'construction'
+              assign demo_asset = 'akyro-demo-construction-detail.png'
+            when 'fashion'
+              assign demo_asset = 'akyro-demo-fashion-index.png'
+            when 'objects'
+              assign demo_asset = 'akyro-demo-objects-index.png'
+            when 'scent'
+              assign demo_asset = 'akyro-demo-scent-index.png'
+          endcase
+
+          if block.settings.image != blank
+            assign demo_asset = blank
+          endif
+        -%}
+
+        <article class="product-proof__card" {{ block.shopify_attributes }}>
+          <div class="product-proof__index data-latin">{{ forloop.index | prepend: '0' }}</div>
+          {% render 'media',
+            image: block.settings.image,
+            asset: demo_asset,
+            class: 'product-proof__media',
+            sizes: '(min-width: 750px) 33vw, 100vw',
+            loading: 'lazy',
+            alt: block.settings.media_alt
+          %}
+          <div class="product-proof__body flow-tight">
+            <h3 class="label">{{ block.settings.label }}</h3>
+            <p>{{ block.settings.line }}</p>
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product proof",
+  "settings": [
+    {"type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "PRODUCT PROOF"},
+    {"type": "text", "id": "heading", "label": "Heading", "default": "Fit, fabric and construction before launch."}
+  ],
+  "blocks": [
+    {
+      "type": "proof",
+      "name": "Proof item",
+      "settings": [
+        {"type": "text", "id": "label", "label": "Label", "default": "FIT"},
+        {"type": "textarea", "id": "line", "label": "Proof line", "default": "Replace with approved product-level proof before launch."},
+        {"type": "image_picker", "id": "image", "label": "Production image override"},
+        {
+          "type": "select",
+          "id": "demo_media",
+          "label": "Demo media asset",
+          "default": "none",
+          "options": [
+            {"value": "none", "label": "None"},
+            {"value": "tee_front", "label": "Demo — black tee front"},
+            {"value": "tee_back", "label": "Demo — black tee back"},
+            {"value": "fabric", "label": "Demo — fabric detail"},
+            {"value": "construction", "label": "Demo — construction detail"},
+            {"value": "fashion", "label": "Demo — fashion index"},
+            {"value": "objects", "label": "Demo — objects"},
+            {"value": "scent", "label": "Demo — scent"}
+          ]
+        },
+        {"type": "text", "id": "media_alt", "label": "Media alt text", "default": "AKYRO demo proof image"}
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Product proof",
+      "blocks": [
+        {"type": "proof", "settings": {"label": "FIT", "line": "Demo fit image. Replace with approved fit proof before launch.", "demo_media": "tee_back", "media_alt": "AKYRO demo oversized tee fit image"}},
+        {"type": "proof", "settings": {"label": "FABRIC", "line": "Demo material detail. Replace with approved fabric proof before launch.", "demo_media": "fabric", "media_alt": "AKYRO demo fabric and label detail"}},
+        {"type": "proof", "settings": {"label": "CONSTRUCTION", "line": "Demo construction detail. Replace with approved construction proof before launch.", "demo_media": "construction", "media_alt": "AKYRO demo garment construction detail"}}
+      ]
+    }
+  ]
+}
+{% endschema %}

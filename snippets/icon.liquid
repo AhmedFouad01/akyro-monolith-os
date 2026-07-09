@@ -1,0 +1,34 @@
+{%- comment -%}
+  AKYRO — snippets/icon.liquid (M01-B)
+  Hairline 1px geometric icons. Usage: render 'icon', name: 'cart'
+  Directional icons (arrow, chevron) carry .icon--flip and mirror in
+  RTL via direction.css. Symmetric icons never flip.
+{%- endcomment -%}
+
+{%- liquid
+  assign flip = ''
+  if name == 'arrow' or name == 'chevron'
+    assign flip = ' icon--flip'
+  endif
+-%}
+
+<svg class="icon{{ flip }}" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  {%- case name -%}
+    {%- when 'menu' -%}
+      <path d="M2 7h16M2 13h16"/>
+    {%- when 'close' -%}
+      <path d="M4 4l12 12M16 4L4 16"/>
+    {%- when 'search' -%}
+      <circle cx="8.5" cy="8.5" r="5.5"/><path d="M12.5 12.5L18 18"/>
+    {%- when 'cart' -%}
+      <path d="M4 6h12l-1 11H5L4 6z"/><path d="M7 6a3 3 0 0 1 6 0"/>
+    {%- when 'arrow' -%}
+      <path d="M2 10h14M11 5l5 5-5 5"/>
+    {%- when 'chevron' -%}
+      <path d="M7 4l6 6-6 6"/>
+    {%- when 'plus' -%}
+      <path d="M10 3v14M3 10h14"/>
+    {%- when 'minus' -%}
+      <path d="M3 10h14"/>
+  {%- endcase -%}
+</svg>

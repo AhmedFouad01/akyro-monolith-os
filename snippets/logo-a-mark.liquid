@@ -1,0 +1,17 @@
+{%- comment -%}
+  AKYRO — snippets/logo-a-mark.liquid (S1b)
+  LOCKED iconic A. Mode-aware (settings.logo_a_mark[_light]).
+  Whitelisted placements only: cart drawer, 404, password.
+  Never redrawn/recolored/mirrored. Fallback: text-safe letter.
+{%- endcomment -%}
+{%- liquid
+  assign mark = settings.logo_a_mark
+  if settings.theme_mode == 'light' and settings.logo_a_mark_light != blank
+    assign mark = settings.logo_a_mark_light
+  endif
+-%}
+{%- if mark != blank -%}
+  <img src="{{ mark | image_url: width: 48 }}" alt="" width="16" height="16" role="presentation" class="a-mark" loading="lazy">
+{%- else -%}
+  <span class="a-mark a-mark--text data-latin" aria-hidden="true">A</span>
+{%- endif -%}

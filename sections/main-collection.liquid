@@ -1,0 +1,150 @@
+{%- comment -%}
+  AKYRO — sections/main-collection.liquid (M02-D)
+  Editor-controlled collection grid. Real products only; controlled
+  empty state; Shopify pagination. No fake stock or urgency.
+{%- endcomment -%}
+
+{{ 'section-pages.css' | asset_url | stylesheet_tag }}
+{{ 'section-collection.css' | asset_url | stylesheet_tag }}
+
+<div class="section-shell {% render 'section-style', s: section.settings %} main-collection">
+  <div class="frame">
+
+    {%- liquid
+      assign hero_img = blank
+      if section.settings.hero_source == 'collection'
+        assign hero_img = collection.image
+      elsif section.settings.hero_source == 'custom'
+        assign hero_img = section.settings.hero_image
+      endif
+    -%}
+    {%- if hero_img != blank -%}
+      <div class="main-collection__hero">
+        {% render 'media',
+          image: hero_img,
+          class: 'main-collection__hero-img',
+          sizes: '100vw',
+          loading: 'eager',
+          alt: collection.title
+        %}
+        {% render 'image-guide', image: hero_img, rw: 21, rh: 9, min_w: 1600 %}
+      </div>
+    {%- endif -%}
+
+    <header class="main-collection__head flow-tight line-block">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h1>{{ section.settings.title_override | default: collection.title }}</h1>
+      {%- if section.settings.intro != blank -%}
+        <p class="main-collection__intro">{{ section.settings.intro }}</p>
+      {%- elsif section.settings.show_description and collection.description != blank -%}
+        <div class="main-collection__intro">{{ collection.description }}</div>
+      {%- endif -%}
+      <p class="text-data">{{ 'collections.count' | t: count: collection.products_count }}</p>
+    </header>
+
+    {%- if section.settings.show_sort and collection.products_count > 1 -%}
+      <form class="main-collection__sort" method="get">
+        <label class="field__label" for="SortBy">{{ 'collections.sort' | t }}</label>
+        <select id="SortBy" name="sort_by" class="field__input">
+          {%- assign current_sort = collection.sort_by | default: collection.default_sort_by -%}
+          {%- for option in collection.sort_options -%}
+            <option value="{{ option.value }}" {% if option.value == current_sort %}selected{% endif %}>{{ option.name }}</option>
+          {%- endfor -%}
+        </select>
+        <button type="submit" class="btn btn--quiet">{{ 'general.apply' | t }}</button>
+      </form>
+    {%- endif -%}
+
+    {%- paginate collection.products by section.settings.per_page -%}
+      {%- if collection.products_count > 0 -%}
+        <div
+          class="cards-grid main-collection__grid"
+          style="--cols-m: {{ section.settings.cols_mobile }}; --cols-d: {{ section.settings.cols_desktop }};"
+        >
+          {%- for product in collection.products -%}
+            {% render 'product-card',
+              product: product,
+              ratio: section.settings.card_ratio,
+              show_price: section.settings.show_price,
+              show_status: section.settings.show_status,
+              show_sku: section.settings.show_sku,
+              show_vendor: section.settings.show_vendor,
+              show_secondary_image: section.settings.show_hover
+            %}
+          {%- endfor -%}
+        </div>
+        {%- if paginate.pages > 1 -%}
+          <nav class="main-collection__pagination" aria-label="{{ 'general.pagination.page' | t: page: paginate.current_page }}">
+            {%- if paginate.previous -%}
+              <a href="{{ paginate.previous.url }}" class="btn btn--quiet">{{ 'general.pagination.previous' | t }}</a>
+            {%- endif -%}
+            {%- if paginate.next -%}
+              <a href="{{ paginate.next.url }}" class="btn">{{ 'general.pagination.next' | t }}</a>
+            {%- endif -%}
+          </nav>
+        {%- endif -%}
+      {%- else -%}
+        <div class="empty-state flow">
+          {%- liquid
+            assign empty_body = section.settings.empty_body
+            if empty_body == blank
+              assign empty_body = 'collections.empty' | t
+            endif
+            assign empty_button = section.settings.empty_button
+            if empty_button == blank
+              assign empty_button = 'general.back_home' | t
+            endif
+          -%}
+          {%- if section.settings.empty_heading != blank -%}<h2 class="h3">{{ section.settings.empty_heading }}</h2>{%- endif -%}
+          <p>{{ empty_body }}</p>
+          <a href="{{ section.settings.empty_link | default: routes.root_url }}" class="btn">{{ empty_button }}</a>
+        </div>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    {"type": "header", "content": "Content"},
+    {"type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "CATALOG"},
+    {"type": "textarea", "id": "intro", "label": "Intro override"},
+    {"type": "checkbox", "id": "show_description", "label": "Show collection description", "default": true},
+    {"type": "select", "id": "hero_source", "label": "Hero image", "default": "none",
+     "options": [{"value": "none", "label": "None"}, {"value": "collection", "label": "Collection image"}, {"value": "custom", "label": "Custom image"}]},
+    {"type": "image_picker", "id": "hero_image", "label": "Custom hero image", "info": "2400×1030 px · 21:9 · JPEG ≤ 600 KB"},
+    {"type": "text", "id": "title_override", "label": "Title override (blank = collection title)"},
+    {"type": "header", "content": "Grid"},
+    {"type": "select", "id": "cols_desktop", "label": "Columns — desktop", "default": "4",
+     "options": [{"value": "2", "label": "2"}, {"value": "3", "label": "3"}, {"value": "4", "label": "4"}]},
+    {"type": "select", "id": "cols_mobile", "label": "Columns — mobile", "default": "2",
+     "options": [{"value": "1", "label": "1"}, {"value": "2", "label": "2"}]},
+    {"type": "select", "id": "card_ratio", "label": "Image ratio", "default": "4x5",
+     "options": [{"value": "4x5", "label": "4:5"}, {"value": "1x1", "label": "1:1"}, {"value": "16x9", "label": "16:9"}]},
+    {"type": "range", "id": "per_page", "label": "Products per page", "min": 4, "max": 24, "step": 2, "default": 12},
+    {"type": "header", "content": "Card details"},
+    {"type": "checkbox", "id": "show_price", "label": "Show price", "default": true},
+    {"type": "checkbox", "id": "show_status", "label": "Show status badge", "default": true},
+    {"type": "checkbox", "id": "show_sku", "label": "Show style no (SKU)", "default": true},
+    {"type": "checkbox", "id": "show_vendor", "label": "Show vendor", "default": false},
+    {"type": "checkbox", "id": "show_hover", "label": "Show second image on hover", "default": true},
+    {"type": "checkbox", "id": "show_sort", "label": "Show sort control", "default": false},
+    {"type": "header", "content": "Empty state"},
+    {"type": "text", "id": "empty_heading", "label": "Heading"},
+    {"type": "textarea", "id": "empty_body", "label": "Body (blank = default)"},
+    {"type": "text", "id": "empty_button", "label": "Button label (blank = default)"},
+    {"type": "url", "id": "empty_link", "label": "Button link"},
+    {"type": "header", "content": "Layout"},
+    {"type": "select", "id": "width", "label": "Section width", "default": "normal",
+     "options": [{"value": "normal", "label": "Normal"}, {"value": "wide", "label": "Wide"}, {"value": "full", "label": "Full"}]},
+    {"type": "select", "id": "spacing", "label": "Section spacing", "default": "default",
+     "options": [{"value": "compact", "label": "Compact"}, {"value": "default", "label": "Default"}, {"value": "spacious", "label": "Spacious"}]},
+    {"type": "select", "id": "bg_mode", "label": "Background", "default": "default",
+     "options": [{"value": "default", "label": "Default"}, {"value": "surface", "label": "Surface"}, {"value": "raised", "label": "Raised"}, {"value": "inverse", "label": "Inverse"}]}
+  ]
+}
+{% endschema %}

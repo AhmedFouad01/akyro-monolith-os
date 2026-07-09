@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "eyebrow": "ACCESS",
+        "heading": "Enter the drop system."
+      }
+    },
+    "access": {
+      "type": "access-list",
+      "settings": {}
+    }
+  },
+  "order": ["hero", "access"]
+}

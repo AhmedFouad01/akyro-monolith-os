@@ -1,0 +1,17 @@
+{
+  "general": {
+    "locked_assets": "AKYRO logo assets are locked. Do not redraw, recolor, stretch, or reinterpret."
+  },
+  "sections": {
+    "header_group": {
+      "name": "Header group"
+    },
+    "footer_group": {
+      "name": "Footer group"
+    },
+    "footer": {
+      "show_menu": "Show footer menu",
+      "menu": "Footer menu"
+    }
+  }
+}

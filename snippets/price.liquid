@@ -1,0 +1,19 @@
+{%- comment -%}
+  AKYRO — snippets/price.liquid (M02-B)
+  Quiet money formatting; sale never red; Latin digits bidi-isolated.
+  Params: product
+{%- endcomment -%}
+{%- liquid
+  assign v = product.selected_or_first_available_variant | default: product.variants.first
+  assign compare = v.compare_at_price | default: 0
+-%}
+<span class="price">
+  {%- if compare > v.price -%}
+    <span class="visually-hidden">{{ 'products.price_sale' | t }}</span>
+    <span class="data-latin">{{ v.price | money }}</span>
+    <s class="price__was data-latin">{{ compare | money }}</s>
+  {%- else -%}
+    <span class="visually-hidden">{{ 'products.price_regular' | t }}</span>
+    <span class="data-latin">{{ v.price | money }}</span>
+  {%- endif -%}
+</span>

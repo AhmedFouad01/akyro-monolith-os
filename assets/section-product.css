@@ -1,0 +1,86 @@
+/* AKYRO — assets/section-product.css (M02-E Product File) */
+
+.main-product__media--stacked > * + * { margin-block-start: var(--gutter); }
+
+.main-product__media--grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gutter);
+}
+
+.main-product__well {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-raised);
+}
+
+.main-product__well--4x5  { aspect-ratio: 4 / 5; }
+.main-product__well--1x1  { aspect-ratio: 1 / 1; }
+.main-product__well--16x9 { aspect-ratio: 16 / 9; }
+
+.main-product__well .media-shell__img,
+.main-product__well img {
+  position: absolute; inset: 0;
+  inline-size: 100%; block-size: 100%;
+  object-fit: cover;
+}
+
+/* Product File rows */
+.product-file {
+  margin-block-start: var(--space-4);
+  padding-block-start: var(--space-2);
+  display: grid;
+}
+
+.spec-row {
+  display: grid;
+  gap: var(--space-1);
+  padding-block: var(--space-2);
+  border-block-end: var(--border);
+  text-align: start;
+}
+
+.spec-acc {
+  border-block-end: var(--border);
+}
+
+.spec-acc__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-block-size: var(--tap-min);
+  padding-block: var(--space-1);
+  cursor: pointer;
+  list-style: none;
+}
+
+.spec-acc__head::-webkit-details-marker { display: none; }
+
+.spec-acc__head .icon { transition: transform var(--speed) var(--ease); }
+.spec-acc[open] .spec-acc__head .icon { transform: rotate(90deg); }
+[dir="rtl"] .spec-acc__head .icon--flip { transform: scaleX(-1); }
+[dir="rtl"] .spec-acc[open] .spec-acc__head .icon--flip { transform: scaleX(-1) rotate(90deg); }
+
+.spec-acc__body { padding-block-end: var(--space-2); }
+
+.product-file__proof-img {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-raised);
+  aspect-ratio: 4 / 5;
+  margin-block: var(--space-2);
+}
+
+.product-file__proof-img .media-shell__img,
+.product-file__proof-img img {
+  position: absolute; inset: 0;
+  inline-size: 100%; block-size: 100%;
+  object-fit: cover;
+}
+
+.product-file__cta { padding-block: var(--space-2); }
+
+/* Dynamic checkout — keep it on-system */
+.shopify-payment-button__button {
+  border-radius: 0 !important;
+}
